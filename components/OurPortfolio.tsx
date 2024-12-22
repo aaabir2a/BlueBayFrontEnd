@@ -8,7 +8,7 @@ const projects = [
   {
     category: "RAMS",
     title: "Recruiting Agency Management System(RAMS)",
-    image: "/placeholder.svg?height=400&width=600",
+    image: "/rams.svg?height=400&width=600",
     href: "#",
   },
   {
