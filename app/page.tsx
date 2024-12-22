@@ -2,6 +2,7 @@
 import AddressSection from "@/components/AddressSection";
 import HeroSection from "@/components/HeroSection";
 import NavbarSection from "@/components/NavbarSection";
+import OurPortfolio from "@/components/OurPortfolio";
 import OurServices from "@/components/OurServices";
 
 
@@ -12,6 +13,7 @@ export default function Home() {
       <NavbarSection />
       <HeroSection />
       <OurServices/>
+      <OurPortfolio/>
     </main>
   )
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import Autoplay from "embla-carousel-autoplay"
+import Autoplay from "embla-carousel-autoplay";
 import * as React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -75,26 +75,26 @@ export default function OurServices() {
 
   return (
     <section className="py-20 px-4">
+      <section className="text-center py-10 px-4">
+        <h4 className="text-sm font-medium text-gray-400 uppercase tracking-wide mb-2">
+          OUR SERVICES
+        </h4>
+        <h1 className="text-4xl font-bold mb-2">Our Service is equipped</h1>
+        <h2 className="text-xl text-gray-700">with exclusive features.</h2>
+      </section>
       <div className="container mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-[#0066FF] text-xl font-semibold mb-4">
-            SERVICES
-          </h2>
-          <h3 className="text-4xl font-bold">What we do</h3>
-        </div>
 
         <Carousel
-         plugins={[
-          Autoplay({
-            delay: 2000,
-          }),
-        ]}
+          plugins={[
+            Autoplay({
+              delay: 2000,
+            }),
+          ]}
           opts={{
             align: "center",
             loop: true,
           }}
           className="w-full max-w-5xl mx-auto"
-         
         >
           <CarouselContent>
             {services.map((service, index) => {
@@ -158,7 +158,7 @@ export default function OurServices() {
               className={`w-2 h-2 rounded-full transition-all focus:ring-2 ${
                 activeIndex === index ? "bg-[#0066FF] w-8" : "bg-gray-300"
               }`}
-              onClick={() => setActiveIndex(index)}
+              
               aria-label={`Slide ${index + 1}`}
             />
           ))}

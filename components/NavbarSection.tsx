@@ -85,7 +85,7 @@ export default function NavbarSection() {
 
             <NavigationMenuItem>
             <Link href="/About" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                <NavigationMenuLink>
                 <NavigationMenuTrigger>ABOUT</NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
@@ -108,7 +108,7 @@ export default function NavbarSection() {
 
             <NavigationMenuItem>
             <Link href="/Services" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                <NavigationMenuLink>
                 <NavigationMenuTrigger>SERVICES</NavigationMenuTrigger>
               
               <NavigationMenuContent>
@@ -132,7 +132,7 @@ export default function NavbarSection() {
 
             <NavigationMenuItem>
             <Link href="/Clients" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                <NavigationMenuLink>
                 <NavigationMenuTrigger>CLIENTS</NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px]">
