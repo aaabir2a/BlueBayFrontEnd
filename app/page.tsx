@@ -1,5 +1,6 @@
 
 import AddressSection from "@/components/AddressSection";
+import FooterSection from "@/components/FooterSection";
 import HeroSection from "@/components/HeroSection";
 import NavbarSection from "@/components/NavbarSection";
 import OurPortfolio from "@/components/OurPortfolio";
@@ -14,6 +15,7 @@ export default function Home() {
       <HeroSection />
       <OurServices/>
       <OurPortfolio/>
+      <FooterSection/>
     </main>
   )
 }
