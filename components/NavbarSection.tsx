@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import Link from "next/link"
+import * as React from "react";
+import Link from "next/link";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -10,12 +10,12 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
-import Image from "next/image"
-import { Menu, Phone } from 'lucide-react'
+} from "@/components/ui/navigation-menu";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import Image from "next/image";
+import { AppWindow, ArrowDownUp, BadgeEuro, Menu, Phone, Satellite, ServerCog, TabletSmartphone } from "lucide-react";
 
 const demos = [
   {
@@ -28,25 +28,49 @@ const demos = [
     href: "/demos/2",
     description: "Second demo description",
   },
-]
+];
 
 const services = [
   {
-    title: "IT Consulting",
+    title: "Software Development",
     href: "/services/consulting",
-    description: "Expert IT consulting services",
+    description: " To develop a desired application.",
+    icon: TabletSmartphone,
   },
   {
-    title: "Cloud Solutions",
+    title: "Web Application",
     href: "/services/cloud",
-    description: "Modern cloud infrastructure",
+    description: "Custom Web App Development",
+    icon: AppWindow,
   },
   {
-    title: "Cybersecurity",
+    title: "Domain & Hosting",
     href: "/services/security",
-    description: "Advanced security solutions",
+    description: "Reliable Domain & Hosting Solutions",
+    icon: ArrowDownUp,
   },
-]
+
+  {
+    title: "Digital Marketing",
+    href: "/services/security",
+    description: "Strategic Online Marketing Solutions",
+    icon: BadgeEuro,
+  },
+
+  {
+    title: "Dedicated Server Hosting",
+    href: "/services/security",
+    description: "Secure Dedicated Server Hosting",
+    icon: ServerCog,
+  },
+
+  {
+    title: "IT Training",
+    href: "/services/security",
+    description: "Expert IT Skills Training",
+    icon: Satellite,
+  },
+];
 
 const pages = [
   {
@@ -59,21 +83,26 @@ const pages = [
     href: "/team",
     description: "Meet our expert team",
   },
-]
+];
 
 export default function NavbarSection() {
   return (
-    <div className="border-b">
+    <div className="sticky top-0 z-50 bg-white border-b">
       <div className="container mx-auto flex justify-between items-center py-4 px-4">
         <Link href="/" className="flex items-center space-x-2">
-          <Image src="/placeholder.svg" alt="BlueBay Logo" width={40} height={40} />
+          <Image
+            src="/placeholder.svg"
+            alt="BlueBay Logo"
+            width={40}
+            height={40}
+          />
           <span className="text-xl font-bold">BlueBayIT</span>
         </Link>
 
         {/* Desktop Navigation */}
         <NavigationMenu className="hidden lg:flex">
           <NavigationMenuList>
-          <NavigationMenuItem>
+            <NavigationMenuItem>
               <Link href="/" legacyBehavior passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                   HOME
@@ -81,81 +110,75 @@ export default function NavbarSection() {
               </Link>
             </NavigationMenuItem>
 
-
-
             <NavigationMenuItem>
-            <Link href="/About" legacyBehavior passHref>
+              <Link href="/About" legacyBehavior passHref>
                 <NavigationMenuLink>
-                <NavigationMenuTrigger>ABOUT</NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                  {demos.map((demo) => (
-                    <ListItem
-                      key={demo.title}
-                      title={demo.title}
-                      href={demo.href}
-                    >
-                      {demo.description}
-                    </ListItem>
-                  ))}
-                </ul>
-              </NavigationMenuContent>
+                  <NavigationMenuTrigger>ABOUT</NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                      {demos.map((demo) => (
+                        <ListItem
+                          key={demo.title}
+                          title={demo.title}
+                          href={demo.href}
+                        >
+                          {demo.description}
+                        </ListItem>
+                      ))}
+                    </ul>
+                  </NavigationMenuContent>
                 </NavigationMenuLink>
               </Link>
-              
             </NavigationMenuItem>
 
-
             <NavigationMenuItem>
-            <Link href="/Services" legacyBehavior passHref>
-                <NavigationMenuLink>
-                <NavigationMenuTrigger>SERVICES</NavigationMenuTrigger>
-              
+              <NavigationMenuTrigger>SERVICES</NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                  {services.map((service) => (
-                    <ListItem
-                      key={service.title}
-                      title={service.title}
-                      href={service.href}
-                    >
-                      {service.description}
-                    </ListItem>
-                  ))}
+                  {services.map((service) => {
+                    const Icon = service.icon;
+                    return (
+                      <ListItem key={service.title} href={service.href}>
+                        {/* Custom title rendering */}
+                        <div className="flex items-center gap-2 mb-1 font-medium">
+                          <Icon className="h-4 w-4 text-[#0066FF] " color="#8000ff"/>
+                          {service.title}
+                        </div>
+                        <p className="text-sm text-gray-600">
+                          {service.description}
+                        </p>
+                      </ListItem>
+                    );
+                  })}
                 </ul>
               </NavigationMenuContent>
-                </NavigationMenuLink>
-              </Link>
-                
             </NavigationMenuItem>
 
-
             <NavigationMenuItem>
-            <Link href="/Clients" legacyBehavior passHref>
+              <Link href="/Clients" legacyBehavior passHref>
                 <NavigationMenuLink>
-                <NavigationMenuTrigger>CLIENTS</NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px]">
-                  {pages.map((page) => (
-                    <ListItem
-                      key={page.title}
-                      title={page.title}
-                      href={page.href}
-                    >
-                      {page.description}
-                    </ListItem>
-                  ))}
-                </ul>
-              </NavigationMenuContent>
+                  <NavigationMenuTrigger>CLIENTS</NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px]">
+                      {pages.map((page) => (
+                        <ListItem
+                          key={page.title}
+                          title={page.title}
+                          href={page.href}
+                        >
+                          {page.description}
+                        </ListItem>
+                      ))}
+                    </ul>
+                  </NavigationMenuContent>
                 </NavigationMenuLink>
               </Link>
-              
             </NavigationMenuItem>
 
             <NavigationMenuItem>
               <Link href="/case-studies" legacyBehavior passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                 GALLERY
+                  GALLERY
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
@@ -187,8 +210,8 @@ export default function NavbarSection() {
           <SheetContent side="right" className="w-[300px] sm:w-[400px]">
             <nav className="flex flex-col gap-4">
               <div className="px-2 py-4 space-y-4">
-              <div className="space-y-2">
-              <Link
+                <div className="space-y-2">
+                  <Link
                     href="/"
                     className="block px-3 py-2 text-sm font-bold uppercase rounded-md hover:bg-accent"
                   >
@@ -266,7 +289,7 @@ export default function NavbarSection() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 const ListItem = React.forwardRef<
@@ -291,7 +314,6 @@ const ListItem = React.forwardRef<
         </a>
       </NavigationMenuLink>
     </li>
-  )
-})
-ListItem.displayName = "ListItem"
-
+  );
+});
+ListItem.displayName = "ListItem";

@@ -10,7 +10,6 @@ const companyLinks = [
   { title: "Why Choose Us", href: "/why-choose-us" },
 ];
 
-
 export default function FooterSection() {
   return (
     <footer className="bg-[#001B44] text-white">
@@ -58,7 +57,8 @@ export default function FooterSection() {
               <li className="flex items-start space-x-3">
                 <MapPin className="w-5 h-5 mt-1 flex-shrink-0" />
                 <span className="text-gray-300">
-                250/6Road No: 06, Smriti Dhara, Japani Bazar,Shonirakhra, Jatra Bari,Dhaka-1236, Bangladesh.
+                  250/6Road No: 06, Smriti Dhara, Japani Bazar,Shonirakhra,
+                  Jatra Bari,Dhaka-1236, Bangladesh.
                 </span>
               </li>
               <li className="flex items-start space-x-3">
@@ -72,7 +72,6 @@ export default function FooterSection() {
                 <Phone className="w-5 h-5 mt-1 flex-shrink-0" />
                 <div className="text-gray-300">
                   <div>+8801861650206</div>
-                  
                 </div>
               </li>
             </ul>
@@ -85,7 +84,7 @@ export default function FooterSection() {
               <li className="flex items-start space-x-3">
                 <MapPin className="w-5 h-5 mt-1 flex-shrink-0" />
                 <span className="text-gray-300">
-                80-82 Nelson Street London E1 2DY United Kingdom
+                  80-82 Nelson Street London E1 2DY United Kingdom
                 </span>
               </li>
               <li className="flex items-start space-x-3">
@@ -99,7 +98,6 @@ export default function FooterSection() {
                 <Phone className="w-5 h-5 mt-1 flex-shrink-0" />
                 <div className="text-gray-300">
                   <div>+447539045858</div>
-                  
                 </div>
               </li>
             </ul>
@@ -109,35 +107,36 @@ export default function FooterSection() {
 
       {/* Bottom Bar */}
       <div className="bg-black text-gray-400 py-4">
-      <div className="container mx-auto flex flex-col sm:flex-row items-center justify-between px-4">
-        {/* Left Section */}
-        <p className="text-sm text-center sm:text-left">
-          © 2024 <span className="text-white font-semibold">Bluebay IT Limited</span>. All Rights Reserved.
-        </p>
+        <div className="container mx-auto flex flex-col sm:flex-row items-center justify-between px-4">
+          {/* Left Section */}
+          <p className="text-sm text-center sm:text-left">
+            © 2024{" "}
+            <span className="text-white font-semibold">Bluebay IT Limited</span>
+            . All Rights Reserved.
+          </p>
 
-        {/* Social Media Icons */}
-        <div className="mt-4 sm:mt-0 flex justify-center gap-4">
-          {[
-            { Icon: Facebook, link: "#" },
-            { Icon: Twitter, link: "#" },
-            { Icon: Linkedin, link: "#" },
-            { Icon: Mail, link: "#" },
-          ].map((social, index) => {
-            const { Icon, link } = social;
-            return (
-              <a
-                href={link}
-                key={index}
-                className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-800 hover:bg-gray-700 transition-all transform hover:scale-110 text-gray-400 hover:text-white"
-              >
-                <Icon className="w-5 h-5" />
-              </a>
-            );
-          })}
+          {/* Social Media Icons */}
+          <div className="mt-4 sm:mt-0 flex justify-center gap-4">
+            {[
+              { Icon: Facebook, link: "#" },
+              { Icon: Twitter, link: "#" },
+              { Icon: Linkedin, link: "#" },
+              { Icon: Mail, link: "#" },
+            ].map((social, index) => {
+              const { Icon, link } = social;
+              return (
+                <a
+                  href={link}
+                  key={index}
+                  className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-800 hover:bg-gray-700 transition-all transform hover:scale-110 text-gray-400 hover:text-white"
+                >
+                  <Icon className="w-5 h-5" />
+                </a>
+              );
+            })}
+          </div>
         </div>
       </div>
-      </div>
-      
     </footer>
   );
 }
