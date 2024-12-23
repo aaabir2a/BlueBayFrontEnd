@@ -15,58 +15,67 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import { AppWindow, ArrowDownUp, BadgeEuro, Menu, Phone, Satellite, ServerCog, TabletSmartphone } from "lucide-react";
+import {
+  AppWindow,
+  ArrowDownUp,
+  BadgeEuro,
+  Menu,
+  Phone,
+  Satellite,
+  ServerCog,
+  TabletSmartphone,
+} from "lucide-react";
 
 const demos = [
   {
-    title: "Demo 1",
+    title: "About 1",
     href: "/demos/1",
-    description: "First demo description",
+    description: "About-1 description",
   },
   {
-    title: "Demo 2",
+    title: "About 2",
     href: "/demos/2",
-    description: "Second demo description",
+    description: "About-2 description",
   },
 ];
 
 const services = [
   {
     title: "Software Development",
-    href: "/services/consulting",
+    href: "/services/Software-Development",
     description: " To develop a desired application.",
     icon: TabletSmartphone,
   },
   {
     title: "Web Application",
-    href: "/services/cloud",
+    href: "/services/Web-Application",
     description: "Custom Web App Development",
     icon: AppWindow,
   },
   {
     title: "Domain & Hosting",
-    href: "/services/security",
+    href: "/services/Domain-Hosting",
     description: "Reliable Domain & Hosting Solutions",
     icon: ArrowDownUp,
   },
 
   {
     title: "Digital Marketing",
-    href: "/services/security",
+    href: "/services/digital-marketing",
     description: "Strategic Online Marketing Solutions",
     icon: BadgeEuro,
   },
 
   {
     title: "Dedicated Server Hosting",
-    href: "/services/security",
+    href: "/services/Dedicated-Server-Hosting",
     description: "Secure Dedicated Server Hosting",
     icon: ServerCog,
   },
 
   {
     title: "IT Training",
-    href: "/services/security",
+    href: "/services/IT-Training",
     description: "Expert IT Skills Training",
     icon: Satellite,
   },
@@ -74,14 +83,14 @@ const services = [
 
 const pages = [
   {
-    title: "About Us",
+    title: "Client-1",
     href: "/about",
-    description: "Learn more about our company",
+    description: "Client-1 description",
   },
   {
-    title: "Our Team",
+    title: "Client-2",
     href: "/team",
-    description: "Meet our expert team",
+    description: "Client-2 description",
   },
 ];
 
@@ -132,26 +141,33 @@ export default function NavbarSection() {
             </NavigationMenuItem>
 
             <NavigationMenuItem>
-              <NavigationMenuTrigger>SERVICES</NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                  {services.map((service) => {
-                    const Icon = service.icon;
-                    return (
-                      <ListItem key={service.title} href={service.href}>
-                        {/* Custom title rendering */}
-                        <div className="flex items-center gap-2 mb-1 font-medium">
-                          <Icon className="h-4 w-4 text-[#0066FF] " color="#8000ff"/>
-                          {service.title}
-                        </div>
-                        <p className="text-sm text-gray-600">
-                          {service.description}
-                        </p>
-                      </ListItem>
-                    );
-                  })}
-                </ul>
-              </NavigationMenuContent>
+              <Link href="/services" legacyBehavior passHref>
+              <NavigationMenuLink>
+                <NavigationMenuTrigger>SERVICES</NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                    {services.map((service) => {
+                      const Icon = service.icon;
+                      return (
+                        <ListItem key={service.title} href={service.href}>
+                          {/* Custom title rendering */}
+                          <div className="flex items-center gap-2 mb-1 font-medium">
+                            <Icon
+                              className="h-4 w-4 text-[#0066FF] "
+                              color="#8000ff"
+                            />
+                            {service.title}
+                          </div>
+                          <p className="text-sm text-gray-600">
+                            {service.description}
+                          </p>
+                        </ListItem>
+                      );
+                    })}
+                  </ul>
+                </NavigationMenuContent>
+                </NavigationMenuLink>
+              </Link>
             </NavigationMenuItem>
 
             <NavigationMenuItem>
