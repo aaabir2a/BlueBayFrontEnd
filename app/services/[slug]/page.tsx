@@ -4,7 +4,7 @@ const services = [
   {
     title: "Software Development",
     slug: "Software-Development",
-    description: " To develop a desired application.",
+    description: "To develop a desired application.",
   },
   {
     title: "Web Application",
@@ -33,15 +33,26 @@ const services = [
   },
 ];
 
-export function generateStaticParams() {
+// Generate static parameters to prebuild service pages
+export async function generateStaticParams() {
   return services.map((service) => ({
     slug: service.slug,
   }));
 }
 
-export default function ServicePage({ params }: { params: { slug: string } }) {
-  const service = services.find((service) => service.slug === params.slug);
+// The async function to handle the service page based on params
+export default async function ServicePage({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  // Ensure params are awaited
+  const { slug } = await Promise.resolve(params);
 
+  // Find the service that matches the slug
+  const service = services.find((service) => service.slug === slug);
+
+  // Handle 404 case if no matching service is found
   if (!service) {
     notFound();
   }
@@ -50,7 +61,6 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
     <div className="container mx-auto px-4 py-16">
       <h1 className="text-4xl font-bold mb-8">{service.title}</h1>
       <p className="text-xl">{service.description}</p>
-      {/* Add more content specific to each service here */}
     </div>
   );
 }
