@@ -99,12 +99,7 @@ export default function NavbarSection() {
     <div className="sticky top-0 z-50 bg-white border-b">
       <div className="container mx-auto flex justify-between items-center py-4 px-4">
         <Link href="/" className="flex items-center space-x-2">
-          <Image
-            src="/logo.png"
-            alt="BlueBay Logo"
-            width={150}
-            height={90}
-          />
+          <Image src="/logo.png" alt="BlueBay Logo" width={150} height={90} />
           {/* <span className="text-xl font-bold">BlueBayIT</span> */}
         </Link>
 
@@ -120,75 +115,66 @@ export default function NavbarSection() {
             </NavigationMenuItem>
 
             <NavigationMenuItem>
-              <Link href="/About" legacyBehavior passHref>
-                <NavigationMenuLink>
-                  <NavigationMenuTrigger>ABOUT</NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                      {demos.map((demo) => (
-                        <ListItem
-                          key={demo.title}
-                          title={demo.title}
-                          href={demo.href}
-                        >
-                          {demo.description}
-                        </ListItem>
-                      ))}
-                    </ul>
-                  </NavigationMenuContent>
-                </NavigationMenuLink>
+              <Link href="/About">
+                <NavigationMenuTrigger>ABOUT</NavigationMenuTrigger>
               </Link>
+              <NavigationMenuContent>
+                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                  {demos.map((demo) => (
+                    <ListItem
+                      key={demo.title}
+                      title={demo.title}
+                      href={demo.href}
+                    >
+                      {demo.description}
+                    </ListItem>
+                  ))}
+                </ul>
+              </NavigationMenuContent>
             </NavigationMenuItem>
 
             <NavigationMenuItem>
-              <Link href="/services" legacyBehavior passHref>
-              <NavigationMenuLink>
+              <Link href="/services">
                 <NavigationMenuTrigger>SERVICES</NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                    {services.map((service) => {
-                      const Icon = service.icon;
-                      return (
-                        <ListItem key={service.title} href={service.href}>
-                          {/* Custom title rendering */}
-                          <div className="flex items-center gap-2 mb-1 font-medium">
-                            <Icon
-                              className="h-4 w-4 text-[#0066FF] "
-                              color="#8000ff"
-                            />
-                            {service.title}
-                          </div>
-                          <p className="text-sm text-gray-600">
-                            {service.description}
-                          </p>
-                        </ListItem>
-                      );
-                    })}
-                  </ul>
-                </NavigationMenuContent>
-                </NavigationMenuLink>
               </Link>
+              <NavigationMenuContent>
+                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                  {services.map((service) => {
+                    const Icon = service.icon;
+                    return (
+                      <ListItem
+                        key={service.title}
+                        title={
+                          <span className="flex items-center gap-2">
+                            <Icon className="h-4 w-4 text-[#0066FF]" />
+                            {service.title}
+                          </span>
+                        }
+                        href={service.href}
+                      >
+                        {service.description}
+                      </ListItem>
+                    );
+                  })}
+                </ul>
+              </NavigationMenuContent>
             </NavigationMenuItem>
 
             <NavigationMenuItem>
-              <Link href="/Clients" legacyBehavior passHref>
-                <NavigationMenuLink>
-                  <NavigationMenuTrigger>CLIENTS</NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px]">
-                      {pages.map((page) => (
-                        <ListItem
-                          key={page.title}
-                          title={page.title}
-                          href={page.href}
-                        >
-                          {page.description}
-                        </ListItem>
-                      ))}
-                    </ul>
-                  </NavigationMenuContent>
-                </NavigationMenuLink>
-              </Link>
+              <NavigationMenuTrigger>CLIENTS</NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px]">
+                  {pages.map((page) => (
+                    <ListItem
+                      key={page.title}
+                      title={page.title}
+                      href={page.href}
+                    >
+                      {page.description}
+                    </ListItem>
+                  ))}
+                </ul>
+              </NavigationMenuContent>
             </NavigationMenuItem>
 
             <NavigationMenuItem>
@@ -199,7 +185,7 @@ export default function NavbarSection() {
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/blog" legacyBehavior passHref>
+              <Link href="/portfolio" legacyBehavior passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                   PORTFOLIO
                 </NavigationMenuLink>
@@ -308,28 +294,33 @@ export default function NavbarSection() {
   );
 }
 
-const ListItem = React.forwardRef<
-  React.ElementRef<"a">,
-  React.ComponentPropsWithoutRef<"a">
->(({ className, title, children, ...props }, ref) => {
-  return (
-    <li>
-      <NavigationMenuLink asChild>
-        <a
-          ref={ref}
-          className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-            className
-          )}
-          {...props}
-        >
-          <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-            {children}
-          </p>
-        </a>
-      </NavigationMenuLink>
-    </li>
-  );
-});
+interface ListItemProps
+  extends Omit<React.ComponentPropsWithoutRef<typeof Link>, "title"> {
+  title: React.ReactNode;
+  children: React.ReactNode;
+}
+
+const ListItem = React.forwardRef<React.ElementRef<typeof Link>, ListItemProps>(
+  ({ className, title, children, ...props }, ref) => {
+    return (
+      <li>
+        <NavigationMenuLink asChild>
+          <Link
+            ref={ref}
+            className={cn(
+              "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+              className
+            )}
+            {...props}
+          >
+            <div className="text-sm font-medium leading-none">{title}</div>
+            <div className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+              {children}
+            </div>
+          </Link>
+        </NavigationMenuLink>
+      </li>
+    );
+  }
+);
 ListItem.displayName = "ListItem";
