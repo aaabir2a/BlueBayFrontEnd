@@ -19,11 +19,11 @@ export default function FooterSection() {
           <div className="lg:col-span-1">
             <Link href="/" className="inline-block mb-6">
               <Image
-                src="/placeholder.svg"
+                src="/logo.png"
                 alt="BlueBayIT Logo"
                 width={150}
                 height={50}
-                className="brightness-0 invert"
+                
               />
             </Link>
             <p className="text-gray-300 mb-6">

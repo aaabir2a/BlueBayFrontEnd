@@ -100,12 +100,12 @@ export default function NavbarSection() {
       <div className="container mx-auto flex justify-between items-center py-4 px-4">
         <Link href="/" className="flex items-center space-x-2">
           <Image
-            src="/placeholder.svg"
+            src="/logo.png"
             alt="BlueBay Logo"
-            width={40}
-            height={40}
+            width={150}
+            height={90}
           />
-          <span className="text-xl font-bold">BlueBayIT</span>
+          {/* <span className="text-xl font-bold">BlueBayIT</span> */}
         </Link>
 
         {/* Desktop Navigation */}

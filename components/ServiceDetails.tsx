@@ -22,12 +22,12 @@ export default function ServiceDetails({
   description,
   currentService,
   services = [
-    { name: "Cloud Computing", href: "/services/cloud" },
-    { name: "IT Management", href: "/services/management" },
-    { name: "Cyber Security", href: "/services/security" },
-    { name: "IT Consulting", href: "/services/consulting" },
-    { name: "Software Dev", href: "/services/software" },
-    { name: "Backup & Recovery", href: "/services/backup" },
+    { name: "Software Development", href: "/services/Software-Development" },
+    { name: "Web Application", href: "/services/Web-Application" },
+    { name: "Domain & Hosting", href: "/services/Domain-Hosting" },
+    { name: "Digital Marketing", href: "/services/digital-marketing" },
+    { name: "Dedicated Server Hosting", href: "/services/Dedicated-Server-Hosting" },
+    { name: "IT Training", href: "/services/IT-Training" },
   ]
 }: ServiceDetailsProps) {
   return (
