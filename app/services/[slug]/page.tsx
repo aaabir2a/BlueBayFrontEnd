@@ -1,4 +1,5 @@
 import PageHeroSection from "@/components/PageHeroSection";
+import ServiceDetails from "@/components/ServiceDetails";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import { notFound } from "next/navigation";
 
@@ -6,6 +7,7 @@ const services = [
   {
     title: "Software Development",
     slug: "Software-Development",
+    image: "/SoftwareDevelopment.svg?height=800&width=1600",
     description: " To develop a desired application.",
     whyChooseUs: {
       title: "WHY CHOOSE OUR CONSULTING",
@@ -13,14 +15,16 @@ const services = [
       backgroundImage: "/SoftwareDevelopment.svg?height=800&width=1600",
       supportCard: {
         title: "Software Development",
-        description: "Our team of expert consultants is available around the clock to provide strategic guidance and support for your business technology needs.",
-        phone: "+123 456 7890"
-      }
+        description:
+          "Our team of expert consultants is available around the clock to provide strategic guidance and support for your business technology needs.",
+        phone: "+123 456 7890",
+      },
     },
   },
   {
     title: "Web Application",
     slug: "Web-Application",
+    image: "/WebApplication.svg?height=800&width=1600",
     description: "Custom Web App Development",
     whyChooseUs: {
       title: "WHY CHOOSE OUR CONSULTING Web Application",
@@ -28,14 +32,16 @@ const services = [
       backgroundImage: "/WebApplication.svg?height=800&width=1600",
       supportCard: {
         title: "Custom Web App Development",
-        description: "Our team of expert consultants is available around the clock to provide strategic guidance and support for your business technology needs.",
-        phone: "+123 456 7890"
-      }
+        description:
+          "Our team of expert consultants is available around the clock to provide strategic guidance and support for your business technology needs.",
+        phone: "+123 456 7890",
+      },
     },
   },
   {
     title: "Domain & Hosting",
     slug: "Domain-Hosting",
+    image: "/DomainHosting.svg?height=800&width=1600",
     description: "Reliable Domain & Hosting Solutions",
     whyChooseUs: {
       title: "WHY CHOOSE OUR CONSULTING Domain & Hosting",
@@ -43,14 +49,16 @@ const services = [
       backgroundImage: "/DomainHosting.svg?height=800&width=1600",
       supportCard: {
         title: "Reliable Domain & Hosting Solutions",
-        description: "Our team of expert consultants is available around the clock to provide strategic guidance and support for your business technology needs.",
-        phone: "+123 456 7890"
-      }
+        description:
+          "Our team of expert consultants is available around the clock to provide strategic guidance and support for your business technology needs.",
+        phone: "+123 456 7890",
+      },
     },
   },
   {
     title: "Digital Marketing",
     slug: "digital-marketing",
+    image: "/DigitalMarketing.svg?height=800&width=1600",
     description: "Strategic Online Marketing Solutions Digital Marketing",
     whyChooseUs: {
       title: "WHY CHOOSE OUR CONSULTING",
@@ -58,14 +66,16 @@ const services = [
       backgroundImage: "/DigitalMarketing.svg?height=800&width=1600",
       supportCard: {
         title: "Strategic Online Marketing Solutions",
-        description: "Our team of expert consultants is available around the clock to provide strategic guidance and support for your business technology needs.",
-        phone: "+123 456 7890"
-      }
+        description:
+          "Our team of expert consultants is available around the clock to provide strategic guidance and support for your business technology needs.",
+        phone: "+123 456 7890",
+      },
     },
   },
   {
     title: "Dedicated Server Hosting",
     slug: "Dedicated-Server-Hosting",
+    image: "/DedicatedServerHosting.svg?height=800&width=1600",
     description: "Secure Dedicated Server Hosting",
     whyChooseUs: {
       title: "WHY CHOOSE OUR CONSULTING Dedicated Server Hosting",
@@ -73,14 +83,16 @@ const services = [
       backgroundImage: "/DedicatedServerHosting.svg?height=800&width=1600",
       supportCard: {
         title: "Secure Dedicated Server Hosting",
-        description: "Our team of expert consultants is available around the clock to provide strategic guidance and support for your business technology needs.",
-        phone: "+123 456 7890"
-      }
+        description:
+          "Our team of expert consultants is available around the clock to provide strategic guidance and support for your business technology needs.",
+        phone: "+123 456 7890",
+      },
     },
   },
   {
     title: "IT Training",
     slug: "IT-Training",
+    image: "/ITTraining.svg?height=800&width=1600",
     description: "Expert IT Skills Training ",
     whyChooseUs: {
       title: "WHY CHOOSE OUR CONSULTING IT Training",
@@ -88,9 +100,10 @@ const services = [
       backgroundImage: "/ITTraining.svg?height=800&width=1600",
       supportCard: {
         title: "Expert IT Skills Training",
-        description: "Our team of expert consultants is available around the clock to provide strategic guidance and support for your business technology needs.",
-        phone: "+123 456 7890"
-      }
+        description:
+          "Our team of expert consultants is available around the clock to provide strategic guidance and support for your business technology needs.",
+        phone: "+123 456 7890",
+      },
     },
   },
 ];
@@ -125,12 +138,14 @@ export default async function ServicePage({
         ]}
       />
 
-      <div className="container mx-auto px-4 py-16">
-        <h1 className="text-4xl font-bold mb-8">{service.title}</h1>
-        <p className="text-xl">{service.description}</p>
-      </div>
+      <ServiceDetails
+        image={service.image}
+        title={service.title}
+        description={service.description}
+        currentService={service.title}
+      />
 
-      <WhyChooseUs 
+      <WhyChooseUs
         title={service.whyChooseUs.title}
         subtitle={service.whyChooseUs.subtitle}
         backgroundImage={service.whyChooseUs.backgroundImage}

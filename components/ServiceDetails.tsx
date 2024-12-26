@@ -1,0 +1,100 @@
+"use client"
+
+import Image from 'next/image'
+import Link from 'next/link'
+import { Phone } from 'lucide-react'
+import { cn } from '@/lib/utils'
+
+interface ServiceDetailsProps {
+  image: string
+  title: string
+  description: string
+  currentService: string
+  services?: Array<{
+    name: string
+    href: string
+  }>
+}
+
+export default function ServiceDetails({ 
+  image, 
+  title, 
+  description,
+  currentService,
+  services = [
+    { name: "Cloud Computing", href: "/services/cloud" },
+    { name: "IT Management", href: "/services/management" },
+    { name: "Cyber Security", href: "/services/security" },
+    { name: "IT Consulting", href: "/services/consulting" },
+    { name: "Software Dev", href: "/services/software" },
+    { name: "Backup & Recovery", href: "/services/backup" },
+  ]
+}: ServiceDetailsProps) {
+  return (
+    <section className="py-20">
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Main Content */}
+          <div className="lg:col-span-2">
+            <div className="relative h-[300px] md:h-[400px] mb-8 rounded-lg overflow-hidden">
+              <Image
+                src={image}
+                alt={title}
+                fill
+                className="object-cover"
+              />
+            </div>
+            
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold">Content Overview</h2>
+              <p className="text-gray-600 leading-relaxed">
+                {description}
+              </p>
+              <p className="text-gray-600 leading-relaxed">
+                Kindness own whatever betrayed her moreover procured replying for and. Proposal indulged no do do sociable he throwing settling. Covered ten nor comfort offices carried. Age she way earnestly the fulfilled extremely. Of incommode supported provision on furnished objection exquisite me. Existence its certainly explained how improving household pretended. Delightful own attachment her partiality.
+              </p>
+            </div>
+          </div>
+
+          {/* Sidebar */}
+          <div className="lg:col-span-1 space-y-8">
+            {/* Services Navigation */}
+            <div className="border rounded-lg overflow-hidden">
+              {services.map((service) => (
+                <Link
+                  key={service.name}
+                  href={service.href}
+                  className={cn(
+                    "block px-6 py-4 border-b last:border-b-0 hover:bg-gray-50 transition-colors",
+                    service.name === currentService && "bg-[#0066FF] text-white hover:bg-[#0052CC]"
+                  )}
+                >
+                  {service.name}
+                </Link>
+              ))}
+            </div>
+
+            {/* Contact Card */}
+            <div className="relative h-[300px] rounded-lg overflow-hidden">
+              <Image
+                src="/q.svg?height=300&width=400"
+                alt="Support"
+                fill
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-black/60" />
+              <div className="absolute inset-0 p-6 flex flex-col justify-center text-white">
+                <h3 className="text-xl font-bold mb-4">Have Additional Questions?</h3>
+                <div className="flex items-center gap-3">
+                  <Phone className="h-6 w-6" />
+                  <span className="text-xl font-bold">+123 456 7890</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
