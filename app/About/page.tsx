@@ -1,10 +1,19 @@
 import AboutUs from "@/components/AboutUs";
+import PageHeroSection from "@/components/PageHeroSection";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import React from "react";
 
 const page = () => {
   return (
     <div>
+      <PageHeroSection
+        title="About Us"
+        backgroundImage="/about.svg?height=800&width=1600"
+        breadcrumbs={[
+          { label: "HOME", href: "/" },
+          { label: "AboutUs", href: "/About" },
+        ]}
+      />
       <AboutUs />
       <WhyChooseUs
         title="WHY CHOOSE US obout us page"
