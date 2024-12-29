@@ -137,13 +137,17 @@ export function generateStaticParams() {
   }))
 }
 
-export default async function PortfolioItemPage({ params }: { params: { id: string } }) {
-  const portfolio = portfolioItems.find((item) => item.id === params.id)
+export default async function PortfolioItemPage({ 
+  params 
+}: { 
+  params: Promise<{ id: string }> 
+}) {
+  const { id } = await params
+  const portfolio = portfolioItems.find((item) => item.id === id)
 
   if (!portfolio) {
     notFound()
   }
-
   return (
     <>
       <PageHeroSection 
@@ -152,7 +156,7 @@ export default async function PortfolioItemPage({ params }: { params: { id: stri
         breadcrumbs={[
           { label: "HOME", href: "/" },
           { label: "PORTFOLIO", href: "/portfolio" },
-          { label: portfolio.title.toUpperCase(), href: `/portfolio/${params.id}` }
+          { label: portfolio.title.toUpperCase(), href: `/portfolio/${id}` }
         ]}
       />
 

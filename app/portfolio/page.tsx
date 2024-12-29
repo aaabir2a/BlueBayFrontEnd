@@ -58,21 +58,21 @@ const portfolioItems = [
   },
   {
     id: 'Winner-Overseas-Limited',
-    category: 'RAMS',
+    category: 'rams',
     title: 'Winner Overseas Limited',
     description: 'A leading overseas recruitment agency.',
     image: '/placeholder.svg?height=400&width=600'
   },
   {
     id: 'Active-Manpower-Service',
-    category: 'RAMS',
+    category: 'rams',
     title: 'Active Manpower Service',
     description: 'Providing skilled manpower services globally.',
     image: '/placeholder.svg?height=400&width=600'
   },
   {
     id: 'Al-Humayra-Health-Centre',
-    category: 'DMS',
+    category: 'dms',
     title: 'Al-Humayra Health Centre Ltd',
     description: 'A comprehensive health care center.',
     image: '/placeholder.svg?height=400&width=600'
