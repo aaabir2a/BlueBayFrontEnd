@@ -21,7 +21,7 @@ const portfolioItems = [
     id: "hrdc",
     title: "H R D C",
     category: "rams",
-    image: "/placeholder.svg?height=400&width=600",
+    image: "/hrdc.svg?height=400&width=600",
     description: "Human resource development center management",
     details: {
       client: "HRDC International",
@@ -35,7 +35,7 @@ const portfolioItems = [
     id: "airtrip-international",
     title: "Airtrip International",
     category: "rams",
-    image: "/placeholder.svg?height=400&width=600",
+    image: "/airtrip.svg?height=400&width=600",
     description: "International travel and recruitment platform",
     details: {
       client: "Airtrip International Ltd.",
@@ -49,7 +49,7 @@ const portfolioItems = [
     id: "welcome-dmc",
     title: "Welcome D M C",
     category: "dms",
-    image: "/recruitment agency management system.svg?height=400&width=600",
+    image: "/welcome.svg?height=400&width=600",
     description: "Digital medical center management system",
     details: {
       client: "Welcome Medical Center",
@@ -63,7 +63,7 @@ const portfolioItems = [
     id: "perfect-medicare",
     title: "Perfect Medicare Ltd",
     category: "dms",
-    image: "/placeholder.svg?height=400&width=600",
+    image: "/medicare.svg?height=400&width=600",
     description: "Healthcare facility management solution",
     details: {
       client: "Perfect Medicare Limited",
@@ -77,7 +77,7 @@ const portfolioItems = [
     id: "bashurhat-super-shop",
     title: "Bashurhat Super Shop",
     category: "pos",
-    image: "/placeholder.svg?height=400&width=600",
+    image: "/shop.svg?height=400&width=600",
     description: "Modern point of sale system for retail",
     details: {
       client: "Bashurhat Super Shop",
@@ -92,7 +92,7 @@ const portfolioItems = [
     category: 'RAMS',
     title: 'Winner Overseas Limited',
     description: 'A leading overseas recruitment agency.',
-    image: '/placeholder.svg?height=400&width=600',
+    image: '/Winner.svg?height=400&width=600',
     details: {
         client: "Bashurhat Super Shop",
         technology: "React, Node.js, MySQL",
@@ -106,7 +106,7 @@ const portfolioItems = [
     category: 'RAMS',
     title: 'Active Manpower Service',
     description: 'Providing skilled manpower services globally.',
-    image: '/placeholder.svg?height=400&width=600',
+    image: '/Manpower.svg?height=400&width=600',
     details: {
         client: "Bashurhat Super Shop",
         technology: "React, Node.js, MySQL",
@@ -120,7 +120,7 @@ const portfolioItems = [
     category: 'DMS',
     title: 'Al-Humayra Health Centre Ltd',
     description: 'A comprehensive health care center.',
-    image: '/placeholder.svg?height=400&width=600',
+    image: '/Health.svg?height=400&width=600',
     details: {
         client: "Bashurhat Super Shop",
         technology: "React, Node.js, MySQL",

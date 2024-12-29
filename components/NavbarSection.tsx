@@ -115,22 +115,11 @@ export default function NavbarSection() {
             </NavigationMenuItem>
 
             <NavigationMenuItem>
-              <Link href="/About">
-                <NavigationMenuTrigger>ABOUT</NavigationMenuTrigger>
+              <Link href="/About" legacyBehavior passHref>
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  ABOUT
+                </NavigationMenuLink>
               </Link>
-              <NavigationMenuContent>
-                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                  {demos.map((demo) => (
-                    <ListItem
-                      key={demo.title}
-                      title={demo.title}
-                      href={demo.href}
-                    >
-                      {demo.description}
-                    </ListItem>
-                  ))}
-                </ul>
-              </NavigationMenuContent>
             </NavigationMenuItem>
 
             <NavigationMenuItem>
@@ -161,20 +150,11 @@ export default function NavbarSection() {
             </NavigationMenuItem>
 
             <NavigationMenuItem>
-              <NavigationMenuTrigger>CLIENTS</NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px]">
-                  {pages.map((page) => (
-                    <ListItem
-                      key={page.title}
-                      title={page.title}
-                      href={page.href}
-                    >
-                      {page.description}
-                    </ListItem>
-                  ))}
-                </ul>
-              </NavigationMenuContent>
+              <Link href="/Clients" legacyBehavior passHref>
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  CLIENTS
+                </NavigationMenuLink>
+              </Link>
             </NavigationMenuItem>
 
             <NavigationMenuItem>

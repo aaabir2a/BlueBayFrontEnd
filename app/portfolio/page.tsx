@@ -25,35 +25,35 @@ const portfolioItems = [
     id: "hrdc",
     title: "H R D C",
     category: "rams",
-    image: "/placeholder.svg?height=400&width=600",
+    image: "/hrdc.svg?height=400&width=600",
     description: "Human resource development center management"
   },
   {
     id: "airtrip-international",
     title: "Airtrip International",
     category: "rams",
-    image: "/placeholder.svg?height=400&width=600",
+    image: "/airtrip.svg?height=400&width=600",
     description: "International travel and recruitment platform"
   },
   {
     id: "welcome-dmc",
     title: "Welcome D M C",
     category: "dms",
-    image: "/placeholder.svg?height=400&width=600",
+    image: "/welcome.svg?height=400&width=600",
     description: "Digital medical center management system"
   },
   {
     id: "perfect-medicare",
     title: "Perfect Medicare Ltd",
     category: "dms",
-    image: "/placeholder.svg?height=400&width=600",
+    image: "/medicare.svg?height=400&width=600",
     description: "Healthcare facility management solution"
   },
   {
     id: "bashurhat-super-shop",
     title: "Bashurhat Super Shop",
     category: "pos",
-    image: "/placeholder.svg?height=400&width=600",
+    image: "/shop.svg?height=400&width=600",
     description: "Modern point of sale system for retail"
   },
   {
@@ -61,21 +61,21 @@ const portfolioItems = [
     category: 'rams',
     title: 'Winner Overseas Limited',
     description: 'A leading overseas recruitment agency.',
-    image: '/placeholder.svg?height=400&width=600'
+    image: '/Winner.svg?height=400&width=600'
   },
   {
     id: 'Active-Manpower-Service',
     category: 'rams',
     title: 'Active Manpower Service',
     description: 'Providing skilled manpower services globally.',
-    image: '/placeholder.svg?height=400&width=600'
+    image: '/Manpower.svg?height=400&width=600'
   },
   {
     id: 'Al-Humayra-Health-Centre',
     category: 'dms',
     title: 'Al-Humayra Health Centre Ltd',
     description: 'A comprehensive health care center.',
-    image: '/placeholder.svg?height=400&width=600'
+    image: '/Health.svg?height=400&width=600'
   },
 ]
 
@@ -97,7 +97,7 @@ export default function PortfolioPage() {
         ]}
       />
       
-      <section className="py-20">
+      <section className="py-20 shadow-lg">
         <div className="container mx-auto px-4">
           {/* Filter Tabs */}
           <div className="flex justify-center mb-12">
@@ -110,7 +110,7 @@ export default function PortfolioPage() {
                     "px-6 py-2 rounded-lg text-sm font-medium transition-colors",
                     activeCategory === category.id
                       ? "bg-[#00D749] text-white"
-                      : "hover:bg-gray-200"
+                      : "hover:bg-[#f26849]"
                   )}
                 >
                   {category.label}
@@ -120,7 +120,7 @@ export default function PortfolioPage() {
           </div>
 
           {/* Portfolio Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 shadow-lg">
             {filteredItems.map((item) => (
               <Link
                 key={item.id}
