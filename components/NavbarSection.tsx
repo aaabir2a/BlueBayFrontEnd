@@ -150,6 +150,14 @@ export default function NavbarSection() {
             </NavigationMenuItem>
 
             <NavigationMenuItem>
+              <Link href="/portfolio" legacyBehavior passHref>
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  PORTFOLIO
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+
+            <NavigationMenuItem>
               <Link href="/Clients" legacyBehavior passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                   CLIENTS
@@ -158,21 +166,15 @@ export default function NavbarSection() {
             </NavigationMenuItem>
 
             <NavigationMenuItem>
-              <Link href="/case-studies" legacyBehavior passHref>
+              <Link href="/gallery" legacyBehavior passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                   GALLERY
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
+
             <NavigationMenuItem>
-              <Link href="/portfolio" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  PORTFOLIO
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <Link href="/contact" legacyBehavior passHref>
+              <Link href="/contactus" legacyBehavior passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                   CONTACT US
                 </NavigationMenuLink>
@@ -239,7 +241,7 @@ export default function NavbarSection() {
 
                 <div className="space-y-2">
                   <Link
-                    href="/case-studies"
+                    href="/gallery"
                     className="block px-3 py-2 text-sm font-bold uppercase rounded-md hover:bg-accent"
                   >
                     GALLERY
