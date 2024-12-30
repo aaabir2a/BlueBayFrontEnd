@@ -20,11 +20,11 @@ import {
   ArrowDownUp,
   BadgeEuro,
   Menu,
-  Phone,
   Satellite,
   ServerCog,
   TabletSmartphone,
 } from "lucide-react";
+import { ModeToggle } from "./DarkMode";
 
 const demos = [
   {
@@ -264,12 +264,8 @@ export default function NavbarSection() {
           </SheetContent>
         </Sheet>
 
-        <div className="hidden md:flex items-center space-x-2 text-[#0066FF]">
-          <Phone className="h-5 w-5" />
-          <div className="flex flex-col">
-            <span className="text-sm">Call us today!</span>
-            <span className="font-bold">+8801861650206</span>
-          </div>
+        <div className="hidden md:flex items-center">
+          <ModeToggle />
         </div>
       </div>
     </div>
