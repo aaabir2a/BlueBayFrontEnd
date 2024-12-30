@@ -1,10 +1,9 @@
+"use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
-import {  Briefcase, Code } from "lucide-react";
-
-// import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
-
+import { ArrowRight } from "lucide-react";
 import {
   Drawer,
   DrawerClose,
@@ -14,53 +13,41 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "./ui/drawer";
-import { Button } from "./ui/button";
-import Link from "next/link";
-
+} from "@/components/ui/drawer";
+import { Button } from "@/components/ui/button";
+import Category from "@/components/Category";
 
 const projects = [
   {
-    category: "RAMS",
-    title: "Recruiting Agency Management System(RAMS)",
-    image: "/rams.svg?height=400&width=600",
-    href: "/google.com",
-  },
-  {
-    category: "DMS",
-    title: "Digital Medical System (DMS)",
-    image: "/DMS.svg?height=400&width=600",
+    id: "poly-world-service",
+    title: "Poly World Service",
+    category: "rams",
+    image: "/recruitment agency management system.svg?height=400&width=600",
+    description: "Comprehensive recruitment agency management system",
     href: "#",
   },
+
   {
-    category: "OTMS",
-    title: "Online Travel Management Systems (OTMS)",
-    image: "/OTMS.png?height=400&width=600",
+    id: "welcome-dmc",
+    title: "Welcome D M C",
+    category: "dms",
+    image: "/welcome.svg?height=400&width=600",
+    description: "Digital medical center management system",
     href: "#",
   },
+
   {
-    category: "HRMS",
-    title: "Human Resources Management System",
-    image: "/HRMS.svg?height=400&width=600",
-    href: "#",
-  },
-  {
-    category: "E-COMMERCE",
-    title: "E-Commerce is a online base product shop",
-    image: "/E-COMMERCE.svg?height=400&width=600",
-    href: "#",
-  },
-  {
-    category: "POS",
-    title: "Point of Sale is a complete online base software",
-    image: "/POS.svg?height=400&width=600",
+    id: "bashurhat-super-shop",
+    title: "Bashurhat Super Shop",
+    category: "pos",
+    image: "/shop.svg?height=400&width=600",
+    description: "Modern point of sale system for retail",
     href: "#",
   },
 ];
 
 export default function OurPortfolio() {
- 
-
+  const [openDrawer, setOpenDrawer] = useState<string | null>(null);
 
   return (
     <section className="py-20 px-4">
@@ -97,65 +84,56 @@ export default function OurPortfolio() {
                   <h4 className="text-xl font-semibold mb-4 line-clamp-2">
                     {project.title}
                   </h4>
-                  <Drawer>
+                  <Drawer
+                    open={openDrawer === project.category}
+                    onOpenChange={(open) =>
+                      setOpenDrawer(open ? project.category : null)
+                    }
+                  >
                     <DrawerTrigger asChild>
-                      <Button variant="outline">More Details</Button>
+                      <Button variant="link" className="p-0 h-auto">
+                        <span className="inline-flex items-center text-[#0066FF] hover:text-[#0052CC] font-medium">
+                          MORE DETAILS
+                          <ArrowRight className="ml-2 h-4 w-4" />
+                        </span>
+                      </Button>
                     </DrawerTrigger>
-                    <DrawerContent className="w-full sm:max-w-screen-sm mx-auto p-4">
-                      <div className="mx-auto w-full">
-                        <DrawerHeader className="text-center">
-                          <DrawerTitle className="text-lg font-semibold">
-                            Move Goal
-                          </DrawerTitle>
-                          <DrawerDescription className="text-sm text-muted-foreground">
-                            Set your daily activity goal.
-                          </DrawerDescription>
-                        </DrawerHeader>
-                        <div>
-                          {/* Title and Icon */}
-                          <div className="flex items-center space-x-4 mb-4">
-                            <Briefcase className="w-10 h-10 text-[#0066FF]" />
-                            <h2 className="text-2xl font-bold text-gray-800">
-                              Recruiting Agency Management System
-                            </h2>
-                          </div>
 
-                          {/* Description */}
-                          <p className="text-gray-600 leading-relaxed mb-4">
-                            A comprehensive solution for managing recruitment
-                            processes, client relationships, and job placements
-                            seamlessly. Streamline operations and improve
-                            efficiency with RAMS.
-                          </p>
+                    <DrawerContent
+                    >
+                      <DrawerHeader>
+                        <DrawerTitle className="text-lg font-bold">
+                          {project.category} Projects
+                        </DrawerTitle>
+                        <DrawerDescription className="text-sm text-gray-500">
+                          View all {project.category} projects
+                        </DrawerDescription>
+                      </DrawerHeader>
 
-                          {/* Technologies Used */}
-                          <div className="mb-6">
-                            <h3 className="text-lg font-semibold text-gray-800 flex items-center mb-2">
-                              <Code className="w-5 h-5 text-[#0066FF] mr-2" />
-                              Technologies Used
-                            </h3>
-                            <ul className="list-disc list-inside text-gray-600 space-y-1">
-                              <li>Next.js</li>
-                              <li>React</li>
-                              <li>Python</li>
-                              <li>Django</li>
-                            </ul>
-                          </div>
-                        </div>
-                        <DrawerFooter className="flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-2">
-                          <Link href={project.href}>
-                            <Button className="w-full sm:w-auto">VISIT</Button>
-                          </Link>
-                          <DrawerClose asChild>
-                            <Button
-                              variant="outline"
-                              className="w-full sm:w-auto"
-                            >
-                              Cancel
-                            </Button>
-                          </DrawerClose>
-                        </DrawerFooter>
+                      <div
+                        className="p-4 pb-0 
+                h-full 
+                overflow-y-auto 
+                sm:max-h-[75vh] md:max-h-[80vh] 
+                lg:max-h-[85vh] 
+                flex flex-col gap-4"
+                      >
+                        <Category
+                          initialCategory={project.category}
+                          showCategoryButtons={false}
+                        />
                       </div>
+
+                      <DrawerFooter>
+                        <DrawerClose asChild>
+                          <Button
+                            variant="outline"
+                            className="w-full sm:w-auto"
+                          >
+                            Close
+                          </Button>
+                        </DrawerClose>
+                      </DrawerFooter>
                     </DrawerContent>
                   </Drawer>
                 </div>

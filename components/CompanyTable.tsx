@@ -215,7 +215,7 @@ export default function CompanyTable() {
               <PaginationItem>
                 <PaginationPrevious 
                   onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-                  className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                  className={currentPage === 1 ? "pointer-events-none opacity-100 bg-[#00D749]" : "cursor-pointer"}
                 />
               </PaginationItem>
               
@@ -234,7 +234,7 @@ export default function CompanyTable() {
               <PaginationItem>
                 <PaginationNext 
                   onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-                  className={currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                  className={currentPage === totalPages ? "pointer-events-none opacity-100 bg-[#00D749]" : "cursor-pointer"}
                 />
               </PaginationItem>
             </PaginationContent>

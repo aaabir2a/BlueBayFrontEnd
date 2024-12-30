@@ -10,7 +10,7 @@ const page = () => {
         backgroundImage="/services.jpg?height=800&width=1600"
         breadcrumbs={[
           { label: "HOME", href: "/" },
-          { label: "Clients", href: "/Clients" },
+          { label: "CLIENTS", href: "/Clients" },
         ]}
       />
       <CompanyTable />
