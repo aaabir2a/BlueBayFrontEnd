@@ -44,6 +44,30 @@ const projects = [
     description: "Modern point of sale system for retail",
     href: "#",
   },
+  {
+    id: "bashurhat-super-shop",
+    title: "Bashurhat Super Shop",
+    category: "pos",
+    image: "/shop.svg?height=400&width=600",
+    description: "Modern point of sale system for retail",
+    href: "#",
+  },
+  {
+    id: "bashurhat-super-shop",
+    title: "Bashurhat Super Shop",
+    category: "pos",
+    image: "/shop.svg?height=400&width=600",
+    description: "Modern point of sale system for retail",
+    href: "#",
+  },
+  {
+    id: "bashurhat-super-shop",
+    title: "Bashurhat Super Shop",
+    category: "pos",
+    image: "/shop.svg?height=400&width=600",
+    description: "Modern point of sale system for retail",
+    href: "#",
+  },
 ];
 
 export default function OurPortfolio() {
@@ -100,6 +124,8 @@ export default function OurPortfolio() {
                     </DrawerTrigger>
 
                     <DrawerContent
+                      className="w-full sm:w-[90%] md:w-[75%] lg:w-[75%] xl:w-[75%] h-screen sm:max-h-[80vh] 
+               mx-auto bg-white p-4 rounded-md"
                     >
                       <DrawerHeader>
                         <DrawerTitle className="text-lg font-bold">
@@ -112,7 +138,8 @@ export default function OurPortfolio() {
 
                       <div
                         className="p-4 pb-0 
-                h-full 
+                 
+                
                 overflow-y-auto 
                 sm:max-h-[75vh] md:max-h-[80vh] 
                 lg:max-h-[85vh] 

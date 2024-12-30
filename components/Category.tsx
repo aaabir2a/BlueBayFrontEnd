@@ -10,6 +10,9 @@ const categories = [
   { id: "rams", label: "RAMS" },
   { id: "pos", label: "POS" },
   { id: "dms", label: "DMS" },
+  { id: "otms", label: "OTMS" },
+  { id: "hrms", label: "HRMS" },
+  { id: "e-com", label: "E-COMMERCE" },
 ];
 
 const portfolioItems = [

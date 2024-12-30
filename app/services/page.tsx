@@ -26,7 +26,7 @@ export default function ServicesPage() {
         backgroundImage="/whychooseus.png?height=800&width=1600"
         supportCard={{
           title: "24/7 Customer support",
-          description: "Gravity letters it amongst herself dearest an windows by. Wooded ladies she basket season age her uneasy saw. Discourse unwilling am no described dejection incommode no.",
+          description: "Our team comprises experienced developers proficient in modern technologies, frameworks, and tools. From front-end design with React and Next.js to backend development with Node.js, we deliver scalable and robust solutions.",
           phone: "+123 456 7890"
         }}
       />
