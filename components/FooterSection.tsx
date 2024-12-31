@@ -3,11 +3,11 @@ import Link from "next/link";
 import { MapPin, Mail, Phone, Facebook, Twitter, Linkedin } from "lucide-react";
 
 const companyLinks = [
-  { title: "HOME", href: "/Home" },
+  { title: "HOME", href: "/" },
   { title: "About", href: "/About" },
-  { title: "Services", href: "/Services" },
-  { title: "Portfolio", href: "/Portfolio" },
-  { title: "Why Choose Us", href: "/why-choose-us" },
+  { title: "Services", href: "/services" },
+  { title: "Portfolio", href: "/portfolio" },
+  { title: "Contact Us", href: "/contactus" },
 ];
 
 export default function FooterSection() {

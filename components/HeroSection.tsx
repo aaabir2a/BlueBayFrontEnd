@@ -15,6 +15,7 @@ export default function HeroSection() {
             <p className="text-gray-600 max-w-lg">
             Bluebay IT Limited, one of Bangladeshs largest recruiting & travel conglomerates, has been a pioneer in providing a global platform to the Bangladesh recruiting & Travel industry by enabling access to state of the art recruiting & travel automation technology.
             </p>
+            
             <Button
               className="bg-[#0066FF] hover:bg-[#0052CC] text-white px-8 py-6 rounded-full text-lg"
             >

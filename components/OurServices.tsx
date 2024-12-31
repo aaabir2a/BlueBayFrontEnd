@@ -1,110 +1,106 @@
 "use client";
 
-import Autoplay from "embla-carousel-autoplay";
 import * as React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import {
+  ChevronRight,
   PresentationIcon as PresentationChart,
-  Shield,
-  Users,
 } from "lucide-react";
+import { motion } from "framer-motion";
+import useEmblaCarousel from "embla-carousel-react";
+import AutoplayPlugin from "embla-carousel-autoplay";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 const services = [
   {
+    title: "Software Development",
+    slug: "Software-Development",
     icon: PresentationChart,
-    title: "Business Reform",
-    description:
-      "Extremity now strangers contained breakfast him discourse additions. Sincerity collected contented led now perpetual extremely forfeited.",
+    description: " To develop a desired application.",
   },
   {
-    icon: Shield,
-    title: "Firewall Advance",
-    description:
-      "Extremity now strangers contained breakfast him discourse additions. Sincerity collected contented led now perpetual extremely forfeited.",
+    title: "Web Application",
+    slug: "Web-Application",
+    icon: PresentationChart,
+    description: "Custom Web App Development",
   },
   {
-    icon: Users,
-    title: "IT Management",
-    description:
-      "Extremity now strangers contained breakfast him discourse additions. Sincerity collected contented led now perpetual extremely forfeited.",
+    title: "Domain & Hosting",
+    slug: "Domain-Hosting",
+    icon: PresentationChart,
+    description: "Reliable Domain & Hosting Solutions",
   },
-
   {
-    icon: Users,
-    title: "IT Management",
-    description:
-      "Extremity now strangers contained breakfast him discourse additions. Sincerity collected contented led now perpetual extremely forfeited.",
+    title: "Digital Marketing",
+    slug: "digital-marketing",
+    icon: PresentationChart,
+    description: "Strategic Online Marketing Solutions Digital Marketing",
   },
-
   {
-    icon: Users,
-    title: "IT Management",
-    description:
-      "Extremity now strangers contained breakfast him discourse additions. Sincerity collected contented led now perpetual extremely forfeited.",
+    title: "Dedicated Server Hosting",
+    slug: "Dedicated-Server-Hosting",
+    icon: PresentationChart,
+    description: "Secure Dedicated Server Hosting",
   },
-
   {
-    icon: Users,
-    title: "IT Management",
-    description:
-      "Extremity now strangers contained breakfast him discourse additions. Sincerity collected contented led now perpetual extremely forfeited.",
-  },
-
-  {
-    icon: Users,
-    title: "IT Management",
-    description:
-      "Extremity now strangers contained breakfast him discourse additions. Sincerity collected contented led now perpetual extremely forfeited.",
+    title: "IT Training",
+    slug: "IT-Training",
+    icon: PresentationChart,
+    description: "Expert IT Skills Training ",
   },
 ];
 
 export default function OurServices() {
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    { loop: true, align: "center" },
+    [AutoplayPlugin({ delay: 5000, stopOnInteraction: false })]
+  );
   const [activeIndex, setActiveIndex] = React.useState(0);
 
-  const handleNext = () =>
-    setActiveIndex((prev) => (prev + 1) % services.length);
-  const handlePrev = () =>
-    setActiveIndex((prev) => (prev - 1 + services.length) % services.length);
+  React.useEffect(() => {
+    if (emblaApi) {
+      const onSelect = () => {
+        setActiveIndex(emblaApi.selectedScrollSnap());
+      };
+      emblaApi.on("select", onSelect);
+      return () => {
+        emblaApi.off("select", onSelect);
+      };
+    }
+  }, [emblaApi]);
+
+  const scrollTo = React.useCallback(
+    (index: number) => emblaApi && emblaApi.scrollTo(index),
+    [emblaApi]
+  );
 
   return (
-    <section className="py-20 px-4">
-      <section className="text-center py-10 px-4">
-        <h4 className="text-sm font-medium text-gray-400 uppercase tracking-wide mb-2">
-          OUR SERVICES
-        </h4>
-        <h1 className="text-4xl font-bold mb-2">Our Service is equipped</h1>
-        <h2 className="text-xl text-gray-700">with exclusive features.</h2>
-      </section>
-      <div className="container mx-auto">
+    <section className="py-20">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
+          <h2 className="text-[#0066FF] text-xl font-semibold mb-4">
+            SERVICES
+          </h2>
+          <h3 className="text-4xl font-bold">What we do</h3>
+          <div className="w-12 h-1 bg-[#0066FF] mx-auto mt-4" />
+        </div>
 
-        <Carousel
-          plugins={[
-            Autoplay({
-              delay: 2000,
-            }),
-          ]}
-          opts={{
-            align: "center",
-            loop: true,
-          }}
-          className="w-full max-w-5xl mx-auto"
-        >
-          <CarouselContent>
+        <div className="overflow-hidden" ref={emblaRef}>
+          <div className="flex">
             {services.map((service, index) => {
               const Icon = service.icon;
               return (
-                <CarouselItem
+                <div
                   key={index}
-                  className="basis-full sm:basis-1/2 lg:basis-1/3"
+                  className="flex-[0_0_100%] md:basis-1/2 lg:basis-1/3 min-w-0 pl-4"
                 >
-                  <div className="p-1">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="p-1"
+                  >
                     <Card
                       className={`relative group transition-all duration-300 ${
                         activeIndex === index
@@ -140,26 +136,33 @@ export default function OurServices() {
                         >
                           {service.description}
                         </p>
+                        <Link href={`/services/${service.slug}`}>
+                          <Button variant="outline" size="icon" className={`${
+                            activeIndex === index
+                              ? "text-[#f26649] group-hover:text-[#f26649]"
+                              : "text-gray-600 group-hover:text-[#008fca]"
+                          }`}>
+                          <ChevronRight />
+                          </Button>
+                        </Link>
                       </CardContent>
                     </Card>
-                  </div>
-                </CarouselItem>
+                  </motion.div>
+                </div>
               );
             })}
-          </CarouselContent>
-          <CarouselPrevious onClick={handlePrev} />
-          <CarouselNext onClick={handleNext} />
-        </Carousel>
+          </div>
+        </div>
 
         <div className="flex justify-center gap-2 mt-8">
           {services.map((_, index) => (
             <button
               key={index}
-              className={`w-2 h-2 rounded-full transition-all focus:ring-2 ${
+              onClick={() => scrollTo(index)}
+              className={`w-2 h-2 rounded-full transition-all ${
                 activeIndex === index ? "bg-[#0066FF] w-8" : "bg-gray-300"
               }`}
-              
-              aria-label={`Slide ${index + 1}`}
+              aria-label={`Go to slide ${index + 1}`}
             />
           ))}
         </div>
