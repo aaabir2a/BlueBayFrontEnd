@@ -1,7 +1,7 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import Link from "next/link";
+import * as React from "react"
+import Link from "next/link"
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -10,34 +10,16 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import Image from "next/image";
-import {
-  AppWindow,
-  ArrowDownUp,
-  BadgeEuro,
-  Menu,
-  Satellite,
-  ServerCog,
-  TabletSmartphone,
-} from "lucide-react";
-import { ModeToggle } from "./DarkMode";
+} from "@/components/ui/navigation-menu"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
+import Image from "next/image"
+import { Menu} from 'lucide-react'
+import { ModeToggle } from "./DarkMode"
+import { AppWindow, ArrowDownUp, BadgeEuro, Satellite, ServerCog, TabletSmartphone } from 'lucide-react';
 
-const demos = [
-  {
-    title: "About 1",
-    href: "/demos/1",
-    description: "About-1 description",
-  },
-  {
-    title: "About 2",
-    href: "/demos/2",
-    description: "About-2 description",
-  },
-];
+
 
 const services = [
   {
@@ -58,21 +40,18 @@ const services = [
     description: "Reliable Domain & Hosting Solutions",
     icon: ArrowDownUp,
   },
-
   {
     title: "Digital Marketing",
     href: "/services/digital-marketing",
     description: "Strategic Online Marketing Solutions",
     icon: BadgeEuro,
   },
-
   {
     title: "Dedicated Server Hosting",
     href: "/services/Dedicated-Server-Hosting",
     description: "Secure Dedicated Server Hosting",
     icon: ServerCog,
   },
-
   {
     title: "IT Training",
     href: "/services/IT-Training",
@@ -81,27 +60,14 @@ const services = [
   },
 ];
 
-const pages = [
-  {
-    title: "Client-1",
-    href: "/about",
-    description: "Client-1 description",
-  },
-  {
-    title: "Client-2",
-    href: "/team",
-    description: "Client-2 description",
-  },
-];
 
 export default function NavbarSection() {
   return (
-    <div className="sticky top-0 z-50 bg-white border-b">
+    <div className="sticky top-0 z-50 bg-white border-b dark:bg-gray-900 dark:border-gray-800">
       <div className="container mx-auto flex justify-between items-center py-4 px-4">
         <Link href="/" className="flex items-center space-x-2">
           <Image src="/logo.png" alt="BlueBay Logo" width={150} height={90} />
-          {/* <span className="text-xl font-bold">BlueBayIT</span> */}
-        </Link>
+          </Link>
 
         {/* Desktop Navigation */}
         <NavigationMenu className="hidden lg:flex">
@@ -191,74 +157,63 @@ export default function NavbarSection() {
               <span className="sr-only">Toggle menu</span>
             </Button>
           </SheetTrigger>
-          <SheetContent side="right" className="w-[300px] sm:w-[400px]">
-            <nav className="flex flex-col gap-4">
-              <div className="px-2 py-4 space-y-4">
+          <SheetContent side="right" className="w-[300px] sm:w-[400px] p-0">
+            <nav className="flex flex-col h-full">
+              <div className="flex-1 overflow-y-auto px-4 py-6 space-y-4">
+                <Link
+                  href="/"
+                  className="block px-3 py-2 text-sm font-bold uppercase rounded-md hover:bg-accent"
+                >
+                  HOME
+                </Link>
+                <Link
+                  href="/About"
+                  className="block px-3 py-2 text-sm font-bold uppercase rounded-md hover:bg-accent"
+                >
+                  ABOUT
+                </Link>
                 <div className="space-y-2">
-                  <Link
-                    href="/"
-                    className="block px-3 py-2 text-sm font-bold uppercase rounded-md hover:bg-accent"
-                  >
-                    HOME
-                  </Link>
-                </div>
-                <div className="space-y-2">
-                  <h4 className="text-sm font-bold uppercase">ABOUT</h4>
-                  {demos.map((demo) => (
-                    <Link
-                      key={demo.title}
-                      href={demo.href}
-                      className="block px-3 py-2 text-sm rounded-md hover:bg-accent"
-                    >
-                      {demo.title}
-                    </Link>
-                  ))}
-                </div>
-                <div className="space-y-2">
-                  <h4 className="text-sm font-bold uppercase">Services</h4>
+                  <h4 className="text-sm font-bold uppercase px-3 py-2">Services</h4>
                   {services.map((service) => (
                     <Link
                       key={service.title}
                       href={service.href}
-                      className="block px-3 py-2 text-sm rounded-md hover:bg-accent"
+                      className="block px-6 py-2 text-sm rounded-md hover:bg-accent"
                     >
-                      {service.title}
+                      <span className="flex items-center gap-2">
+                        <service.icon className="h-4 w-4 text-[#0066FF]" />
+                        {service.title}
+                      </span>
                     </Link>
                   ))}
                 </div>
-                <div className="space-y-2">
-                  <h4 className="text-sm font-bold uppercase">CLIENTS</h4>
-                  {pages.map((page) => (
-                    <Link
-                      key={page.title}
-                      href={page.href}
-                      className="block px-3 py-2 text-sm rounded-md hover:bg-accent"
-                    >
-                      {page.title}
-                    </Link>
-                  ))}
-                </div>
-
-                <div className="space-y-2">
-                  <Link
-                    href="/gallery"
-                    className="block px-3 py-2 text-sm font-bold uppercase rounded-md hover:bg-accent"
-                  >
-                    GALLERY
-                  </Link>
-                  <Link
-                    href="/blog"
-                    className="block px-3 py-2 text-sm font-bold uppercase rounded-md hover:bg-accent"
-                  >
-                    PORTFOLIO
-                  </Link>
-                  <Link
-                    href="/contact"
-                    className="block px-3 py-2 text-sm font-bold uppercase rounded-md hover:bg-accent"
-                  >
-                    Contact Us
-                  </Link>
-                </div>
+                <Link
+                  href="/portfolio"
+                  className="block px-3 py-2 text-sm font-bold uppercase rounded-md hover:bg-accent"
+                >
+                  PORTFOLIO
+                </Link>
+                <Link
+                  href="/Clients"
+                  className="block px-3 py-2 text-sm font-bold uppercase rounded-md hover:bg-accent"
+                >
+                  CLIENTS
+                </Link>
+                <Link
+                  href="/gallery"
+                  className="block px-3 py-2 text-sm font-bold uppercase rounded-md hover:bg-accent"
+                >
+                  GALLERY
+                </Link>
+                <Link
+                  href="/contactus"
+                  className="block px-3 py-2 text-sm font-bold uppercase rounded-md hover:bg-accent"
+                >
+                  CONTACT US
+                </Link>
+              </div>
+              <div className="border-t p-4">
+                <ModeToggle />
               </div>
             </nav>
           </SheetContent>
@@ -269,7 +224,7 @@ export default function NavbarSection() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 interface ListItemProps
@@ -302,3 +257,4 @@ const ListItem = React.forwardRef<React.ElementRef<typeof Link>, ListItemProps>(
   }
 );
 ListItem.displayName = "ListItem";
+
