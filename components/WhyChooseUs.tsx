@@ -56,7 +56,7 @@ export default function WhyChooseUs({
             variant="outline"
             className="mt-8 rounded-full w-16 h-16 border-2 border-white text-white hover:bg-white hover:text-black transition-colors"
           >
-            <Play className="w-8 h-8" />
+            <Play className="w-8 h-8 text-[#f26649]" />
           </Button>
         </div>
 

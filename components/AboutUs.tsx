@@ -19,12 +19,13 @@ function AboutCard({ image, title, description, icon }: AboutCardProps) {
   const Icon = iconMap[icon]
   
   return (
-    <Card className="overflow-hidden bg-white">
-      <div className="relative h-48">
+    <Card className="overflow-hidden">
+      <div className="relative">
         <Image
           src={image}
           alt={title}
-          fill
+          width={600}
+          height={400}
           className="w-full h-[250px] object-cover transition-transform duration-300 hover:scale-110"
         />
       </div>
@@ -51,7 +52,7 @@ interface AboutUsProps {
 export default function AboutUs({
   title = "ABOUT US",
   description = "Bluebay IT Limited, one of Bangladesh's largest recruiting & travel conglomerates, has been a pioneer in providing a global platform to the Bangladesh recruiting & Travel industry by enabling access to state of the art recruiting & travel automation technology.",
-  backgroundImage = "/aboutus.svg?height=1200&width=1920",
+  backgroundImage = "/aboutus1.svg?height=1200&width=1920",
   cards = [
     {
       image: "/mission.svg?height=300&width=400",

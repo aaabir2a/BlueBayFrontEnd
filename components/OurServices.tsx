@@ -3,8 +3,13 @@
 import * as React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import {
+  AppWindow,
+  ArrowDownUp,
+  BadgeEuro,
   ChevronRight,
-  PresentationIcon as PresentationChart,
+  Satellite,
+  ServerCog,
+  TabletSmartphone,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
@@ -16,37 +21,37 @@ const services = [
   {
     title: "Software Development",
     slug: "Software-Development",
-    icon: PresentationChart,
+    icon: TabletSmartphone,
     description: " To develop a desired application.",
   },
   {
     title: "Web Application",
     slug: "Web-Application",
-    icon: PresentationChart,
+    icon: AppWindow,
     description: "Custom Web App Development",
   },
   {
     title: "Domain & Hosting",
     slug: "Domain-Hosting",
-    icon: PresentationChart,
+    icon: ArrowDownUp,
     description: "Reliable Domain & Hosting Solutions",
   },
   {
     title: "Digital Marketing",
     slug: "digital-marketing",
-    icon: PresentationChart,
-    description: "Strategic Online Marketing Solutions Digital Marketing",
+    icon: BadgeEuro,
+    description: "Strategic Online Marketing Solutions.",
   },
   {
     title: "Dedicated Server Hosting",
     slug: "Dedicated-Server-Hosting",
-    icon: PresentationChart,
+    icon: ServerCog,
     description: "Secure Dedicated Server Hosting",
   },
   {
     title: "IT Training",
     slug: "IT-Training",
-    icon: PresentationChart,
+    icon: Satellite,
     description: "Expert IT Skills Training ",
   },
 ];
@@ -102,7 +107,7 @@ export default function OurServices() {
                     className="p-1"
                   >
                     <Card
-                      className={`relative group transition-all duration-300 ${
+                      className={`overflow-hidden border-none shadow-lg relative group transition-all duration-300 ${
                         activeIndex === index
                           ? "bg-gradient-to-br from-[#0066FF] to-[#4D9FFF] text-white"
                           : "hover:bg-gradient-to-br hover:from-[#0066FF] hover:to-[#4D9FFF] hover:text-white"
