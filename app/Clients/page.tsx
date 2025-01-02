@@ -1,4 +1,4 @@
-import CompanyTable from "@/components/CompanyTable";
+import ClientsDetails from "@/components/ClientDetails";
 import PageHeroSection from "@/components/PageHeroSection";
 import React from "react";
 
@@ -13,7 +13,7 @@ const page = () => {
           { label: "CLIENTS", href: "/Clients" },
         ]}
       />
-      <CompanyTable />
+      <ClientsDetails/>
     </div>
   );
 };
