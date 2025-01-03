@@ -44,6 +44,9 @@ export default function ClientsDetails() {
     fetchImages()
   }, [])
 
+ 
+  
+
   if (loading) {
     return (
       <div className="py-20 px-4 text-center">
