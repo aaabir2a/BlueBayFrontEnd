@@ -2,10 +2,7 @@
 const nextConfig = {
   images: {
     remotePatterns:[
-      {
-        protocol: "https",
-        hostname: "api.welcome-dmc.com"
-      },
+
       {
         protocol: "https",
         hostname: "api.bluebayit.com"

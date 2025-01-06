@@ -18,24 +18,21 @@ interface ContentImage {
   image: string
 }
 
-interface CategoryProps {
-  initialCategory?: string
-  showCategoryButtons?: boolean
-}
-
 const categories = [
   { id: "all", label: "ALL" },
   { id: "rams", label: "RAMS" },
   { id: "pos", label: "POS" },
   { id: "dms", label: "DMS" },
-  { id: "otms", label: "OTMS" },
-  { id: "hrms", label: "HRMS" },
-  { id: "e-com", label: "E-COMMERCE" },
 ]
 
-export default function Category({ initialCategory = "all", showCategoryButtons = true }: CategoryProps) {
+interface CategoryProps {
+  initialCategory?: string;
+  showCategoryButtons?: boolean;
+}
+
+export default function Category2({ initialCategory = "all", showCategoryButtons = true }: CategoryProps) {
   const [activeCategory, setActiveCategory] = useState(initialCategory)
-  const [portfolioImages, setPortfolioImages] = useState<ContentImage[]>([])
+  const [portfolioItems, setPortfolioItems] = useState<ContentImage[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
@@ -50,7 +47,7 @@ export default function Category({ initialCategory = "all", showCategoryButtons 
         const filteredImages = data.content_images.filter(
           (img: ContentImage) => img.cms_menu.name === "Portfolio"
         )
-        setPortfolioImages(filteredImages)
+        setPortfolioItems(filteredImages)
       } catch (error) {
         console.error('Error fetching portfolio images:', error)
         setError('Failed to load portfolio images')
@@ -63,13 +60,13 @@ export default function Category({ initialCategory = "all", showCategoryButtons 
   }, [])
 
   const filteredItems = activeCategory === "all" 
-    ? portfolioImages 
-    : portfolioImages.filter(item => item.head.toLowerCase().includes(activeCategory.toLowerCase()))
+    ? portfolioItems 
+    : portfolioItems.filter(item => item.head.toLowerCase().includes(activeCategory.toLowerCase()))
 
   if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-[400px]">
-        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+        <Loader2 className="w-8 h-8 animate-spin" />
       </div>
     )
   }
@@ -113,14 +110,13 @@ export default function Category({ initialCategory = "all", showCategoryButtons 
             className="group block"
           >
             <div className="relative overflow-hidden rounded-lg">
-              <div className="relative aspect-[4/3]">
-                <Image
-                  src={`${BASE_URL}${item.image}`}
-                  alt={item.head}
-                  fill
-                  className="object-cover transition-transform duration-300 group-hover:scale-110"
-                />
-              </div>
+              <Image
+                src={`${BASE_URL}${item.image}`}
+                alt={item.head}
+                width={600}
+                height={400}
+                className="w-full h-[300px] object-cover transition-transform duration-300 group-hover:scale-110"
+              />
               <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                 <span className="text-white text-lg font-semibold">
                   View Project
@@ -130,7 +126,7 @@ export default function Category({ initialCategory = "all", showCategoryButtons 
             <div className="mt-4 text-center">
               <h3 className="text-xl font-semibold mb-2">{item.head}</h3>
               <p className="text-gray-500 uppercase text-sm">
-                {item.cms_menu.name}
+                {item.head.split(" ")[0]}
               </p>
             </div>
           </Link>

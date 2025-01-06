@@ -1,6 +1,34 @@
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import PageHeroSection from "@/components/PageHeroSection"
+import { BASE_URL, GET_IMAGE_BY_without_pagination } from "@/lib/config"
+
+interface ContentImage {
+  id: number
+  cms_menu: {
+    id: number
+    name: string
+    parent: null
+  }
+  head: string
+  image: string
+}
+
+interface PortfolioItem {
+  id: string
+  title: string
+  category: string
+  image: string
+  description: string
+  details: {
+    client: string
+    technology: string
+    industry: string
+    date: string
+    website: string
+  }
+}
+
 
 const portfolioItems = [
   {
@@ -131,8 +159,50 @@ const portfolioItems = [
   },
 ]
 
-export function generateStaticParams() {
-  return portfolioItems.map((item) => ({
+
+// This function will merge API data with our static details
+function createPortfolioItem(apiImage: ContentImage): PortfolioItem {
+  return {
+    id: apiImage.id.toString(),
+    title: apiImage.head,
+    category: apiImage.head.split(" ")[0].toLowerCase(),
+    image: apiImage.image,
+    description: `Comprehensive ${apiImage.head.toLowerCase()} solution`,
+    details: {
+      client: apiImage.head,
+      technology: "Next.js, Node.js, MongoDB",
+      industry: apiImage.head.split(" ")[0],
+      date: "2024",
+      website: "https://example.com",
+    }
+  }
+}
+
+async function getPortfolioItems(): Promise<PortfolioItem[]> {
+  try {
+    const response = await fetch(GET_IMAGE_BY_without_pagination, {
+      next: { revalidate: 3600 } // Revalidate every hour
+    })
+    
+    if (!response.ok) {
+      throw new Error('Failed to fetch portfolio items')
+    }
+
+    const data = await response.json()
+    const portfolioImages = data.content_images.filter(
+      (img: ContentImage) => img.cms_menu.name === "Portfolio"
+    )
+
+    return portfolioImages.map(createPortfolioItem)
+  } catch (error) {
+    console.error('Error fetching portfolio items:', error)
+    return []
+  }
+}
+
+export async function generateStaticParams() {
+  const items = await getPortfolioItems()
+  return items.map((item) => ({
     id: item.id,
   }))
 }
@@ -140,14 +210,15 @@ export function generateStaticParams() {
 export default async function PortfolioItemPage({ 
   params 
 }: { 
-  params: Promise<{ id: string }> 
+  params: { id: string }
 }) {
-  const { id } = await params
-  const portfolio = portfolioItems.find((item) => item.id === id)
+  const portfolioItems = await getPortfolioItems()
+  const portfolio = portfolioItems.find((item) => item.id === params.id)
 
   if (!portfolio) {
     notFound()
   }
+
   return (
     <>
       <PageHeroSection 
@@ -156,7 +227,7 @@ export default async function PortfolioItemPage({
         breadcrumbs={[
           { label: "HOME", href: "/" },
           { label: "PORTFOLIO", href: "/portfolio" },
-          { label: portfolio.title.toUpperCase(), href: `/portfolio/${id}` }
+          { label: portfolio.title.toUpperCase(), href: `/portfolio/${params.id}` }
         ]}
       />
 
@@ -165,10 +236,10 @@ export default async function PortfolioItemPage({
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div>
               <Image
-                src={portfolio.image}
+                src={`${BASE_URL}${portfolio.image}`}
                 alt={portfolio.title}
-                width={800}
-                height={600}
+                width={600}
+                height={100}
                 className="rounded-lg"
               />
             </div>
