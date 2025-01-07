@@ -78,12 +78,6 @@ async function getPost(): Promise<{ menu_items: Post[] }> {
   return post;
 }
 
-function stripHtml(html: string): string {
-  const div = document.createElement("div");
-  div.innerHTML = html;
-  return div.textContent || div.innerText || "";
-}
-
 const data = await getPost();
 
 export default function OurServices() {
@@ -133,7 +127,12 @@ export default function OurServices() {
         };
   });
 
-
+  function parseBasicHtml(html: string): React.ReactNode {
+    return html
+      .replace(/<\/?[^>]+(>|$)/g, "") // Strip unsupported tags
+      .split(/<p>|<\/p>/g)
+      .map((chunk, i) => (chunk ? <span key={i}>{chunk}</span> : null));
+  }
 
   return (
     <section className="py-20">
@@ -187,7 +186,6 @@ export default function OurServices() {
                         <h4 className="text-xl font-semibold mb-4">
                           {service.title}
                         </h4>
-
                         <div>
                           <p
                             className={`${
@@ -196,7 +194,7 @@ export default function OurServices() {
                                 : "text-gray-600 group-hover:text-white/90"
                             }`}
                           >
-                            {stripHtml(service.description || "")}
+                            {parseBasicHtml(service.description || "")}
                           </p>
                         </div>
 
