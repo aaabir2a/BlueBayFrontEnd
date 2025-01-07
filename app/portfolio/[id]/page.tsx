@@ -3,39 +3,11 @@ import Image from 'next/image'
 import PageHeroSection from "@/components/PageHeroSection"
 import { BASE_URL, GET_IMAGE_BY_without_pagination } from "@/lib/config"
 
-interface ContentImage {
-  id: number
-  cms_menu: {
-    id: number
-    name: string
-    parent: null
-  }
-  head: string
-  image: string
-}
-
-interface PortfolioItem {
-  id: string
-  title: string
-  category: string
-  image: string
-  description: string
-  details: {
-    client: string
-    technology: string
-    industry: string
-    date: string
-    website: string
-  }
-}
-
-
 const portfolioItems = [
   {
     id: "poly-world-service",
     title: "Poly World Service",
     category: "rams",
-    image: "/recruitment agency management system.svg?height=400&width=600",
     description: "Comprehensive recruitment agency management system",
     details: {
       client: "Poly World Service Ltd.",
@@ -49,7 +21,6 @@ const portfolioItems = [
     id: "hrdc",
     title: "H R D C",
     category: "rams",
-    image: "/hrdc.svg?height=400&width=600",
     description: "Human resource development center management",
     details: {
       client: "HRDC International",
@@ -63,7 +34,6 @@ const portfolioItems = [
     id: "airtrip-international",
     title: "Airtrip International",
     category: "rams",
-    image: "/airtrip.svg?height=400&width=600",
     description: "International travel and recruitment platform",
     details: {
       client: "Airtrip International Ltd.",
@@ -77,7 +47,6 @@ const portfolioItems = [
     id: "welcome-dmc",
     title: "Welcome D M C",
     category: "dms",
-    image: "/welcome.svg?height=400&width=600",
     description: "Digital medical center management system",
     details: {
       client: "Welcome Medical Center",
@@ -91,7 +60,6 @@ const portfolioItems = [
     id: "perfect-medicare",
     title: "Perfect Medicare Ltd",
     category: "dms",
-    image: "/medicare.svg?height=400&width=600",
     description: "Healthcare facility management solution",
     details: {
       client: "Perfect Medicare Limited",
@@ -105,7 +73,6 @@ const portfolioItems = [
     id: "bashurhat-super-shop",
     title: "Bashurhat Super Shop",
     category: "pos",
-    image: "/shop.svg?height=400&width=600",
     description: "Modern point of sale system for retail",
     details: {
       client: "Bashurhat Super Shop",
@@ -115,94 +82,39 @@ const portfolioItems = [
       website: "https://example.com",
     }
   },
-  {
-    id: 'Winner-Overseas-Limited',
-    category: 'RAMS',
-    title: 'Winner Overseas Limited',
-    description: 'A leading overseas recruitment agency.',
-    image: '/Winner.svg?height=400&width=600',
-    details: {
-        client: "Bashurhat Super Shop",
-        technology: "React, Node.js, MySQL",
-        industry: "Retail",
-        date: "2023",
-        website: "https://example.com",
-      }
-  },
-  {
-    id: 'Active-Manpower-Service',
-    category: 'RAMS',
-    title: 'Active Manpower Service',
-    description: 'Providing skilled manpower services globally.',
-    image: '/Manpower.svg?height=400&width=600',
-    details: {
-        client: "Bashurhat Super Shop",
-        technology: "React, Node.js, MySQL",
-        industry: "Retail",
-        date: "2023",
-        website: "https://example.com",
-      }
-  },
-  {
-    id: 'Al-Humayra-Health-Centre',
-    category: 'DMS',
-    title: 'Al-Humayra Health Centre Ltd',
-    description: 'A comprehensive health care center.',
-    image: '/Health.svg?height=400&width=600',
-    details: {
-        client: "Bashurhat Super Shop",
-        technology: "React, Node.js, MySQL",
-        industry: "Retail",
-        date: "2023",
-        website: "https://example.com",
-      }
-  },
 ]
 
-
-// This function will merge API data with our static details
-function createPortfolioItem(apiImage: ContentImage): PortfolioItem {
-  return {
-    id: apiImage.id.toString(),
-    title: apiImage.head,
-    category: apiImage.head.split(" ")[0].toLowerCase(),
-    image: apiImage.image,
-    description: `Comprehensive ${apiImage.head.toLowerCase()} solution`,
-    details: {
-      client: apiImage.head,
-      technology: "Next.js, Node.js, MongoDB",
-      industry: apiImage.head.split(" ")[0],
-      date: "2024",
-      website: "https://example.com",
-    }
+interface ContentImage {
+  id: number
+  cms_menu: {
+    id: number
+    name: string
+    parent: null
   }
+  head: string
+  image: string
 }
 
-async function getPortfolioItems(): Promise<PortfolioItem[]> {
+async function getPortfolioImages() {
   try {
     const response = await fetch(GET_IMAGE_BY_without_pagination, {
       next: { revalidate: 3600 } // Revalidate every hour
     })
-    
     if (!response.ok) {
-      throw new Error('Failed to fetch portfolio items')
+      throw new Error('Failed to fetch portfolio images')
     }
-
     const data = await response.json()
-    const portfolioImages = data.content_images.filter(
+    return data.content_images.filter(
       (img: ContentImage) => img.cms_menu.name === "Portfolio"
     )
-
-    return portfolioImages.map(createPortfolioItem)
   } catch (error) {
-    console.error('Error fetching portfolio items:', error)
+    console.error('Error fetching portfolio images:', error)
     return []
   }
 }
 
-export async function generateStaticParams() {
-  const items = await getPortfolioItems()
-  return items.map((item) => ({
+export function generateStaticParams() {
+  return portfolioItems.map((item) => ({
     id: item.id,
   }))
 }
@@ -212,8 +124,10 @@ export default async function PortfolioItemPage({
 }: { 
   params: { id: string }
 }) {
-  const portfolioItems = await getPortfolioItems()
   const portfolio = portfolioItems.find((item) => item.id === params.id)
+  const portfolioImages = await getPortfolioImages()
+  const portfolioIndex = portfolioItems.findIndex((item) => item.id === params.id)
+  const portfolioImage = portfolioImages[portfolioIndex % portfolioImages.length]
 
   if (!portfolio) {
     notFound()
@@ -223,7 +137,7 @@ export default async function PortfolioItemPage({
     <>
       <PageHeroSection 
         title={portfolio.title}
-        backgroundImage="/heroportfolio.svg?height=800&width=1600"
+        backgroundImage="/placeholder.svg?height=800&width=1600"
         breadcrumbs={[
           { label: "HOME", href: "/" },
           { label: "PORTFOLIO", href: "/portfolio" },
@@ -236,10 +150,10 @@ export default async function PortfolioItemPage({
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div>
               <Image
-                src={`${BASE_URL}${portfolio.image}`}
+                src={portfolioImage ? `${BASE_URL}${portfolioImage.image}` : "/placeholder.svg?height=600&width=800"}
                 alt={portfolio.title}
-                width={600}
-                height={100}
+                width={800}
+                height={600}
                 className="rounded-lg"
               />
             </div>
