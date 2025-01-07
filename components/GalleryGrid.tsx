@@ -1,9 +1,8 @@
 "use client"
 
-import { useState, useCallback } from "react"
+import { useState} from "react"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
-import { Loader2, X, ChevronLeft, ChevronRight, ImageOff } from 'lucide-react'
 import { BASE_URL } from "@/lib/config"
 
 interface ContentImage {
@@ -64,7 +63,6 @@ export function GalleryGrid({ images }: GalleryGridProps) {
               className="absolute top-4 right-4 text-white p-2 hover:bg-white/20 rounded-full transition-colors"
               onClick={() => setSelectedImage(null)}
             >
-              <X className="w-6 h-6" />
             </motion.button>
             <Image
               src={`${BASE_URL}${images[selectedImage].image}`}
