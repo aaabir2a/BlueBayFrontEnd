@@ -16,41 +16,40 @@ import useEmblaCarousel from "embla-carousel-react";
 import AutoplayPlugin from "embla-carousel-autoplay";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { notFound } from 'next/navigation';
+import { notFound } from "next/navigation";
 
- const services = [
-    {
-      icon: TabletSmartphone,
-      slug: "Software Development", // Changed to match the name in the API
-      href: "/services/Software-Development",
-    },
-    {
-      icon: AppWindow,
-      slug: "Web Application", // Changed to match the name in the API
-      href: "/services/Web-Application",
-    },
-    {
-      icon: ArrowDownUp,
-      slug: "Domain & Hosting", // Changed to match the name in the API
-      href: "/services/Domain-Hosting",
-    },
-    {
-      icon: BadgeEuro,
-      slug: "Digital Marketing", // Changed to match the name in the API
-      href: "/services/Digital-Marketing",
-    },
-    {
-      icon: ServerCog,
-      slug: "Dedicated Server Hosting", // Changed to match the name in the API
-      href: "/services/Dedicated-Server-Hosting",
-    },
-    {
-      icon: Satellite,
-      slug: "IT Training", // Changed to match the name in the API
-      href: "/services/IT-Training",
-    },
-  ];
-  
+const services = [
+  {
+    icon: TabletSmartphone,
+    slug: "Software Development", // Changed to match the name in the API
+    href: "/services/Software-Development",
+  },
+  {
+    icon: AppWindow,
+    slug: "Web Application", // Changed to match the name in the API
+    href: "/services/Web-Application",
+  },
+  {
+    icon: ArrowDownUp,
+    slug: "Domain & Hosting", // Changed to match the name in the API
+    href: "/services/Domain-Hosting",
+  },
+  {
+    icon: BadgeEuro,
+    slug: "Digital Marketing", // Changed to match the name in the API
+    href: "/services/Digital-Marketing",
+  },
+  {
+    icon: ServerCog,
+    slug: "Dedicated Server Hosting", // Changed to match the name in the API
+    href: "/services/Dedicated-Server-Hosting",
+  },
+  {
+    icon: Satellite,
+    slug: "IT Training", // Changed to match the name in the API
+    href: "/services/IT-Training",
+  },
+];
 
 interface CmsMenu {
   name: string;
@@ -105,13 +104,9 @@ export default function OurServices() {
     [emblaApi]
   );
 
-  
-
   const filteredImages = data.menu_items.filter(
     (menu: Post) => menu.cms_menu.name === "Services"
   );
-
-
 
   // Update services with data from filteredImages
   const updatedServices = services.map((service) => {
@@ -131,6 +126,12 @@ export default function OurServices() {
           description: "Default Description", // Fallback description
         };
   });
+
+  function stripHtml(html: string): string {
+    const div = document.createElement("div");
+    div.innerHTML = html;
+    return div.textContent || div.innerText || "";
+  }
 
   return (
     <section className="py-20">
@@ -184,23 +185,30 @@ export default function OurServices() {
                         <h4 className="text-xl font-semibold mb-4">
                           {service.title}
                         </h4>
-                        <p
-                          className={`${
-                            activeIndex === index
-                              ? "text-white/90"
-                              : "text-gray-600 group-hover:text-white/90"
-                          }`}
-                          dangerouslySetInnerHTML={{ __html: service.description }}
-                        >
-                          
-                        </p>
+
+                        <div>
+                          <p
+                            className={`${
+                              activeIndex === index
+                                ? "text-white/90"
+                                : "text-gray-600 group-hover:text-white/90"
+                            }`}
+                          >
+                            {stripHtml(service.description || "")}
+                          </p>
+                        </div>
+
                         <Link href={service.href}>
-                          <Button variant="outline" size="icon" className={`${
-                            activeIndex === index
-                              ? "text-[#f26649] group-hover:text-[#f26649]"
-                              : "text-gray-600 group-hover:text-[#008fca]"
-                          }`}>
-                          <ChevronRight />
+                          <Button
+                            variant="outline"
+                            size="icon"
+                            className={`${
+                              activeIndex === index
+                                ? "text-[#f26649] group-hover:text-[#f26649]"
+                                : "text-gray-600 group-hover:text-[#008fca]"
+                            }`}
+                          >
+                            <ChevronRight />
                           </Button>
                         </Link>
                       </CardContent>
