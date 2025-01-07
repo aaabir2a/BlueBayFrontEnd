@@ -57,7 +57,7 @@ const services = [
   },
   {
     title: "Digital Marketing",
-    slug: "digital-marketing",
+    slug: "Digital-Marketing",
     image: "/DigitalMarketing.svg?height=800&width=1600",
     description: "Strategic Online Marketing Solutions Digital Marketing",
     whyChooseUs: {

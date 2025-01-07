@@ -25,7 +25,7 @@ export default function ServiceDetails({
     { name: "Software Development", href: "/services/Software-Development" },
     { name: "Web Application", href: "/services/Web-Application" },
     { name: "Domain & Hosting", href: "/services/Domain-Hosting" },
-    { name: "Digital Marketing", href: "/services/digital-marketing" },
+    { name: "Digital Marketing", href: "/services/Digital-Marketing" },
     { name: "Dedicated Server Hosting", href: "/services/Dedicated-Server-Hosting" },
     { name: "IT Training", href: "/services/IT-Training" },
   ]

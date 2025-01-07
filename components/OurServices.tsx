@@ -23,36 +23,42 @@ const services = [
     slug: "Software-Development",
     icon: TabletSmartphone,
     description: " To develop a desired application.",
+    href: "/services/Software-Development",
   },
   {
     title: "Web Application",
     slug: "Web-Application",
     icon: AppWindow,
     description: "Custom Web App Development",
+    href: "/services/Web-Application",
   },
   {
     title: "Domain & Hosting",
     slug: "Domain-Hosting",
     icon: ArrowDownUp,
     description: "Reliable Domain & Hosting Solutions",
+    href: "/services/Domain-Hosting",
   },
   {
     title: "Digital Marketing",
-    slug: "digital-marketing",
+    slug: "Digital-Marketing",
     icon: BadgeEuro,
     description: "Strategic Online Marketing Solutions.",
+    href: "/services/Digital-Marketing",
   },
   {
     title: "Dedicated Server Hosting",
     slug: "Dedicated-Server-Hosting",
     icon: ServerCog,
     description: "Secure Dedicated Server Hosting",
+    href: "/services/Dedicated-Server-Hosting",
   },
   {
     title: "IT Training",
     slug: "IT-Training",
     icon: Satellite,
     description: "Expert IT Skills Training ",
+    href: "/services/IT-Training",
   },
 ];
 
@@ -141,7 +147,7 @@ export default function OurServices() {
                         >
                           {service.description}
                         </p>
-                        <Link href={`/services/${service.slug}`}>
+                        <Link href={service.href}>
                           <Button variant="outline" size="icon" className={`${
                             activeIndex === index
                               ? "text-[#f26649] group-hover:text-[#f26649]"

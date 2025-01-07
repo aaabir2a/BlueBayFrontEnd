@@ -42,7 +42,7 @@ const services = [
   },
   {
     title: "Digital Marketing",
-    href: "/services/digital-marketing",
+    href: "/services/Digital-Marketing",
     description: "Strategic Online Marketing Solutions",
     icon: BadgeEuro,
   },

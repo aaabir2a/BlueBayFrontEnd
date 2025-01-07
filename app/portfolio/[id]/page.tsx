@@ -155,7 +155,7 @@ export default async function PortfolioItemPage({ params }: PageProps) {
                 alt={portfolio.title}
                 width={800}
                 height={600}
-                className="rounded-lg"
+                className="rounded-lg w-full h-[500px]"
               />
             </div>
             <div>
