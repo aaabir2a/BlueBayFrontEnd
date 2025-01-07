@@ -78,6 +78,12 @@ async function getPost(): Promise<{ menu_items: Post[] }> {
   return post;
 }
 
+function stripHtml(html: string): string {
+  const div = document.createElement("div");
+  div.innerHTML = html;
+  return div.textContent || div.innerText || "";
+}
+
 const data = await getPost();
 
 export default function OurServices() {
@@ -127,11 +133,7 @@ export default function OurServices() {
         };
   });
 
-  function stripHtml(html: string): string {
-    const div = document.createElement("div");
-    div.innerHTML = html;
-    return div.textContent || div.innerText || "";
-  }
+
 
   return (
     <section className="py-20">
