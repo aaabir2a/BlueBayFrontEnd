@@ -16,51 +16,70 @@ import useEmblaCarousel from "embla-carousel-react";
 import AutoplayPlugin from "embla-carousel-autoplay";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { notFound } from 'next/navigation';
 
-const services = [
-  {
-    title: "Software Development",
-    slug: "Software-Development",
-    icon: TabletSmartphone,
-    description: " To develop a desired application.",
-    href: "/services/Software-Development",
-  },
-  {
-    title: "Web Application",
-    slug: "Web-Application",
-    icon: AppWindow,
-    description: "Custom Web App Development",
-    href: "/services/Web-Application",
-  },
-  {
-    title: "Domain & Hosting",
-    slug: "Domain-Hosting",
-    icon: ArrowDownUp,
-    description: "Reliable Domain & Hosting Solutions",
-    href: "/services/Domain-Hosting",
-  },
-  {
-    title: "Digital Marketing",
-    slug: "Digital-Marketing",
-    icon: BadgeEuro,
-    description: "Strategic Online Marketing Solutions.",
-    href: "/services/Digital-Marketing",
-  },
-  {
-    title: "Dedicated Server Hosting",
-    slug: "Dedicated-Server-Hosting",
-    icon: ServerCog,
-    description: "Secure Dedicated Server Hosting",
-    href: "/services/Dedicated-Server-Hosting",
-  },
-  {
-    title: "IT Training",
-    slug: "IT-Training",
-    icon: Satellite,
-    description: "Expert IT Skills Training ",
-    href: "/services/IT-Training",
-  },
-];
+ const services = [
+    {
+      icon: TabletSmartphone,
+      slug: "Software Development", // Changed to match the name in the API
+      href: "/services/Software-Development",
+    },
+    {
+      icon: AppWindow,
+      slug: "Web Application", // Changed to match the name in the API
+      href: "/services/Web-Application",
+    },
+    {
+      icon: ArrowDownUp,
+      slug: "Domain & Hosting", // Changed to match the name in the API
+      href: "/services/Domain-Hosting",
+    },
+    {
+      icon: BadgeEuro,
+      slug: "Digital Marketing", // Changed to match the name in the API
+      href: "/services/Digital-Marketing",
+    },
+    {
+      icon: ServerCog,
+      slug: "Dedicated Server Hosting", // Changed to match the name in the API
+      href: "/services/Dedicated-Server-Hosting",
+    },
+    {
+      icon: Satellite,
+      slug: "IT Training", // Changed to match the name in the API
+      href: "/services/IT-Training",
+    },
+  ];
+  
+
+interface CmsMenu {
+  name: string;
+  value: string;
+}
+
+interface Post {
+  cms_menu: CmsMenu;
+  name: string;
+  value: string;
+}
+
+async function getPost(): Promise<{ menu_items: Post[] }> {
+  const res = await fetch(
+    `https://api.bluebayit.com/cms_menu_content/api/v1/cms_menu_content/without_pagination/all/`,
+    { cache: "force-cache" }
+  );
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  const post = await res.json();
+  if (!post) notFound(); // If `notFound` is defined elsewhere
+
+  return post;
+}
+
+const data = await getPost();
 
 export default function OurServices() {
   const [emblaRef, emblaApi] = useEmblaCarousel(
@@ -86,6 +105,33 @@ export default function OurServices() {
     [emblaApi]
   );
 
+  
+
+  const filteredImages = data.menu_items.filter(
+    (menu: Post) => menu.cms_menu.name === "Services"
+  );
+
+
+
+  // Update services with data from filteredImages
+  const updatedServices = services.map((service) => {
+    const matchedMenu = filteredImages.find(
+      (menu) => menu.name === service.slug
+    );
+
+    return matchedMenu
+      ? {
+          ...service,
+          title: matchedMenu.name, // Use `service_name`
+          description: matchedMenu.value, // Use `service_value`
+        }
+      : {
+          ...service,
+          title: "Default Title", // Fallback title if no match
+          description: "Default Description", // Fallback description
+        };
+  });
+
   return (
     <section className="py-20">
       <div className="container mx-auto px-4">
@@ -99,7 +145,7 @@ export default function OurServices() {
 
         <div className="overflow-hidden" ref={emblaRef}>
           <div className="flex">
-            {services.map((service, index) => {
+            {updatedServices.map((service, index) => {
               const Icon = service.icon;
               return (
                 <div
@@ -144,8 +190,9 @@ export default function OurServices() {
                               ? "text-white/90"
                               : "text-gray-600 group-hover:text-white/90"
                           }`}
+                          dangerouslySetInnerHTML={{ __html: service.description }}
                         >
-                          {service.description}
+                          
                         </p>
                         <Link href={service.href}>
                           <Button variant="outline" size="icon" className={`${
