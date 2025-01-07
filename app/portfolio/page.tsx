@@ -1,5 +1,4 @@
 import PageHeroSection from "@/components/PageHeroSection"
-import Category from "@/components/Category"
 import Category2 from "@/components/Category2"
 
 export default function PortfolioPage() {

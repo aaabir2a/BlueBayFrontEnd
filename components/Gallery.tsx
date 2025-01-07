@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from 'react'
-import { GET_IMAGE_BY_without_pagination } from "@/lib/config"
+import {  GET_IMAGE_BY_without_pagination } from "@/lib/config"
 import { GalleryGrid } from "./GalleryGrid"
 import { Loader2, RefreshCcw } from 'lucide-react'
 import { Button } from "@/components/ui/button"
@@ -60,32 +60,32 @@ export default function Gallery() {
     }
   }
 
-  const fetchWithRetry = async () => {
-    setIsLoading(true)
-    setError(null)
-
-    try {
-      await fetchImagesWithTimeout()
-    } catch (error) {
-      console.error("Failed to fetch gallery images:", error)
-      
-      if (retryCount < MAX_RETRIES) {
-        setRetryCount(prev => prev + 1)
-        setTimeout(() => {
-          fetchWithRetry()
-        }, RETRY_DELAY)
-        setError(`Request failed. Retrying... (Attempt ${retryCount + 1}/${MAX_RETRIES})`)
-      } else {
-        setError("Failed to load gallery images after multiple attempts. Please try again.")
-      }
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
   useEffect(() => {
+    const fetchWithRetry = async () => {
+      setIsLoading(true)
+      setError(null)
+
+      try {
+        await fetchImagesWithTimeout()
+      } catch (error) {
+        console.error("Failed to fetch gallery images:", error)
+        
+        if (retryCount < MAX_RETRIES) {
+          setRetryCount(prev => prev + 1)
+          setTimeout(() => {
+            fetchWithRetry()
+          }, RETRY_DELAY)
+          setError(`Request failed. Retrying... (Attempt ${retryCount + 1}/${MAX_RETRIES})`)
+        } else {
+          setError("Failed to load gallery images after multiple attempts. Please try again.")
+        }
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
     fetchWithRetry()
-  }, [])
+  }, [retryCount])
 
   if (isLoading) {
     return (
@@ -105,7 +105,7 @@ export default function Gallery() {
         <Button 
           onClick={() => {
             setRetryCount(0)
-            fetchWithRetry()
+            // fetchWithRetry() //This is no longer needed as fetchWithRetry is called automatically in useEffect
           }}
           className="flex items-center space-x-2"
         >

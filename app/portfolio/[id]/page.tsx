@@ -119,14 +119,15 @@ export function generateStaticParams() {
   }))
 }
 
-export default async function PortfolioItemPage({ 
-  params 
-}: { 
-  params: { id: string }
-}) {
-  const portfolio = portfolioItems.find((item) => item.id === params.id)
+interface PageProps {
+  params: Promise<{ id: string }>
+}
+
+export default async function PortfolioItemPage({ params }: PageProps) {
+  const { id } = await params
+  const portfolio = portfolioItems.find((item) => item.id === id)
   const portfolioImages = await getPortfolioImages()
-  const portfolioIndex = portfolioItems.findIndex((item) => item.id === params.id)
+  const portfolioIndex = portfolioItems.findIndex((item) => item.id === id)
   const portfolioImage = portfolioImages[portfolioIndex % portfolioImages.length]
 
   if (!portfolio) {
@@ -137,11 +138,11 @@ export default async function PortfolioItemPage({
     <>
       <PageHeroSection 
         title={portfolio.title}
-        backgroundImage="/placeholder.svg?height=800&width=1600"
+        backgroundImage="/heroportfolio.svg?height=800&width=1600"
         breadcrumbs={[
           { label: "HOME", href: "/" },
           { label: "PORTFOLIO", href: "/portfolio" },
-          { label: portfolio.title.toUpperCase(), href: `/portfolio/${params.id}` }
+          { label: portfolio.title.toUpperCase(), href: `/portfolio/${id}` }
         ]}
       />
 
