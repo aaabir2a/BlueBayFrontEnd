@@ -1,9 +1,5 @@
-"use client"
-
-import { useState, useEffect } from 'react'
-import { GET_IMAGE_BY_without_pagination } from "@/lib/config"
 import { GalleryGrid } from "./GalleryGrid"
-import { Loader2 } from 'lucide-react'
+import { BASE_URL } from "@/lib/config"
 
 interface ContentImage {
   id: number
@@ -16,39 +12,13 @@ interface ContentImage {
   image: string
 }
 
-export default function Gallery() {
-  const [images, setImages] = useState<ContentImage[]>([])
-  const [isLoading, setIsLoading] = useState(true)
+interface GalleryProps {
+  images: ContentImage[]
+}
 
-  useEffect(() => {
-    async function fetchImages() {
-      try {
-        const response = await fetch(GET_IMAGE_BY_without_pagination)
-        if (!response.ok) throw new Error('Failed to fetch images')
-        
-        const data = await response.json()
-        const filteredImages = data.content_images.filter((img: ContentImage) => 
-          img.cms_menu.name === "Gallery" && img.head === "Office"
-        )
-        setImages(filteredImages)
-      } catch (error) {
-        console.error('Error:', error)
-      } finally {
-        setIsLoading(false)
-      }
-    }
+export default function Gallery({ images }: GalleryProps) {
+  const galleryImages = images.filter((img) => img.cms_menu.name === "Gallery" && img.head === "Office")
 
-    fetchImages()
-  }, [])
-
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center min-h-[400px]">
-        <Loader2 className="w-8 h-8 animate-spin text-primary" />
-      </div>
-    )
-  }
-
-  return <GalleryGrid images={images} />
+  return <GalleryGrid images={galleryImages} baseUrl={BASE_URL} />
 }
 

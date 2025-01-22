@@ -2,8 +2,7 @@
 
 import { useState } from "react"
 import Image from "next/image"
-import { X } from 'lucide-react'
-import { BASE_URL } from "@/lib/config"
+import { X } from "lucide-react"
 
 interface ContentImage {
   id: number
@@ -18,9 +17,10 @@ interface ContentImage {
 
 interface GalleryGridProps {
   images: ContentImage[]
+  baseUrl: string
 }
 
-export function GalleryGrid({ images }: GalleryGridProps) {
+export function GalleryGrid({ images, baseUrl }: GalleryGridProps) {
   const [selectedImage, setSelectedImage] = useState<number | null>(null)
 
   return (
@@ -34,7 +34,7 @@ export function GalleryGrid({ images }: GalleryGridProps) {
             onClick={() => setSelectedImage(index)}
           >
             <Image
-              src={`${BASE_URL}${image.image}`}
+              src={`${baseUrl}${image.image}`}
               alt={`Gallery Image ${index + 1}`}
               fill
               className="object-cover hover:scale-105 transition-transform duration-300"
@@ -47,7 +47,7 @@ export function GalleryGrid({ images }: GalleryGridProps) {
 
       {/* Modal */}
       {selectedImage !== null && (
-        <div 
+        <div
           className="fixed inset-0 bg-black/90 z-50 p-4 flex items-center justify-center"
           onClick={() => setSelectedImage(null)}
         >
@@ -58,12 +58,9 @@ export function GalleryGrid({ images }: GalleryGridProps) {
             <X className="w-6 h-6" />
           </button>
 
-          <div 
-            className="relative w-full max-w-4xl aspect-[4/3]"
-            onClick={e => e.stopPropagation()}
-          >
+          <div className="relative w-full max-w-4xl aspect-[4/3]" onClick={(e) => e.stopPropagation()}>
             <Image
-              src={`${BASE_URL}${images[selectedImage].image}`}
+              src={`${baseUrl}${images[selectedImage].image}`}
               alt={`Gallery Image ${selectedImage + 1}`}
               fill
               className="object-contain"
@@ -78,7 +75,7 @@ export function GalleryGrid({ images }: GalleryGridProps) {
               className="px-4 py-2 bg-white/20 text-white rounded-lg hover:bg-white/30"
               onClick={(e) => {
                 e.stopPropagation()
-                setSelectedImage(prev => prev === 0 ? images.length - 1 : prev! - 1)
+                setSelectedImage((prev) => (prev === 0 ? images.length - 1 : prev! - 1))
               }}
             >
               Previous
@@ -87,7 +84,7 @@ export function GalleryGrid({ images }: GalleryGridProps) {
               className="px-4 py-2 bg-white/20 text-white rounded-lg hover:bg-white/30"
               onClick={(e) => {
                 e.stopPropagation()
-                setSelectedImage(prev => prev === images.length - 1 ? 0 : prev! + 1)
+                setSelectedImage((prev) => (prev === images.length - 1 ? 0 : prev! + 1))
               }}
             >
               Next
