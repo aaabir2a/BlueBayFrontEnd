@@ -1,18 +1,20 @@
-import AboutUs from "@/components/AboutUs";
-import HeroSection from "@/components/HeroSection";
-import OurPortfolio from "@/components/OurPortfolio";
-import OurServices from "@/components/OurServices";
 
+import HeroSection from "@/components/HeroSection"
+import AboutUs from "@/components/AboutUs"
+import OurPortfolio from "@/components/OurPortfolio"
+import OurServices from "@/components/OurServices"
+import ServiceData from "@/components/ServiceData"
 
-export default function Home() {
+export default async function Home() {
+  const serviceData = await ServiceData()
+
   return (
-    <main className="overflow-hidden">
-
+    <main>
       <HeroSection />
-      <AboutUs/>
-      <OurServices/>
-      <OurPortfolio/>
-
+      <OurServices serviceData={serviceData} />
+      <AboutUs />
+      <OurPortfolio />
     </main>
   )
 }
+
