@@ -114,13 +114,13 @@ export default function OurServices({ serviceData }: OurServicesProps) {
                     className="p-1"
                   >
                     <Card
-                      className={`overflow-hidden border-none shadow-lg relative group transition-all duration-300 ${
+                      className={`overflow-hidden border-none shadow-lg relative group transition-all duration-300 h-full ${
                         activeIndex === index
                           ? "bg-gradient-to-br from-[#0066FF] to-[#4D9FFF] text-white"
                           : "hover:bg-gradient-to-br hover:from-[#0066FF] hover:to-[#4D9FFF] hover:text-white"
                       }`}
                     >
-                      <CardContent className="flex flex-col items-center text-center p-6">
+                      <CardContent className="flex flex-col justify-between items-center text-center p-6 h-full">
                         <div
                           className={`mb-6 p-4 rounded-full ${
                             activeIndex === index ? "bg-white/20" : "bg-[#0066FF]/10 group-hover:bg-white/20"
@@ -142,20 +142,21 @@ export default function OurServices({ serviceData }: OurServicesProps) {
                             {parseBasicHtml(service.description || "")}
                           </p>
                         </div>
-
-                        <Link href={service.href}>
-                          <Button
-                            variant="outline"
-                            size="icon"
-                            className={`${
-                              activeIndex === index
-                                ? "text-[#f26649] group-hover:text-[#f26649]"
-                                : "text-gray-600 group-hover:text-[#008fca]"
-                            }`}
-                          >
-                            <ChevronRight />
-                          </Button>
-                        </Link>
+                        <div className="mt-4">
+                          <Link href={service.href}>
+                            <Button
+                              variant="outline"
+                              size="icon"
+                              className={`${
+                                activeIndex === index
+                                  ? "text-[#f26649] group-hover:text-[#f26649]"
+                                  : "text-gray-600 group-hover:text-[#008fca]"
+                              }`}
+                            >
+                              <ChevronRight />
+                            </Button>
+                          </Link>
+                        </div>
                       </CardContent>
                     </Card>
                   </motion.div>

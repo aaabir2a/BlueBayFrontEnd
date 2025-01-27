@@ -1,18 +1,21 @@
 import PageHeroSection from "@/components/PageHeroSection"
 import Category2 from "@/components/Category2"
+import { getCategoryData } from "@/components/CategoryData"
 
-export default function PortfolioPage() {
+export default async function PortfolioPage() {
+  const portfolioImages = await getCategoryData()
+
   return (
     <>
-      <PageHeroSection 
-        title="Our Portfolio" 
-        backgroundImage="/heroportfolio.svg?height=800&width=1600"
+      <PageHeroSection
+        title="Our Portfolio"
+        backgroundImage="/placeholder.svg?height=800&width=1600"
         breadcrumbs={[
           { label: "HOME", href: "/" },
-          { label: "PORTFOLIO", href: "/portfolio" }
+          { label: "PORTFOLIO", href: "/portfolio" },
         ]}
       />
-      
+
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
@@ -21,8 +24,8 @@ export default function PortfolioPage() {
               Latest & <span className="font-normal">Greatest Projects</span>
             </h3>
           </div>
-          
-          <Category2 />
+
+          <Category2 portfolioImages={portfolioImages} />
         </div>
       </section>
     </>
