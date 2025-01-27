@@ -2,41 +2,42 @@
 
 import * as React from "react"
 import { Card, CardContent } from "@/components/ui/card"
-import { AppWindow, ArrowDownUp, BadgeEuro, ChevronRight, Satellite, ServerCog, TabletSmartphone } from "lucide-react"
+import { ChevronRight } from "lucide-react"
 import { motion } from "framer-motion"
 import useEmblaCarousel from "embla-carousel-react"
 import AutoplayPlugin from "embla-carousel-autoplay"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { DotLottieReact } from "@lottiefiles/dotlottie-react"
 
 const services = [
   {
-    icon: TabletSmartphone,
+    anime: "https://lottie.host/a0e806bb-87f9-487d-a1fe-d7130d526431/UA5AWvvUrG.lottie",
     slug: "Software Development",
     href: "/services/Software-Development",
   },
   {
-    icon: AppWindow,
+    anime: "https://lottie.host/1b5f46bc-3e62-454b-914b-7ad3283fd829/za8lsBIkQ8.lottie",
     slug: "Web Application",
     href: "/services/Web-Application",
   },
   {
-    icon: ArrowDownUp,
+    anime: "https://lottie.host/ac4f7515-dbea-40b3-9dc2-a3d69827fd4c/oHMo3jxD5V.lottie",
     slug: "Domain & Hosting",
     href: "/services/Domain-Hosting",
   },
   {
-    icon: BadgeEuro,
+    anime: "https://lottie.host/fb33a460-5598-436e-8ee6-35401acdbfd8/tyuZHSa9SN.lottie",
     slug: "Digital Marketing",
     href: "/services/Digital-Marketing",
   },
   {
-    icon: ServerCog,
+    anime: "https://lottie.host/69428056-3d66-4cc8-a4a4-30923ba56323/W8otuF9SEr.lottie",
     slug: "Dedicated Server Hosting",
     href: "/services/Dedicated-Server-Hosting",
   },
   {
-    icon: Satellite,
+    anime: "https://lottie.host/cac77cf2-b345-4650-bfe3-823bf0218a69/pBLjfU3dVB.lottie",
     slug: "IT Training",
     href: "/services/IT-Training",
   },
@@ -104,7 +105,6 @@ export default function OurServices({ serviceData }: OurServicesProps) {
         <div className="overflow-hidden" ref={emblaRef}>
           <div className="flex">
             {updatedServices.map((service, index) => {
-              const Icon = service.icon
               return (
                 <div key={index} className="flex-[0_0_100%] md:basis-1/2 lg:basis-1/3 min-w-0 pl-4">
                   <motion.div
@@ -114,26 +114,22 @@ export default function OurServices({ serviceData }: OurServicesProps) {
                     className="p-1"
                   >
                     <Card
-                      className={`overflow-hidden border-none shadow-lg relative group transition-all duration-300 h-full ${
+                      className={`overflow-hidden border-none shadow-lg relative group transition-all duration-300 h-25 ${
                         activeIndex === index
                           ? "bg-gradient-to-br from-[#0066FF] to-[#4D9FFF] text-white"
                           : "hover:bg-gradient-to-br hover:from-[#0066FF] hover:to-[#4D9FFF] hover:text-white"
                       }`}
                     >
                       <CardContent className="flex flex-col justify-between items-center text-center p-6 h-full">
-                        <div
-                          className={`mb-6 p-4 rounded-full ${
-                            activeIndex === index ? "bg-white/20" : "bg-[#0066FF]/10 group-hover:bg-white/20"
-                          }`}
-                        >
-                          <Icon
-                            className={`w-8 h-8 ${
-                              activeIndex === index ? "text-white" : "text-[#0066FF] group-hover:text-white"
-                            }`}
+                        <div className="mb-6 w-24 h-24">
+                          <DotLottieReact
+                            src={service.anime || ""}
+                            loop
+                            autoplay
                           />
                         </div>
                         <h4 className="text-xl font-semibold mb-4">{service.title}</h4>
-                        <div>
+                        <div className="overflow-hidden h-20 w-15">
                           <p
                             className={`${
                               activeIndex === index ? "text-white/90" : "text-gray-600 group-hover:text-white/90"
