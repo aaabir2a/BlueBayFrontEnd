@@ -9,7 +9,7 @@ export default async function PortfolioPage() {
     <>
       <PageHeroSection
         title="Our Portfolio"
-        backgroundImage="/placeholder.svg?height=800&width=1600"
+        backgroundImage="/services.jpg?height=800&width=1600"
         breadcrumbs={[
           { label: "HOME", href: "/" },
           { label: "PORTFOLIO", href: "/portfolio" },

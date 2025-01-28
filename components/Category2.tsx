@@ -1,10 +1,19 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { cn } from "@/lib/utils"
 import { BASE_URL } from "@/lib/config"
+import projectsData from "../jsonData/projects.json"
+
+interface Project {
+  Sl: number
+  "Company Name": string
+  Service: string
+  Category: string
+  Description: string
+}
 
 const categories = [
   { id: "all", label: "ALL" },
@@ -16,71 +25,27 @@ const categories = [
   { id: "e-com", label: "E-COMMERCE" },
 ]
 
-const portfolioItems = [
-  {
-    id: "poly-world-service",
-    title: "Poly World Service",
-    category: "rams",
-    description: "Comprehensive recruitment agency management system",
-  },
-  {
-    id: "hrdc",
-    title: "H R D C",
-    category: "rams",
-    description: "Human resource development center management",
-  },
-  {
-    id: "airtrip-international",
-    title: "Airtrip International",
-    category: "rams",
-    description: "International travel and recruitment platform",
-  },
-  {
-    id: "welcome-dmc",
-    title: "Welcome D M C",
-    category: "dms",
-    description: "Digital medical center management system",
-  },
-  {
-    id: "perfect-medicare",
-    title: "Perfect Medicare Ltd",
-    category: "dms",
-    description: "Healthcare facility management solution",
-  },
-  {
-    id: "bashurhat-super-shop",
-    title: "Bashurhat Super Shop",
-    category: "pos",
-    description: "Modern point of sale system for retail",
-  },
-]
-
-interface ContentImage {
-  id: number
-  cms_menu: {
-    id: number
-    name: string
-    parent: null
-  }
-  head: string
-  image: string
-}
-
-interface CategoryProps {
+interface Category2Props {
   initialCategory?: string
   showCategoryButtons?: boolean
-  portfolioImages: ContentImage[]
+  portfolioImages: string
 }
 
 export default function Category2({
   initialCategory = "all",
   showCategoryButtons = true,
   portfolioImages,
-}: CategoryProps) {
+}: Category2Props) {
   const [activeCategory, setActiveCategory] = useState(initialCategory)
+  const [filteredProjects, setFilteredProjects] = useState<Project[]>([])
 
-  const filteredItems =
-    activeCategory === "all" ? portfolioItems : portfolioItems.filter((item) => item.category === activeCategory)
+  useEffect(() => {
+    const filtered =
+      activeCategory === "all"
+        ? projectsData
+        : projectsData.filter((project) => project.Category.toLowerCase() === activeCategory.toLowerCase())
+    setFilteredProjects(filtered)
+  }, [activeCategory])
 
   return (
     <div>
@@ -104,15 +69,15 @@ export default function Category2({
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {filteredItems.map((item, index) => {
+        {filteredProjects.map((project, index) => {
           const portfolioImage = portfolioImages[index % portfolioImages.length]
 
           return (
-            <Link key={item.id} href={`/portfolio/${item.id}`} className="group block">
+            <Link key={project.Sl} href={`/portfolio/${project.Sl}`} className="group block">
               <div className="relative overflow-hidden rounded-lg">
                 <Image
                   src={portfolioImage ? `${BASE_URL}${portfolioImage.image}` : "/placeholder.svg?height=400&width=600"}
-                  alt={item.title}
+                  alt={project["Company Name"]}
                   width={600}
                   height={400}
                   className="w-full h-[500px] object-cover transition-transform duration-300 group-hover:scale-110"
@@ -122,8 +87,8 @@ export default function Category2({
                 </div>
               </div>
               <div className="mt-4 text-center">
-                <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-                <p className="text-gray-500 uppercase text-sm">{item.category}</p>
+                <h3 className="text-xl font-semibold mb-2">{project["Company Name"]}</h3>
+                <p className="text-gray-500 uppercase text-sm">{project.Service}</p>
               </div>
             </Link>
           )

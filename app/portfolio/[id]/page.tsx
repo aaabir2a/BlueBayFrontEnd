@@ -1,88 +1,23 @@
-import { notFound } from 'next/navigation'
-import Image from 'next/image'
+import { notFound } from "next/navigation"
+import Image from "next/image"
 import PageHeroSection from "@/components/PageHeroSection"
 import { BASE_URL, GET_IMAGE_BY_without_pagination } from "@/lib/config"
+import projectsData from "@/jsonData/projects.json"
 
-const portfolioItems = [
-  {
-    id: "poly-world-service",
-    title: "Poly World Service",
-    category: "rams",
-    description: "Comprehensive recruitment agency management system",
-    details: {
-      client: "Poly World Service Ltd.",
-      technology: "Next.js, Node.js, MongoDB",
-      industry: "Recruitment",
-      date: "2023",
-      website: "https://example.com",
-    }
-  },
-  {
-    id: "hrdc",
-    title: "H R D C",
-    category: "rams",
-    description: "Human resource development center management",
-    details: {
-      client: "HRDC International",
-      technology: "React, Express, PostgreSQL",
-      industry: "Human Resources",
-      date: "2023",
-      website: "https://example.com",
-    }
-  },
-  {
-    id: "airtrip-international",
-    title: "Airtrip International",
-    category: "rams",
-    description: "International travel and recruitment platform",
-    details: {
-      client: "Airtrip International Ltd.",
-      technology: "Next.js, Python, MySQL",
-      industry: "Travel & Recruitment",
-      date: "2023",
-      website: "https://example.com",
-    }
-  },
-  {
-    id: "welcome-dmc",
-    title: "Welcome D M C",
-    category: "dms",
-    description: "Digital medical center management system",
-    details: {
-      client: "Welcome Medical Center",
-      technology: "React, Django, PostgreSQL",
-      industry: "Healthcare",
-      date: "2023",
-      website: "https://example.com",
-    }
-  },
-  {
-    id: "perfect-medicare",
-    title: "Perfect Medicare Ltd",
-    category: "dms",
-    description: "Healthcare facility management solution",
-    details: {
-      client: "Perfect Medicare Limited",
-      technology: "Next.js, Express, MongoDB",
-      industry: "Healthcare",
-      date: "2023",
-      website: "https://example.com",
-    }
-  },
-  {
-    id: "bashurhat-super-shop",
-    title: "Bashurhat Super Shop",
-    category: "pos",
-    description: "Modern point of sale system for retail",
-    details: {
-      client: "Bashurhat Super Shop",
-      technology: "React, Node.js, MySQL",
-      industry: "Retail",
-      date: "2023",
-      website: "https://example.com",
-    }
-  },
-]
+interface Project {
+  Sl: number
+  "Company Name": string
+  Service: string
+  Category: string
+  Description: string
+  details: {
+    client: string
+    technology: string
+    industry: string
+    date: string
+    website: string
+  }
+}
 
 interface ContentImage {
   id: number
@@ -95,27 +30,27 @@ interface ContentImage {
   image: string
 }
 
-async function getPortfolioImages() {
+async function getPortfolioImages(): Promise<ContentImage[]> {
   try {
     const response = await fetch(GET_IMAGE_BY_without_pagination, {
-      next: { revalidate: 3600 } // Revalidate every hour
+      next: { revalidate: 3600 }, // Revalidate every hour
     })
+
     if (!response.ok) {
-      throw new Error('Failed to fetch portfolio images')
+      throw new Error("Failed to fetch portfolio images")
     }
+
     const data = await response.json()
-    return data.content_images.filter(
-      (img: ContentImage) => img.cms_menu.name === "Portfolio"
-    )
+    return data.content_images.filter((img: ContentImage) => img.cms_menu.name === "Portfolio")
   } catch (error) {
-    console.error('Error fetching portfolio images:', error)
+    console.error("Error fetching portfolio images:", error)
     return []
   }
 }
 
-export function generateStaticParams() {
-  return portfolioItems.map((item) => ({
-    id: item.id,
+export async function generateStaticParams() {
+  return projectsData.map((project) => ({
+    id: project.Sl.toString(),
   }))
 }
 
@@ -124,25 +59,26 @@ interface PageProps {
 }
 
 export default async function PortfolioItemPage({ params }: PageProps) {
+  // Await the params
   const { id } = await params
-  const portfolio = portfolioItems.find((item) => item.id === id)
-  const portfolioImages = await getPortfolioImages()
-  const portfolioIndex = portfolioItems.findIndex((item) => item.id === id)
-  const portfolioImage = portfolioImages[portfolioIndex % portfolioImages.length]
+  const project = projectsData.find((item) => item.Sl.toString() === id)
 
-  if (!portfolio) {
+  if (!project) {
     notFound()
   }
 
+  const portfolioImages = await getPortfolioImages()
+  const projectImage = portfolioImages[Number.parseInt(id) % portfolioImages.length]
+
   return (
     <>
-      <PageHeroSection 
-        title={portfolio.title}
-        backgroundImage="/heroportfolio.svg?height=800&width=1600"
+      <PageHeroSection
+        title={project["Company Name"]}
+        backgroundImage="/placeholder.svg?height=800&width=1600"
         breadcrumbs={[
           { label: "HOME", href: "/" },
           { label: "PORTFOLIO", href: "/portfolio" },
-          { label: portfolio.title.toUpperCase(), href: `/portfolio/${id}` }
+          { label: project["Company Name"].toUpperCase(), href: `/portfolio/${id}` },
         ]}
       />
 
@@ -151,46 +87,46 @@ export default async function PortfolioItemPage({ params }: PageProps) {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div>
               <Image
-                src={portfolioImage ? `${BASE_URL}${portfolioImage.image}` : "/placeholder.svg?height=600&width=800"}
-                alt={portfolio.title}
+                src={projectImage ? `${BASE_URL}${projectImage.image}` : "/placeholder.svg?height=600&width=800"}
+                alt={project["Company Name"]}
                 width={800}
                 height={600}
-                className="rounded-lg w-full h-[500px]"
+                className="rounded-lg"
               />
             </div>
             <div>
-              <h1 className="text-3xl font-bold mb-6">{portfolio.title}</h1>
-              <p className="text-gray-600 mb-8">{portfolio.description}</p>
-              
+              <h1 className="text-3xl font-bold mb-6">{project["Company Name"]}</h1>
+              <p className="text-gray-600 mb-8">{project.Description}</p>
+
               <div className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <h3 className="font-semibold mb-1">Client:</h3>
-                    <p className="text-gray-600">{portfolio.details.client}</p>
+                    <p className="text-gray-600">{project.details.client}</p>
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Industry:</h3>
-                    <p className="text-gray-600">{portfolio.details.industry}</p>
+                    <p className="text-gray-600">{project.details.industry}</p>
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Technology:</h3>
-                    <p className="text-gray-600">{portfolio.details.technology}</p>
+                    <p className="text-gray-600">{project.details.technology}</p>
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Date:</h3>
-                    <p className="text-gray-600">{portfolio.details.date}</p>
+                    <p className="text-gray-600">{project.details.date}</p>
                   </div>
                 </div>
-                
+
                 <div>
                   <h3 className="font-semibold mb-1">Website:</h3>
-                  <a 
-                    href={portfolio.details.website}
+                  <a
+                    href={project.details.website}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[#0066FF] hover:underline"
                   >
-                    {portfolio.details.website}
+                    {project.details.website}
                   </a>
                 </div>
               </div>
