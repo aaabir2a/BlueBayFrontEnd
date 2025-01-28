@@ -4,20 +4,20 @@ import PageHeroSection from "@/components/PageHeroSection"
 import { BASE_URL, GET_IMAGE_BY_without_pagination } from "@/lib/config"
 import projectsData from "@/jsonData/projects.json"
 
-interface Project {
-  Sl: number
-  "Company Name": string
-  Service: string
-  Category: string
-  Description: string
-  details: {
-    client: string
-    technology: string
-    industry: string
-    date: string
-    website: string
-  }
-}
+// interface Project {
+//   Sl: number
+//   "Company Name": string
+//   Service: string
+//   Category: string
+//   Description: string
+//   details: {
+//     client: string
+//     technology: string
+//     industry: string
+//     date: string
+//     website: string
+//   }
+// }
 
 interface ContentImage {
   id: number
