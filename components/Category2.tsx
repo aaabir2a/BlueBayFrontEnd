@@ -28,7 +28,7 @@ const categories = [
 interface Category2Props {
   initialCategory?: string
   showCategoryButtons?: boolean
-  portfolioImages: string
+  portfolioImages: any[]
 }
 
 export default function Category2({
