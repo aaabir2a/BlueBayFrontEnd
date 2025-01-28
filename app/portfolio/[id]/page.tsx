@@ -1,25 +1,11 @@
 import { notFound } from "next/navigation"
 import Image from "next/image"
 import PageHeroSection from "@/components/PageHeroSection"
-import { BASE_URL, GET_IMAGE_BY_without_pagination } from "@/lib/config"
+import { BASE_URL } from "@/lib/config"
 import projectsData from "@/jsonData/projects.json"
+import { getCategoryData } from "@/components/CategoryData"
 
-// interface Project {
-//   Sl: number
-//   "Company Name": string
-//   Service: string
-//   Category: string
-//   Description: string
-//   details: {
-//     client: string
-//     technology: string
-//     industry: string
-//     date: string
-//     website: string
-//   }
-// }
-
-interface ContentImage {
+interface PortfolioImage {
   id: number
   cms_menu: {
     id: number
@@ -28,24 +14,7 @@ interface ContentImage {
   }
   head: string
   image: string
-}
-
-async function getPortfolioImages(): Promise<ContentImage[]> {
-  try {
-    const response = await fetch(GET_IMAGE_BY_without_pagination, {
-      next: { revalidate: 3600 }, // Revalidate every hour
-    })
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch portfolio images")
-    }
-
-    const data = await response.json()
-    return data.content_images.filter((img: ContentImage) => img.cms_menu.name === "Portfolio")
-  } catch (error) {
-    console.error("Error fetching portfolio images:", error)
-    return []
-  }
+  imageName: string
 }
 
 export async function generateStaticParams() {
@@ -55,11 +24,10 @@ export async function generateStaticParams() {
 }
 
 interface PageProps {
-  params: Promise<{ id: string }>
+  params: { id: string }
 }
 
 export default async function PortfolioItemPage({ params }: PageProps) {
-  // Await the params
   const { id } = await params
   const project = projectsData.find((item) => item.Sl.toString() === id)
 
@@ -67,14 +35,22 @@ export default async function PortfolioItemPage({ params }: PageProps) {
     notFound()
   }
 
-  const portfolioImages = await getPortfolioImages()
-  const projectImage = portfolioImages[Number.parseInt(id) % portfolioImages.length]
+  const portfolioImages = await getCategoryData()
+
+  const getProjectImage = (projectName: string) => {
+    const matchingImage = portfolioImages.find(
+      (img: PortfolioImage) => img.imageName.toLowerCase() === projectName.toLowerCase(),
+    )
+    return matchingImage ? `${BASE_URL}${matchingImage.image}` : "/placeholder.svg?height=600&width=800"
+  }
+
+  const projectImage = getProjectImage(project["Company Name"])
 
   return (
     <>
       <PageHeroSection
         title={project["Company Name"]}
-        backgroundImage="/services.jpg?height=800&width=1600"
+        backgroundImage="/placeholder.svg?height=800&width=1600"
         breadcrumbs={[
           { label: "HOME", href: "/" },
           { label: "PORTFOLIO", href: "/portfolio" },
@@ -85,13 +61,13 @@ export default async function PortfolioItemPage({ params }: PageProps) {
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div>
+            <div className="w-20 h-20 ">
               <Image
-                src={projectImage ? `${BASE_URL}${projectImage.image}` : "/placeholder.svg?height=600&width=800"}
+                src={projectImage || "/placeholder.svg"}
                 alt={project["Company Name"]}
-                width={800}
-                height={600}
-                className="rounded-lg"
+                width={100}
+                height={100}
+                className="rounded-lg object-cover w-full h-auto"
               />
             </div>
             <div>

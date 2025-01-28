@@ -4,6 +4,7 @@ import { getCategoryData } from "@/components/CategoryData"
 
 export default async function PortfolioPage() {
   const portfolioImages = await getCategoryData()
+  
 
   return (
     <>

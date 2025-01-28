@@ -31,6 +31,7 @@ interface PortfolioImage {
   }
   head: string
   image: string
+  imageName: string
 }
 
 const categories = [
@@ -65,6 +66,13 @@ export default function Category2({
     setFilteredProjects(filtered)
   }, [activeCategory])
 
+  const getProjectImage = (projectName: string) => {
+    
+    const matchingImage = portfolioImages.find((img) => img.imageName.toLowerCase() === projectName.toLowerCase())
+    console.log("imageName",matchingImage)
+    return matchingImage ? `${BASE_URL}${matchingImage.image}` : "/placeholder.svg?height=400&width=600"
+  }
+
   return (
     <div>
       {showCategoryButtons && (
@@ -87,18 +95,17 @@ export default function Category2({
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {filteredProjects.map((project, index) => {
-          const portfolioImage = portfolioImages[index % portfolioImages.length]
+        {filteredProjects.map((project) => {
+          const imageSrc = getProjectImage(project["Company Name"])
 
           return (
             <Link key={project.Sl} href={`/portfolio/${project.Sl}`} className="group block">
-              <div className="relative overflow-hidden rounded-lg">
+              <div className="relative aspect-[3/2] flex items-center justify-center rounded-lg">
                 <Image
-                  src={portfolioImage ? `${BASE_URL}${portfolioImage.image}` : "/placeholder.svg?height=400&width=600"}
+                  src={imageSrc || "/placeholder.svg"}
                   alt={project["Company Name"]}
-                  width={600}
-                  height={400}
-                  className="w-full h-[500px] object-cover transition-transform duration-300 group-hover:scale-110"
+                      fill
+                      className="object-contain transition-transform duration-300 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <span className="text-white text-lg font-semibold">View Project</span>
