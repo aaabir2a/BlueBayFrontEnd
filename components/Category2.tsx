@@ -13,6 +13,24 @@ interface Project {
   Service: string
   Category: string
   Description: string
+  details: {
+    client: string
+    technology: string
+    industry: string
+    date: string
+    website: string
+  }
+}
+
+interface PortfolioImage {
+  id: number
+  cms_menu: {
+    id: number
+    name: string
+    parent: null
+  }
+  head: string
+  image: string
 }
 
 const categories = [
@@ -28,7 +46,7 @@ const categories = [
 interface Category2Props {
   initialCategory?: string
   showCategoryButtons?: boolean
-  portfolioImages: any[]
+  portfolioImages: PortfolioImage[]
 }
 
 export default function Category2({
