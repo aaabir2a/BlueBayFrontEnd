@@ -74,7 +74,7 @@ export default async function PortfolioItemPage({ params }: PageProps) {
     <>
       <PageHeroSection
         title={project["Company Name"]}
-        backgroundImage="/placeholder.svg?height=800&width=1600"
+        backgroundImage="/services.jpg?height=800&width=1600"
         breadcrumbs={[
           { label: "HOME", href: "/" },
           { label: "PORTFOLIO", href: "/portfolio" },
