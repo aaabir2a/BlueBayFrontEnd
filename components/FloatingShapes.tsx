@@ -7,7 +7,7 @@ export default function FloatingShapes() {
     <>
       {/* Circle 1 */}
       <motion.div
-        className="absolute w-24 h-24 bg-[#0066FF] rounded-full opacity-10 blur-lg"
+        className="absolute w-32 h-32 bg-[#0066FF] rounded-full opacity-10"
         animate={{
           x: [0, 100, 0],
           y: [0, 100, 0],
@@ -24,7 +24,7 @@ export default function FloatingShapes() {
 
       {/* Circle 2 */}
       <motion.div
-        className="absolute w-16 h-16 bg-[#00FF88] rounded-full opacity-10 blur-lg"
+        className="absolute w-24 h-24 bg-[#00FF88] rounded-full opacity-20"
         animate={{
           x: [0, -100, 0],
           y: [0, -100, 0],
@@ -41,7 +41,7 @@ export default function FloatingShapes() {
 
       {/* Rectangle */}
       <motion.div
-        className="absolute w-32 h-8 bg-[#FF0066] opacity-10 blur-lg"
+        className="absolute w-40 h-12 bg-[#FF0066] opacity-20 "
         animate={{
           x: [0, 50, 0],
           y: [0, -50, 0],
@@ -53,6 +53,40 @@ export default function FloatingShapes() {
           repeatType: "mirror",
         }}
         style={{ top: "70%", left: "30%" }}
+      />
+
+      {/* Circle 3 */}
+      <motion.div
+        className="absolute w-20 h-20 bg-[#FFCC00] rounded-full opacity-20 "
+        animate={{
+          x: [0, 150, 0],
+          y: [0, -150, 0],
+          scale: [1, 1.5, 1],
+          rotate: [0, 270, 360],
+        }}
+        transition={{
+          duration: 15,
+          repeat: Infinity,
+          repeatType: "mirror",
+        }}
+        style={{ top: "20%", left: "70%" }}
+      />
+
+      {/* Circle 4 */}
+      <motion.div
+        className="absolute w-28 h-28 bg-[#9900FF] rounded-full opacity-20 "
+        animate={{
+          x: [0, -150, 0],
+          y: [0, 150, 0],
+          scale: [1, 0.7, 1],
+          rotate: [0, -270, -360],
+        }}
+        transition={{
+          duration: 14,
+          repeat: Infinity,
+          repeatType: "mirror",
+        }}
+        style={{ top: "80%", left: "20%" }}
       />
     </>
   );
