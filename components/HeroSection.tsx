@@ -1,6 +1,8 @@
+"use client"
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import FloatingShapes from "./FloatingShapes";
+import { motion } from "framer-motion";
 
 export default function HeroSection() {
   return (
@@ -24,14 +26,15 @@ export default function HeroSection() {
             </h1>
             <p className="text-gray-600 max-w-lg dark:text-[#EAEAEA]">
               Bluebay IT Limited, one of Bangladeshs largest recruiting & travel
-              conglomerates, has been a pioneer in providing a global platform to
-              the Bangladesh recruiting & Travel industry by enabling access to
-              state of the art recruiting & travel automation technology.
+              conglomerates, has been a pioneer in providing a global platform
+              to the Bangladesh recruiting & Travel industry by enabling access
+              to state of the art recruiting & travel automation technology.
             </p>
-
-            <Button className="bg-[#0066FF] hover:bg-[#0052CC] text-white px-8 py-6 rounded-full text-lg">
-              Start Now
-            </Button>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button className="bg-[#0066FF] hover:bg-[#0052CC] text-white px-8 py-6 rounded-full text-lg">
+                Start Now
+              </Button>
+            </motion.div>
           </div>
           <div className="relative">
             <div className="absolute inset-0 bg-[#0066FF] rounded-full opacity-10 blur-3xl transform scale-150" />
