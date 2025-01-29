@@ -61,13 +61,13 @@ export default async function PortfolioItemPage({ params }: PageProps) {
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div>
+            <div className="h-10">
               <Image
                 src={projectImage || "/placeholder.svg"}
                 alt={project["Company Name"]}
-                width={800}
-                height={600}
-                className="rounded-lg object-cover w-full h-auto"
+                width={200}
+                height={150}
+                className="rounded-lg object-cover pl-5"
               />
             </div>
             <div>
