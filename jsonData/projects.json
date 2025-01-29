@@ -16,7 +16,7 @@
     {
       "Sl": 2,
       "Company Name": "Lubdok",
-      "Service": "E-commerce website specializing in old or second-hand goods",
+      "Service": "E-commerce website",
       "Category": "e-com",
       "Description": "Lubdok.com is an online platform specializing in surveillance equipment. One of their featured products is the PTS-306 Indoor Scanner Mover CCTV Camera, which is available for purchase through their website or at Pro CCTV Solution branches.",
       "details": {
@@ -32,13 +32,13 @@
       "Company Name": "Uapp",
       "Service": "Custom CMS Solution",
       "Category": "rams",
-      "Description": "Builds tailored CMS platforms for seamless content management and digital publishing workflows.",
+      "Description": "UAPP is a platform that aims to empower students on their journey towards higher education and enable institutions to seamlessly recruit quality students.  Join us today to experience a revolutionary approach, where technology and expertise converge to shape your path of academic excellence.",
       "details": {
         "client": "Uapp",
-        "technology": "React, Express, PostgreSQL",
+        "technology": "React, Django, PostgreSQL",
         "industry": "Human Resources",
         "date": "2023",
-        "website": "https://example.com"
+        "website": "https://uapp.uk/"
       }
     },
     {
