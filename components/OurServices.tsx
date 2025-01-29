@@ -98,8 +98,8 @@ export default function OurServices({ serviceData }: OurServicesProps) {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-[#0066FF] text-xl font-semibold mb-4">SERVICES</h2>
-          <h3 className="text-4xl font-bold">What we do</h3>
-          <div className="w-12 h-1 bg-[#0066FF] mx-auto mt-4" />
+          <h3 className="text-[#f26849] text-4xl font-bold">What we do</h3>
+          <div className="w-12 h-1 bg-[#0091cb] mx-auto mt-4" />
         </div>
 
         <div className="overflow-hidden" ref={emblaRef}>
