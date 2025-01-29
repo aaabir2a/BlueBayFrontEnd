@@ -1,7 +1,7 @@
 [
     {
       "Sl": 1,
-      "Company Name": "Bangladesh Association of International Recruiting Agencies (BAIRA)",
+      "Company Name": "Bangladesh Association of International Recruiting Agencies BAIRA",
       "Service": "Software + Website",
       "Category": "rams",
       "Description": "Delivers integrated software and website solutions to streamline operations for international recruiting agencies under BAIRA.",
@@ -15,16 +15,16 @@
     },
     {
       "Sl": 2,
-      "Company Name": "Cash Connect",
-      "Service": "Custom ERP Solution",
+      "Company Name": "Lubdok",
+      "Service": "E-commerce website specializing in old or second-hand goods",
       "Category": "e-com",
-      "Description": "Develops custom ERP systems to optimize financial and supply chain management for businesses.",
+      "Description": "Lubdok.com is an online platform specializing in surveillance equipment. One of their featured products is the PTS-306 Indoor Scanner Mover CCTV Camera, which is available for purchase through their website or at Pro CCTV Solution branches.",
       "details": {
-        "client": "Cash Connect",
-        "technology": "React, Express, PostgreSQL",
-        "industry": "Human Resources",
+        "client": "Lubdok",
+        "technology": "Next.js, React, PostgreSQL",
+        "industry": "E-commerce website ",
         "date": "2023",
-        "website": "https://example.com"
+        "website": "https://lubdok.com/"
       }
     },
     {
