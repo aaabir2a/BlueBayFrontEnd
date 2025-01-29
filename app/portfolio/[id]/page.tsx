@@ -28,7 +28,7 @@ interface PageProps {
 }
 
 export default async function PortfolioItemPage({ params }: PageProps) {
-  const { id } = await params
+  const { id } = params
   const project = projectsData.find((item) => item.Sl.toString() === id)
 
   if (!project) {
@@ -61,12 +61,12 @@ export default async function PortfolioItemPage({ params }: PageProps) {
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div className="w-20 h-20 ">
+            <div>
               <Image
                 src={projectImage || "/placeholder.svg"}
                 alt={project["Company Name"]}
-                width={100}
-                height={100}
+                width={800}
+                height={600}
                 className="rounded-lg object-cover w-full h-auto"
               />
             </div>
