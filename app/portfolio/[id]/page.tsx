@@ -24,11 +24,11 @@ export async function generateStaticParams() {
 }
 
 interface PageProps {
-  params: { id: string }
+  params: Promise<{ id: string }>
 }
 
 export default async function PortfolioItemPage({ params }: PageProps) {
-  const { id } = params
+  const { id } = await params
   const project = projectsData.find((item) => item.Sl.toString() === id)
 
   if (!project) {
