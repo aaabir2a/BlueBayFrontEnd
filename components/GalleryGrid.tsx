@@ -23,6 +23,9 @@ interface GalleryGridProps {
 export function GalleryGrid({ images, baseUrl }: GalleryGridProps) {
   const [selectedImage, setSelectedImage] = useState<number | null>(null)
 
+  // Pre-fetch full-size images
+  const fullSizeImages = images.map((image) => `${baseUrl}${image.image}`)
+
   return (
     <div className="container mx-auto px-4 py-8">
       {/* Image Grid */}
@@ -34,7 +37,7 @@ export function GalleryGrid({ images, baseUrl }: GalleryGridProps) {
             onClick={() => setSelectedImage(index)}
           >
             <Image
-              src={`${baseUrl}${image.image}`}
+              src={fullSizeImages[index] || "/placeholder.svg"}
               alt={`Gallery Image ${index + 1}`}
               fill
               className="object-cover hover:scale-105 transition-transform duration-300"
@@ -60,12 +63,12 @@ export function GalleryGrid({ images, baseUrl }: GalleryGridProps) {
 
           <div className="relative w-full max-w-4xl aspect-[4/3]" onClick={(e) => e.stopPropagation()}>
             <Image
-              src={`${baseUrl}${images[selectedImage].image}`}
+              src={fullSizeImages[selectedImage] || "/placeholder.svg"}
               alt={`Gallery Image ${selectedImage + 1}`}
               fill
               className="object-contain"
-              priority
               sizes="(max-width: 1200px) 100vw, 1200px"
+              priority
             />
           </div>
 
