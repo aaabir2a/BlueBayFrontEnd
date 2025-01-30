@@ -49,10 +49,10 @@
       "Description": "Provides RAMS software and website solutions to enhance recruitment process automation for manpower agencies.",
       "details": {
         "client": "Active Manpower Service",
-        "technology": "React, Express, PostgreSQL",
+        "technology": "React, Next.js, Python, Django, PostgreSQL",
         "industry": "Human Resources",
         "date": "2023",
-        "website": "https://example.com"
+        "website": "http://activemanpowerservices.com/"
       }
     },
     {
@@ -127,7 +127,7 @@
     },
     {
       "Sl": 10,
-      "Company Name": "Easy Way International Ltd.",
+      "Company Name": "Easyway International ltd",
       "Service": "RAMS Software",
       "Category": "rams",
       "Description": "Simplifies overseas recruitment processes with user-friendly RAMS software solutions.",
