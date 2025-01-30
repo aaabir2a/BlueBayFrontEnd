@@ -1,4 +1,5 @@
-'use client'
+"use client";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { motion } from "framer-motion";
 
 // Floating shapes component
@@ -7,7 +8,7 @@ export default function FloatingShapes() {
     <>
       {/* Circle 1 */}
       <motion.div
-        className="absolute w-32 h-32 bg-[#0066FF] rounded-full opacity-10"
+        className="absolute opacity-30"
         animate={{
           x: [0, 100, 0],
           y: [0, 100, 0],
@@ -20,7 +21,13 @@ export default function FloatingShapes() {
           repeatType: "mirror",
         }}
         style={{ top: "10%", left: "10%" }}
-      />
+      >
+        <DotLottieReact
+          src="https://lottie.host/1b5f46bc-3e62-454b-914b-7ad3283fd829/za8lsBIkQ8.lottie"
+          loop
+          autoplay
+        />
+      </motion.div>
 
       {/* Circle 2 */}
       <motion.div
@@ -90,4 +97,4 @@ export default function FloatingShapes() {
       />
     </>
   );
-};
+}
