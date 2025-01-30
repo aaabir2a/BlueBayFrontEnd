@@ -1,18 +1,19 @@
 [
-    {
-      "Sl": 1,
-      "Company Name": "Bangladesh Association of International Recruiting Agencies BAIRA",
-      "Service": "Software + Website",
-      "Category": "rams",
-      "Description": "Delivers integrated software and website solutions to streamline operations for international recruiting agencies under BAIRA.",
-      "details": {
-        "client": "Bangladesh Association of International Recruiting Agencies (BAIRA)",
-        "technology": "React, Express, PostgreSQL",
-        "industry": "Human Resources",
-        "date": "2023",
-        "website": "https://example.com"
-      }
-    },
+  {
+    "Sl": 1,
+    "Company Name": "Uapp",
+    "Service": "Custom CMS Solution",
+    "Category": "rams",
+    "Description": "UAPP is a platform that aims to empower students on their journey towards higher education and enable institutions to seamlessly recruit quality students.  Join us today to experience a revolutionary approach, where technology and expertise converge to shape your path of academic excellence.",
+    "details": {
+      "client": "Uapp",
+      "technology": "React, Django, PostgreSQL",
+      "industry": "Human Resources",
+      "date": "2023",
+      "website": "https://uapp.uk/"
+    }
+  },
+
     {
       "Sl": 2,
       "Company Name": "Lubdok",
@@ -29,16 +30,16 @@
     },
     {
       "Sl": 3,
-      "Company Name": "Uapp",
-      "Service": "Custom CMS Solution",
+      "Company Name": "Bangladesh Association of International Recruiting Agencies BAIRA",
+      "Service": "Software + Website",
       "Category": "rams",
-      "Description": "UAPP is a platform that aims to empower students on their journey towards higher education and enable institutions to seamlessly recruit quality students.  Join us today to experience a revolutionary approach, where technology and expertise converge to shape your path of academic excellence.",
+      "Description": "Delivers integrated software and website solutions to streamline operations for international recruiting agencies under BAIRA.",
       "details": {
-        "client": "Uapp",
-        "technology": "React, Django, PostgreSQL",
+        "client": "Bangladesh Association of International Recruiting Agencies (BAIRA)",
+        "technology": "React, Express, PostgreSQL",
         "industry": "Human Resources",
         "date": "2023",
-        "website": "https://uapp.uk/"
+        "website": "https://example.com"
       }
     },
     {
