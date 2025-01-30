@@ -9,7 +9,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://bluebayit.com"),
+  metadataBase: new URL("https://blue-bay-front-end.vercel.app"),
   title: {
     default: "BlueBay IT Solutions",
     template: "%s | BlueBay IT Solutions",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://bluebayit.com",
+    url: "https://blue-bay-front-end.vercel.app",
     siteName: "BlueBay IT Solutions",
     images: [
       {
