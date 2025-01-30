@@ -150,11 +150,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 
-export default async function ServicePage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function ServicePage({ params }: PageProps) {
   const { slug } = await params;
   const service = services.find((service) => service.slug === slug);
 
