@@ -27,6 +27,12 @@ export const metadata: Metadata = {
         height: 630,
         alt: "BlueBay IT Solutions",
       },
+      {
+        url: "/og-image-w.png",
+        width: 400,
+        height: 400,
+        alt: "BlueBay IT Solutions",
+      },
     ],
   },
   twitter: {
