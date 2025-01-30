@@ -1,15 +1,15 @@
-import PageHeroSection from "@/components/PageHeroSection";
-import ServiceDetails from "@/components/ServiceDetails";
-import WhyChooseUs from "@/components/WhyChooseUs";
-import { Metadata } from "next";
-import { notFound } from "next/navigation";
+import PageHeroSection from "@/components/PageHeroSection"
+import ServiceDetails from "@/components/ServiceDetails"
+import WhyChooseUs from "@/components/WhyChooseUs"
+import type { Metadata } from "next"
+import { notFound } from "next/navigation"
 
 const services = [
   {
     title: "Software Development",
     slug: "Software-Development",
     image: "/SoftwareDevelopment.svg?height=800&width=1600",
-    description: " To develop a desired application.",
+    description: "To develop a desired application.",
     whyChooseUs: {
       title: "WHY CHOOSE OUR CONSULTING",
       subtitle: "To develop a desired application",
@@ -107,7 +107,7 @@ const services = [
       },
     },
   },
-];
+]
 
 export function generateStaticParams() {
   return services.map((service) => ({
@@ -120,7 +120,7 @@ interface PageProps {
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { slug } = await params
+  const { slug } = params
   const service = services.find((service) => service.slug === slug)
 
   if (!service) {
@@ -149,13 +149,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 }
 
-
 export default async function ServicePage({ params }: PageProps) {
-  const { slug } = await params;
-  const service = services.find((service) => service.slug === slug);
+  const { slug } = params
+  const service = services.find((service) => service.slug === slug)
 
   if (!service) {
-    notFound();
+    notFound()
   }
 
   return (
@@ -184,5 +183,6 @@ export default async function ServicePage({ params }: PageProps) {
         supportCard={service.whyChooseUs.supportCard}
       />
     </>
-  );
+  )
 }
+
