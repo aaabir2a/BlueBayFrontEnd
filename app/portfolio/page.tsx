@@ -1,6 +1,28 @@
 import PageHeroSection from "@/components/PageHeroSection"
 import Category2 from "@/components/Category2"
 import { getCategoryData } from "@/components/CategoryData"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Our Portfolio",
+  description: "Explore our diverse range of successful IT projects and solutions",
+  openGraph: {
+    title: "BlueBay IT Solutions - Our Portfolio",
+    description: "Explore our diverse range of successful IT projects and solutions",
+    images: [
+      {
+        url: "/api/og?title=Our Portfolio&description=Explore our diverse range of successful IT projects and solutions",
+      },
+    ],
+  },
+  twitter: {
+    title: "BlueBay IT Solutions - Our Portfolio",
+    description: "Explore our diverse range of successful IT projects and solutions",
+    images: [
+      "/api/og?title=Our Portfolio&description=Explore our diverse range of successful IT projects and solutions",
+    ],
+  },
+}
 
 export default async function PortfolioPage() {
   const portfolioImages = await getCategoryData()

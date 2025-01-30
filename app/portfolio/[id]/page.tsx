@@ -4,6 +4,7 @@ import PageHeroSection from "@/components/PageHeroSection"
 import { BASE_URL } from "@/lib/config"
 import projectsData from "@/jsonData/projects.json"
 import { getCategoryData } from "@/components/CategoryData"
+import { Metadata } from "next"
 
 interface PortfolioImage {
   id: number
@@ -25,6 +26,37 @@ export async function generateStaticParams() {
 
 interface PageProps {
   params: Promise<{ id: string }>
+}
+
+//Meta Data
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { id } = await params
+  const project = projectsData.find((item) => item.Sl.toString() === id)
+
+  if (!project) {
+    return {
+      title: "Project Not Found",
+      description: "The requested project could not be found.",
+    }
+  }
+
+  const title = `${project["Company Name"]} - Portfolio`
+  const description = project.Description
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      images: [{ url: `/api/og?title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}` }],
+    },
+    twitter: {
+      title,
+      description,
+      images: [`/api/og?title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}`],
+    },
+  }
 }
 
 export default async function PortfolioItemPage({ params }: PageProps) {

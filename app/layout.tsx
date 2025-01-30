@@ -9,9 +9,37 @@ import { ThemeProvider } from "@/components/theme-provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "BlueBayIT - IT Solutions",
-  description: "IT Solutions and Services",
-};
+  metadataBase: new URL("https://bluebayit.com"),
+  title: {
+    default: "BlueBay IT Solutions",
+    template: "%s | BlueBay IT Solutions",
+  },
+  description: "Leading IT solutions provider for businesses of all sizes",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://bluebayit.com",
+    siteName: "BlueBay IT Solutions",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "BlueBay IT Solutions",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@bluebayit",
+    creator: "@bluebayit",
+  },
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-icon.png",
+  },
+  manifest: "/site.webmanifest",
+}
 
 export default function RootLayout({
   children,

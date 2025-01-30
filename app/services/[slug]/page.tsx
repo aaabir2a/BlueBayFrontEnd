@@ -1,6 +1,7 @@
 import PageHeroSection from "@/components/PageHeroSection";
 import ServiceDetails from "@/components/ServiceDetails";
 import WhyChooseUs from "@/components/WhyChooseUs";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 const services = [
@@ -111,8 +112,43 @@ const services = [
 export function generateStaticParams() {
   return services.map((service) => ({
     slug: service.slug,
-  }));
+  }))
 }
+
+interface PageProps {
+  params: { slug: string }
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params
+  const service = services.find((service) => service.slug === slug)
+
+  if (!service) {
+    return {
+      title: "Service Not Found",
+      description: "The requested service could not be found.",
+    }
+  }
+
+  const title = `${service.title} - Our Services`
+  const description = service.description.slice(0, 160) + "..."
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      images: [{ url: `/api/og?title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}` }],
+    },
+    twitter: {
+      title,
+      description,
+      images: [`/api/og?title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}`],
+    },
+  }
+}
+
 
 export default async function ServicePage({
   params,

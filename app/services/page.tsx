@@ -1,6 +1,25 @@
 import PageHeroSection from '@/components/PageHeroSection'
 import ServiceSection from '@/components/ServiceSection'
 import WhyChooseUs from '@/components/WhyChooseUs'
+import { Metadata } from 'next'
+
+
+export const metadata: Metadata = {
+  title: "Our Services",
+  description: "Comprehensive IT services tailored to your business needs",
+  openGraph: {
+    title: "BlueBay IT Solutions - Our Services",
+    description: "Comprehensive IT services tailored to your business needs",
+    images: [
+      { url: "/api/og?title=Our Services&description=Comprehensive IT services tailored to your business needs" },
+    ],
+  },
+  twitter: {
+    title: "BlueBay IT Solutions - Our Services",
+    description: "Comprehensive IT services tailored to your business needs",
+    images: ["/api/og?title=Our Services&description=Comprehensive IT services tailored to your business needs"],
+  },
+}
 
 
 

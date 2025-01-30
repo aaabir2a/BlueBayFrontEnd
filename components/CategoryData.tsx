@@ -32,7 +32,7 @@ export async function getCategoryData() {
 function getImageName(imagePath: string): string {
   const filename = imagePath.split("/").pop() || ""
   const filenames = filename.split(".")[0].replace(/-/g, " ").replace(/_/g, " ").replace(/Logo/gi, "").trim()
-  console.log("trim",filenames)
+  // console.log("trim",filenames)  
   return filenames
 }
 
