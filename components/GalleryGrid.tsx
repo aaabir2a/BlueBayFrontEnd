@@ -31,7 +31,7 @@ export function GalleryGrid({ images, baseUrl }: GalleryGridProps) {
   // Preload images and store their references
   useEffect(() => {
     images.forEach((_, index) => {
-      const img = new Image()
+      const img = new window.Image()
       img.src = fullSizeImages[index]
       img.onload = () => {
         setLoadedImages((prev) => ({ ...prev, [index]: true }))
