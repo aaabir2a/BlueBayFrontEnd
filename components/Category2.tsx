@@ -100,13 +100,13 @@ export default function Category2({
 
           return (
             <Link key={project.Sl} href={`/portfolio/${project.Sl}`} className="group block">
-              <div className="relative overflow-hidden rounded-lg">
+              <div className="relative aspect-[3/2] flex items-center justify-center rounded-lg">
                 <Image
                   src={imageSrc || "/placeholder.svg"}
                   alt={project["Company Name"]}
-                  width={600}
-                  height={400}
-                  className="w-full h-[500px] object-cover transition-transform duration-300 group-hover:scale-110"
+                  width={200}
+                  height={200}
+                  className="object-contain transition-transform duration-300 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <span className="text-white text-lg font-semibold">View Project</span>
