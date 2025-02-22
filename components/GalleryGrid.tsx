@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import Image from "next/image"
 import { X } from "lucide-react"
 
@@ -22,9 +22,29 @@ interface GalleryGridProps {
 
 export function GalleryGrid({ images, baseUrl }: GalleryGridProps) {
   const [selectedImage, setSelectedImage] = useState<number | null>(null)
+  const [loadedImages, setLoadedImages] = useState<{ [key: number]: boolean }>({})
+  const imageRefs = useRef<{ [key: number]: HTMLImageElement }>({})
 
   // Pre-fetch full-size images
   const fullSizeImages = images.map((image) => `${baseUrl}${image.image}`)
+
+  // Preload images and store their references
+  useEffect(() => {
+    images.forEach((_, index) => {
+      const img = new Image()
+      img.src = fullSizeImages[index]
+      img.onload = () => {
+        setLoadedImages((prev) => ({ ...prev, [index]: true }))
+      }
+      imageRefs.current[index] = img
+    })
+  }, [fullSizeImages, images])
+
+  const handleImageClick = (index: number) => {
+    if (loadedImages[index]) {
+      setSelectedImage(index)
+    }
+  }
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -34,7 +54,7 @@ export function GalleryGrid({ images, baseUrl }: GalleryGridProps) {
           <div
             key={image.id}
             className="aspect-[4/3] relative cursor-pointer overflow-hidden rounded-lg"
-            onClick={() => setSelectedImage(index)}
+            onClick={() => handleImageClick(index)}
           >
             <Image
               src={fullSizeImages[index] || "/placeholder.svg"}
@@ -43,13 +63,16 @@ export function GalleryGrid({ images, baseUrl }: GalleryGridProps) {
               className="object-cover hover:scale-105 transition-transform duration-300"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               loading="lazy"
+              onLoadingComplete={() => {
+                setLoadedImages((prev) => ({ ...prev, [index]: true }))
+              }}
             />
           </div>
         ))}
       </div>
 
       {/* Modal */}
-      {selectedImage !== null && (
+      {selectedImage !== null && loadedImages[selectedImage] && (
         <div
           className="fixed inset-0 bg-black/90 z-50 p-4 flex items-center justify-center"
           onClick={() => setSelectedImage(null)}
@@ -62,23 +85,23 @@ export function GalleryGrid({ images, baseUrl }: GalleryGridProps) {
           </button>
 
           <div className="relative w-full max-w-4xl aspect-[4/3]" onClick={(e) => e.stopPropagation()}>
-            <Image
-              src={fullSizeImages[selectedImage] || "/placeholder.svg"}
-              alt={`Gallery Image ${selectedImage + 1}`}
-              fill
-              className="object-contain"
-              sizes="(max-width: 1200px) 100vw, 1200px"
-              priority
+            {/* Use background-image for instant display */}
+            <div
+              className="absolute inset-0 bg-center bg-contain bg-no-repeat"
+              style={{ backgroundImage: `url(${fullSizeImages[selectedImage]})` }}
             />
           </div>
 
-          {/* Simple Navigation */}
+          {/* Navigation Controls */}
           <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-4">
             <button
               className="px-4 py-2 bg-white/20 text-white rounded-lg hover:bg-white/30"
               onClick={(e) => {
                 e.stopPropagation()
-                setSelectedImage((prev) => (prev === 0 ? images.length - 1 : prev! - 1))
+                const newIndex = selectedImage === 0 ? images.length - 1 : selectedImage - 1
+                if (loadedImages[newIndex]) {
+                  setSelectedImage(newIndex)
+                }
               }}
             >
               Previous
@@ -87,7 +110,10 @@ export function GalleryGrid({ images, baseUrl }: GalleryGridProps) {
               className="px-4 py-2 bg-white/20 text-white rounded-lg hover:bg-white/30"
               onClick={(e) => {
                 e.stopPropagation()
-                setSelectedImage((prev) => (prev === images.length - 1 ? 0 : prev! + 1))
+                const newIndex = selectedImage === images.length - 1 ? 0 : selectedImage + 1
+                if (loadedImages[newIndex]) {
+                  setSelectedImage(newIndex)
+                }
               }}
             >
               Next
