@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import FloatingShapes from "./FloatingShapes";
@@ -35,16 +35,6 @@ export default function HeroSection() {
                 Start Now
               </Button>
             </motion.div>
-          </div>
-          <div className="relative">
-            <div className="absolute inset-0 bg-[#0066FF] rounded-full opacity-10 blur-3xl transform scale-150" />
-            <Image
-              src="/Herosection.svg"
-              alt="IT Professional"
-              width={600}
-              height={600}
-              className="relative"
-            />
           </div>
         </div>
       </div>
