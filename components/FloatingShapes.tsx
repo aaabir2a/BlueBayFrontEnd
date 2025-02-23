@@ -22,11 +22,7 @@ export default function FloatingShapes() {
         }}
         style={{ top: "10%", left: "10%" }}
       >
-        <DotLottieReact
-          src="https://lottie.host/1b5f46bc-3e62-454b-914b-7ad3283fd829/za8lsBIkQ8.lottie"
-          loop
-          autoplay
-        />
+        <DotLottieReact src="/animations/code-animation.json" loop autoplay />
       </motion.div>
 
       {/* Circle 2 */}
