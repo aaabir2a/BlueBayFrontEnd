@@ -69,12 +69,12 @@ export default function FloatingShapes() {
         }}
         style={{ top: "70%", left: "30%" }}
       >
-        {/* <DotLottieReact
-          src="/animations/Animation - 3.json"
+        <DotLottieReact
+          src="/animations/Animation - 1.json"
           loop
           autoplay
           style={{ width: "100%", height: "100%" }}
-        /> */}
+        />
       </motion.div>
 
       {/* Animation 4 */}
@@ -93,12 +93,12 @@ export default function FloatingShapes() {
         }}
         style={{ top: "20%", left: "70%" }}
       >
-        <DotLottieReact
+        {/* <DotLottieReact
           src="/animations/Animation - 1.json"
           loop
           autoplay
           style={{ width: "100%", height: "100%" }}
-        />
+        /> */}
       </motion.div>
 
       {/* Animation 5 */}
