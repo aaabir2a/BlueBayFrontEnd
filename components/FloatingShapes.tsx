@@ -22,12 +22,12 @@ export default function FloatingShapes() {
         }}
         style={{ top: "10%", left: "10%" }}
       >
-        <DotLottieReact
+        {/* <DotLottieReact
           src="/animations/Animation - 1.json"
           loop
           autoplay
           style={{ width: "100%", height: "100%" }}
-        />
+        /> */}
       </motion.div>
 
       {/* Animation 2 */}
@@ -46,12 +46,12 @@ export default function FloatingShapes() {
         }}
         style={{ top: "50%", left: "80%" }}
       >
-        <DotLottieReact
+        {/* <DotLottieReact
           src="/animations/Animation - 2.json"
           loop
           autoplay
           style={{ width: "100%", height: "100%" }}
-        />
+        /> */}
       </motion.div>
 
       {/* Animation 3 */}
@@ -69,12 +69,12 @@ export default function FloatingShapes() {
         }}
         style={{ top: "70%", left: "30%" }}
       >
-        <DotLottieReact
+        {/* <DotLottieReact
           src="/animations/Animation - 3.json"
           loop
           autoplay
           style={{ width: "100%", height: "100%" }}
-        />
+        /> */}
       </motion.div>
 
       {/* Animation 4 */}
@@ -94,7 +94,7 @@ export default function FloatingShapes() {
         style={{ top: "20%", left: "70%" }}
       >
         <DotLottieReact
-          src="/animations/Animation - 4.json"
+          src="/animations/Animation - 1.json"
           loop
           autoplay
           style={{ width: "100%", height: "100%" }}
@@ -117,12 +117,12 @@ export default function FloatingShapes() {
         }}
         style={{ top: "80%", left: "20%" }}
       >
-        <DotLottieReact
+        {/* <DotLottieReact
           src="/animations/Animation - 5.json"
           loop
           autoplay
           style={{ width: "100%", height: "100%" }}
-        />
+        /> */}
       </motion.div>
 
       {/* Animation 6 */}
@@ -141,12 +141,12 @@ export default function FloatingShapes() {
         }}
         style={{ top: "40%", left: "40%" }}
       >
-        <DotLottieReact
+        {/* <DotLottieReact
           src="/animations/Animation - 6.json"
           loop
           autoplay
           style={{ width: "100%", height: "100%" }}
-        />
+        /> */}
       </motion.div>
 
       {/* Additional decorative elements */}
