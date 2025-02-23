@@ -74,7 +74,7 @@ export default function Category2({
   return (
     <div>
       {showCategoryButtons && (
-        <div className="sticky top-20 z-40 bg-white/80 backdrop-blur-sm py-4 shadow-sm">
+        <div className="sticky top-10 z-40 bg-white/80 backdrop-blur-sm py-4 shadow-sm">
           <div className="flex justify-center">
             <div className="inline-flex gap-2 p-1 bg-gray-100 rounded-lg">
               {categories.map((category) => (
