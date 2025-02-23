@@ -1,77 +1,81 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { Card, CardContent } from "@/components/ui/card"
-import { ChevronRight } from "lucide-react"
-import { motion } from "framer-motion"
-import useEmblaCarousel from "embla-carousel-react"
-import AutoplayPlugin from "embla-carousel-autoplay"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { DotLottieReact } from "@lottiefiles/dotlottie-react"
+import * as React from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { ChevronRight } from "lucide-react";
+import { motion } from "framer-motion";
+import useEmblaCarousel from "embla-carousel-react";
+import AutoplayPlugin from "embla-carousel-autoplay";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 const services = [
   {
-    anime: "https://lottie.host/a0e806bb-87f9-487d-a1fe-d7130d526431/UA5AWvvUrG.lottie",
+    anime: "/animations/Animation - 1.json",
     slug: "Software Development",
     href: "/services/Software-Development",
   },
   {
-    anime: "https://lottie.host/1b5f46bc-3e62-454b-914b-7ad3283fd829/za8lsBIkQ8.lottie",
+    anime: "/animations/Animation - 2.json",
     slug: "Web Application",
     href: "/services/Web-Application",
   },
   {
-    anime: "https://lottie.host/ac4f7515-dbea-40b3-9dc2-a3d69827fd4c/oHMo3jxD5V.lottie",
+    anime: "/animations/Animation - 3.json",
     slug: "Domain & Hosting",
     href: "/services/Domain-Hosting",
   },
   {
-    anime: "https://lottie.host/fb33a460-5598-436e-8ee6-35401acdbfd8/tyuZHSa9SN.lottie",
+    anime: "/animations/Animation - 4.json",
     slug: "Digital Marketing",
     href: "/services/Digital-Marketing",
   },
   {
-    anime: "https://lottie.host/69428056-3d66-4cc8-a4a4-30923ba56323/W8otuF9SEr.lottie",
+    anime: "/animations/Animation - 5.json",
     slug: "Dedicated Server Hosting",
     href: "/services/Dedicated-Server-Hosting",
   },
   {
-    anime: "https://lottie.host/cac77cf2-b345-4650-bfe3-823bf0218a69/pBLjfU3dVB.lottie",
+    anime: "/animations/Animation - 6.json",
     slug: "IT Training",
     href: "/services/IT-Training",
   },
-]
+];
 
 interface OurServicesProps {
   serviceData: {
-    name: string
-    value: string
-  }[]
+    name: string;
+    value: string;
+  }[];
 }
 
 export default function OurServices({ serviceData }: OurServicesProps) {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "center" }, [
-    AutoplayPlugin({ delay: 5000, stopOnInteraction: false }),
-  ])
-  const [activeIndex, setActiveIndex] = React.useState(0)
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    { loop: true, align: "center" },
+    [AutoplayPlugin({ delay: 5000, stopOnInteraction: false })]
+  );
+  const [activeIndex, setActiveIndex] = React.useState(0);
 
   React.useEffect(() => {
     if (emblaApi) {
       const onSelect = () => {
-        setActiveIndex(emblaApi.selectedScrollSnap())
-      }
-      emblaApi.on("select", onSelect)
+        setActiveIndex(emblaApi.selectedScrollSnap());
+      };
+      emblaApi.on("select", onSelect);
       return () => {
-        emblaApi.off("select", onSelect)
-      }
+        emblaApi.off("select", onSelect);
+      };
     }
-  }, [emblaApi])
+  }, [emblaApi]);
 
-  const scrollTo = React.useCallback((index: number) => emblaApi && emblaApi.scrollTo(index), [emblaApi])
+  const scrollTo = React.useCallback(
+    (index: number) => emblaApi && emblaApi.scrollTo(index),
+    [emblaApi]
+  );
 
   const updatedServices = services.map((service) => {
-    const matchedMenu = serviceData.find((menu) => menu.name === service.slug)
+    const matchedMenu = serviceData.find((menu) => menu.name === service.slug);
 
     return matchedMenu
       ? {
@@ -83,21 +87,23 @@ export default function OurServices({ serviceData }: OurServicesProps) {
           ...service,
           title: "Default Title",
           description: "Default Description",
-        }
-  })
+        };
+  });
 
   function parseBasicHtml(html: string): React.ReactNode {
     return html
       .replace(/<\/?[^>]+(>|$)/g, "")
       .split(/<p>|<\/p>/g)
-      .map((chunk, i) => (chunk ? <span key={i}>{chunk}</span> : null))
+      .map((chunk, i) => (chunk ? <span key={i}>{chunk}</span> : null));
   }
 
   return (
     <section className="py-20">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-[#0066FF] text-xl font-semibold mb-4">SERVICES</h2>
+          <h2 className="text-[#0066FF] text-xl font-semibold mb-4">
+            SERVICES
+          </h2>
           <h3 className="text-[#f26849] text-4xl font-bold">What we do</h3>
           <div className="w-12 h-1 bg-[#0091cb] mx-auto mt-4" />
         </div>
@@ -106,7 +112,10 @@ export default function OurServices({ serviceData }: OurServicesProps) {
           <div className="flex">
             {updatedServices.map((service, index) => {
               return (
-                <div key={index} className="flex-[0_0_100%] md:basis-1/2 lg:basis-1/3 min-w-0 pl-4">
+                <div
+                  key={index}
+                  className="flex-[0_0_100%] md:basis-1/2 lg:basis-1/3 min-w-0 pl-4"
+                >
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -128,11 +137,15 @@ export default function OurServices({ serviceData }: OurServicesProps) {
                             autoplay
                           />
                         </div>
-                        <h4 className="text-xl font-semibold mb-4">{service.title}</h4>
+                        <h4 className="text-xl font-semibold mb-4">
+                          {service.title}
+                        </h4>
                         <div className="overflow-hidden h-20 w-15">
                           <p
                             className={`${
-                              activeIndex === index ? "text-white/90" : "text-gray-600 group-hover:text-white/90"
+                              activeIndex === index
+                                ? "text-white/90"
+                                : "text-gray-600 group-hover:text-white/90"
                             }`}
                           >
                             {parseBasicHtml(service.description || "")}
@@ -157,7 +170,7 @@ export default function OurServices({ serviceData }: OurServicesProps) {
                     </Card>
                   </motion.div>
                 </div>
-              )
+              );
             })}
           </div>
         </div>
@@ -176,6 +189,5 @@ export default function OurServices({ serviceData }: OurServicesProps) {
         </div>
       </div>
     </section>
-  )
+  );
 }
-
