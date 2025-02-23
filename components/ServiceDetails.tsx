@@ -64,6 +64,7 @@ export default function ServiceDetails({
                 <Link
                   key={service.name}
                   href={service.href}
+                  scroll={false}
                   className={cn(
                     "block px-6 py-4 border-b last:border-b-0 hover:bg-gray-50 transition-colors",
                     service.name === currentService && "bg-[#0066FF] text-white hover:bg-[#0052CC]"
