@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import FloatingShapes from "./FloatingShapes";
+// import FloatingShapes from "./FloatingShapes";
 import { motion } from "framer-motion";
 
 export default function HeroSection() {
@@ -10,7 +10,7 @@ export default function HeroSection() {
       <div className="absolute inset-0 bg-gradient-to-r from-[#0066FF] via-[#1A1A1A] to-[#0066FF] opacity-20 animate-gradientBackground" />
 
       {/* Floating Shapes */}
-      <FloatingShapes />
+      {/* <FloatingShapes /> */}
 
       {/* Content */}
       <div className="container mx-auto px-4 py-16 relative z-10">
