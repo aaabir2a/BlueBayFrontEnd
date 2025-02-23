@@ -16,9 +16,9 @@ export default async function OurPortfolio() {
           </h2>
           <h3 className="text-4xl font-bold text-[#f26849]">
             Latest & <span className="font-normal">Greatest Project</span>
-            <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-12 h-1 bg-[#0091cb]" />
           </h3>
         </div>
+        <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-12 h-1 bg-[#0091cb]" />
 
         <div className="overflow-hidden" style={{ maxHeight: "1000px" }}>
           <div className="overflow-y-auto pr-4" style={{ maxHeight: "600px" }}>
