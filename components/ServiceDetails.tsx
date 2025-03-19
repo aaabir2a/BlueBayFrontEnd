@@ -50,9 +50,6 @@ export default function ServiceDetails({
               <p className="text-gray-600 leading-relaxed">
                 {description}
               </p>
-              <p className="text-gray-600 leading-relaxed">
-                Kindness own whatever betrayed her moreover procured replying for and. Proposal indulged no do do sociable he throwing settling. Covered ten nor comfort offices carried. Age she way earnestly the fulfilled extremely. Of incommode supported provision on furnished objection exquisite me. Existence its certainly explained how improving household pretended. Delightful own attachment her partiality.
-              </p>
             </div>
           </div>
 
