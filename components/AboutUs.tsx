@@ -1,23 +1,23 @@
-import Image from "next/image"
-import { Card, CardContent } from "@/components/ui/card"
-import { MessageCircle, FileText, Eye } from 'lucide-react'
+import Image from "next/image";
+import { Card, CardContent } from "@/components/ui/card";
+import { MessageCircle, FileText, Eye } from "lucide-react";
 
 interface AboutCardProps {
-  image: string
-  title: string
-  description: string
-  icon: "mission" | "plan" | "vision"
+  image: string;
+  title: string;
+  description: string;
+  icon: "mission" | "plan" | "vision";
 }
 
 const iconMap = {
   mission: MessageCircle,
   plan: FileText,
   vision: Eye,
-}
+};
 
 function AboutCard({ image, title, description, icon }: AboutCardProps) {
-  const Icon = iconMap[icon]
-  
+  const Icon = iconMap[icon];
+
   return (
     <Card className="overflow-hidden">
       <div className="relative">
@@ -39,14 +39,14 @@ function AboutCard({ image, title, description, icon }: AboutCardProps) {
         <p className="text-gray-600 leading-relaxed">{description}</p>
       </CardContent>
     </Card>
-  )
+  );
 }
 
 interface AboutUsProps {
-  title?: string
-  description?: string
-  cards?: AboutCardProps[]
-  backgroundImage?: string
+  title?: string;
+  description?: string;
+  cards?: AboutCardProps[];
+  backgroundImage?: string;
 }
 
 export default function AboutUs({
@@ -57,39 +57,42 @@ export default function AboutUs({
     {
       image: "/mission.svg?height=300&width=400",
       title: "Our Mission",
-      description: "We will grow and achieve market leadership by exceeding customers' expectations and will gain operational efficiencies in all our business activities.",
-      icon: "mission"
+      description:
+        "We will grow and achieve market leadership by exceeding customers' expectations and will gain operational efficiencies in all our business activities we.",
+      icon: "mission",
     },
     {
       image: "/plan.svg?height=300&width=400",
       title: "Our Plan",
-      description: "Our Plan today is made up of our vision and promise that all come together to support our purpose as a company, to work with our customers and partners.",
-      icon: "plan"
+      description:
+        "Our Plan today is made up of our vision and promise that all come together to support our purpose as a company, to work with our customers and partners.",
+      icon: "plan",
     },
     {
       image: "/vision.svg?height=300&width=400",
       title: "Our Vision",
-      description: "We want to be a market leader in all the business segments in which we operate and deliver exceptional satisfaction to our customers.",
-      icon: "vision"
-    }
-  ]
+      description:
+        "We want to be a market leader in all the business segments in which we operate and deliver exceptional satisfaction to our customers.",
+      icon: "vision",
+    },
+  ],
 }: AboutUsProps) {
   return (
-    <section 
+    <section
       className="relative py-20 px-4"
       style={{
         backgroundImage: `url(${backgroundImage})`,
-        backgroundAttachment: 'fixed',
-        backgroundPosition: 'center',
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat'
+        backgroundAttachment: "fixed",
+        backgroundPosition: "center",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
       }}
     >
       {/* Background Overlay */}
       <div className="absolute inset-0 bg-white/90" />
-      
+
       <div className="container mx-auto relative z-10">
-        <div className="text-center mb-16">                    
+        <div className="text-center mb-16">
           <h2 className="text-3xl text-[#f26849] font-bold mb-6 relative inline-block">
             {title}
             <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-12 h-1 bg-[#0091cb]" />
@@ -106,6 +109,5 @@ export default function AboutUs({
         </div>
       </div>
     </section>
-  )
+  );
 }
-
