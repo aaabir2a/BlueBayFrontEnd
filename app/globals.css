@@ -178,7 +178,52 @@
   animation: float-slow 10s ease-in-out infinite;
 }
 
+/* Add these additional animation variations to your globals.css file */
+
+@keyframes float-reverse {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(20px);
+  }
+}
+
+@keyframes float-diagonal {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-15px, -15px);
+  }
+}
+
+@keyframes float-diagonal-reverse {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(15px, -15px);
+  }
+}
+
+.animate-float-reverse {
+  animation: float-reverse 7s ease-in-out infinite;
+}
+
+.animate-float-diagonal {
+  animation: float-diagonal 9s ease-in-out infinite;
+}
+
+.animate-float-diagonal-reverse {
+  animation: float-diagonal-reverse 8s ease-in-out infinite;
+}
+
 /* Add these new animations for content */
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
