@@ -65,7 +65,7 @@ export async function generateStaticParams() {
 }
 
 interface PageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>
 }
 
 export async function generateMetadata({
