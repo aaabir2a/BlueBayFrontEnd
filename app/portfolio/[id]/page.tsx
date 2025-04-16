@@ -1,47 +1,93 @@
-import { notFound } from "next/navigation"
-import Image from "next/image"
-import PageHeroSection from "@/components/PageHeroSection"
-import { BASE_URL } from "@/lib/config"
-import projectsData from "@/jsonData/projects.json"
-import { getCategoryData } from "@/components/CategoryData"
-import { Metadata } from "next"
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import Image from "next/image";
+import PageHeroSection from "@/components/PageHeroSection";
+import {
+  BASE_URL,
+  GET_ALL_PORTFOLIOS,
+  GET_PORTFOLIO_CATEGORIES,
+} from "@/lib/config";
 
-interface PortfolioImage {
-  id: number
-  cms_menu: {
-    id: number
-    name: string
-    parent: null
+interface Portfolio {
+  id: number;
+  title: string;
+  slug: string | null;
+  description: string;
+  image: string;
+  category: number;
+}
+
+interface PortfolioCategory {
+  id: number;
+  name: string;
+}
+
+// Fetch all portfolios
+async function getAllPortfolios(): Promise<Portfolio[]> {
+  try {
+    const response = await fetch(GET_ALL_PORTFOLIOS, {
+      next: { revalidate: 3600 },
+    });
+    if (!response.ok) {
+      throw new Error("Failed to fetch portfolios");
+    }
+    const data = await response.json();
+    return data.portfolios || [];
+  } catch (error) {
+    console.error("Error fetching portfolios:", error);
+    return [];
   }
-  head: string
-  image: string
-  imageName: string
+}
+
+// Fetch all categories
+async function getAllCategories(): Promise<PortfolioCategory[]> {
+  try {
+    const response = await fetch(GET_PORTFOLIO_CATEGORIES, {
+      next: { revalidate: 3600 },
+    });
+    if (!response.ok) {
+      throw new Error("Failed to fetch categories");
+    }
+    const data = await response.json();
+    return data.portfolio_categories || [];
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    return [];
+  }
 }
 
 export async function generateStaticParams() {
-  return projectsData.map((project) => ({
-    id: project.Sl.toString(),
-  }))
+  const portfolios = await getAllPortfolios();
+
+  return portfolios.map((portfolio) => ({
+    id: portfolio.slug || portfolio.id.toString(),
+  }));
 }
 
 interface PageProps {
-  params: Promise<{ id: string }>
+  params: { id: string };
 }
 
-//Meta Data
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { id } = await params
-  const project = projectsData.find((item) => item.Sl.toString() === id)
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const portfolios = await getAllPortfolios();
+  const id = params.id;
 
-  if (!project) {
+  // Find portfolio by slug or id
+  const portfolio = portfolios.find(
+    (item) => item.slug === id || item.id.toString() === id
+  );
+
+  if (!portfolio) {
     return {
       title: "Project Not Found",
       description: "The requested project could not be found.",
-    }
+    };
   }
 
-  const title = `${project["Company Name"]} - Portfolio`
-  const description = project.Description
+  const title = `${portfolio.title} - Portfolio`;
+  const description = portfolio.description;
 
   return {
     title,
@@ -49,93 +95,90 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     openGraph: {
       title,
       description,
-      images: [{ url: `/api/og?title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}` }],
+      images: [
+        {
+          url: `/api/og?title=${encodeURIComponent(
+            title
+          )}&description=${encodeURIComponent(description)}`,
+        },
+      ],
     },
     twitter: {
       title,
       description,
-      images: [`/api/og?title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}`],
+      images: [
+        `/api/og?title=${encodeURIComponent(
+          title
+        )}&description=${encodeURIComponent(description)}`,
+      ],
     },
-  }
+  };
 }
 
 export default async function PortfolioItemPage({ params }: PageProps) {
-  const { id } = await params
-  const project = projectsData.find((item) => item.Sl.toString() === id)
+  const portfolios = await getAllPortfolios();
+  const categories = await getAllCategories();
+  const id = params.id;
 
-  if (!project) {
-    notFound()
+  // Find portfolio by slug or id
+  const portfolio = portfolios.find(
+    (item) => item.slug === id || item.id.toString() === id
+  );
+
+  if (!portfolio) {
+    notFound();
   }
 
-  const portfolioImages = await getCategoryData()
-
-  const getProjectImage = (projectName: string) => {
-    const matchingImage = portfolioImages.find(
-      (img: PortfolioImage) => img.imageName.toLowerCase() === projectName.toLowerCase(),
-    )
-    return matchingImage ? `${BASE_URL}${matchingImage.image}` : "/placeholder.svg?height=600&width=800"
-  }
-
-  const projectImage = getProjectImage(project["Company Name"])
+  // Find category name
+  const category = categories.find((cat) => cat.id === portfolio.category);
+  const categoryName = category?.name || "Project";
 
   return (
     <>
       <PageHeroSection
-        title={project["Company Name"]}
+        title={portfolio.title}
         backgroundImage="/placeholder.svg?height=800&width=1600"
         breadcrumbs={[
           { label: "HOME", href: "/" },
           { label: "PORTFOLIO", href: "/portfolio" },
-          { label: project["Company Name"].toUpperCase(), href: `/portfolio/${id}` },
+          { label: portfolio.title.toUpperCase(), href: `/portfolio/${id}` },
         ]}
       />
 
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div className="h-10">
-              <Image
-                src={projectImage || "/placeholder.svg"}
-                alt={project["Company Name"]}
-                width={200}
-                height={150}
-                className="rounded-lg object-cover pl-5"
-              />
+            <div>
+              {/* Reduced image size with max-height and container */}
+              <div className="max-w-md mx-auto lg:mx-0">
+                <div className="aspect-square relative rounded-lg overflow-hidden shadow-lg">
+                  <Image
+                    src={`${BASE_URL}${portfolio.image}`}
+                    alt={portfolio.title}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </div>
             </div>
             <div>
-              <h1 className="text-3xl font-bold mb-6">{project["Company Name"]}</h1>
-              <p className="text-gray-600 mb-8">{project.Description}</p>
+              <h1 className="text-3xl font-bold mb-6">{portfolio.title}</h1>
+              <p className="text-gray-600 mb-8">{portfolio.description}</p>
 
               <div className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <h3 className="font-semibold mb-1">Client:</h3>
-                    <p className="text-gray-600">{project.details.client}</p>
+                    <h3 className="font-semibold mb-1">Project:</h3>
+                    <p className="text-gray-600">{portfolio.title}</p>
                   </div>
                   <div>
-                    <h3 className="font-semibold mb-1">Industry:</h3>
-                    <p className="text-gray-600">{project.details.industry}</p>
+                    <h3 className="font-semibold mb-1">Category:</h3>
+                    <p className="text-gray-600">{categoryName}</p>
                   </div>
                   <div>
-                    <h3 className="font-semibold mb-1">Technology:</h3>
-                    <p className="text-gray-600">{project.details.technology}</p>
+                    <h3 className="font-semibold mb-1">ID:</h3>
+                    <p className="text-gray-600">{portfolio.id}</p>
                   </div>
-                  <div>
-                    <h3 className="font-semibold mb-1">Date:</h3>
-                    <p className="text-gray-600">{project.details.date}</p>
-                  </div>
-                </div>
-
-                <div>
-                  <h3 className="font-semibold mb-1">Website:</h3>
-                  <a
-                    href={project.details.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#0066FF] hover:underline"
-                  >
-                    {project.details.website}
-                  </a>
                 </div>
               </div>
             </div>
@@ -143,6 +186,5 @@ export default async function PortfolioItemPage({ params }: PageProps) {
         </div>
       </section>
     </>
-  )
+  );
 }
-

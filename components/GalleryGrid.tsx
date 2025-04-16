@@ -4,22 +4,18 @@ import { useState, useRef, useEffect } from "react"
 import Image from "next/image"
 import { X } from "lucide-react"
 
-interface ContentImage {
+// Update the interface to match the new data structure
+interface Gallery {
   id: number
-  cms_menu: {
-    id: number
-    name: string
-    parent: null
-  }
-  head: string
   image: string
 }
 
 interface GalleryGridProps {
-  images: ContentImage[]
+  images: Gallery[]
   baseUrl: string
 }
 
+// Update the component to use the new data structure
 export function GalleryGrid({ images, baseUrl }: GalleryGridProps) {
   const [selectedImage, setSelectedImage] = useState<number | null>(null)
   const [loadedImages, setLoadedImages] = useState<{ [key: number]: boolean }>({})
@@ -124,4 +120,3 @@ export function GalleryGrid({ images, baseUrl }: GalleryGridProps) {
     </div>
   )
 }
-
