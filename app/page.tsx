@@ -32,13 +32,13 @@ export const metadata: Metadata = {
 
 
 export default async function Home() {
-  const serviceData = await ServiceData();
+  
 
 
   return (
     <main>
       <HeroSection />
-      <OurServices serviceData={serviceData} />
+      <OurServices/>
       <AboutUs />
       <OurPortfolio />
         <ClientsSlider />
