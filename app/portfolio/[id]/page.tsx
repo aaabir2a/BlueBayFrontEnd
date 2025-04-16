@@ -72,7 +72,7 @@ export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const portfolios = await getAllPortfolios();
-  const id = params.id;
+  const { id } = await params
 
   // Find portfolio by slug or id
   const portfolio = portfolios.find(
@@ -118,7 +118,7 @@ export async function generateMetadata({
 export default async function PortfolioItemPage({ params }: PageProps) {
   const portfolios = await getAllPortfolios();
   const categories = await getAllCategories();
-  const id = params.id;
+  const { id } = await params
 
   // Find portfolio by slug or id
   const portfolio = portfolios.find(
