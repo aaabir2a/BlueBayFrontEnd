@@ -92,6 +92,9 @@ export default function HeroSection() {
                 <p className="text-gray-600 max-w-lg dark:text-[#EAEAEA]">
                   {sliderData?.subtitle || ""}
                 </p>
+                <p className="text-gray-600 max-w-lg dark:text-[#EAEAEA]">
+                  {sliderData?.details || ""}
+                </p>
               </>
             )}
           </div>

@@ -53,7 +53,7 @@ function AboutCard({ image, title, description, icon }: AboutCardProps) {
             alt={title}
             width={200}
             height={200}
-            className="object-contain"
+            className="w-full h-[250px] object-cover transition-transform duration-300 hover:scale-110"
           />
         </div>
       </div>
