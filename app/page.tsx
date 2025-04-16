@@ -2,7 +2,6 @@ import HeroSection from "@/components/HeroSection";
 import AboutUs from "@/components/AboutUs";
 import OurPortfolio from "@/components/OurPortfolio";
 import OurServices from "@/components/OurServices";
-import ServiceData from "@/components/ServiceData";
 import { Metadata } from "next";
 import ClientsSlider from "@/components/ClientsSlider";
 import TestimonialSection from "@/components/TestimonialSection";
