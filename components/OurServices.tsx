@@ -22,14 +22,9 @@ interface ServiceSlider {
   slug?: string;
 }
 
-interface OurServicesProps {
-  serviceData: {
-    name: string;
-    value: string;
-  }[];
-}
 
-export default function OurServices({ serviceData }: OurServicesProps) {
+
+export default function OurServices() {
   const [emblaRef, emblaApi] = useEmblaCarousel(
     { loop: true, align: "center" },
     [AutoplayPlugin({ delay: 5000, stopOnInteraction: false })]
@@ -37,7 +32,7 @@ export default function OurServices({ serviceData }: OurServicesProps) {
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [serviceSliders, setServiceSliders] = useState<ServiceSlider[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [, setError] = useState<string | null>(null);
 
   // Fetch service slider data
   useEffect(() => {
