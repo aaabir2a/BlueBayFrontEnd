@@ -7,19 +7,14 @@ import { Button } from "@/components/ui/button"
 import Category2 from "@/components/Category2"
 import { GET_PORTFOLIO_CATEGORIES } from "@/lib/config"
 
-interface PortfolioCategory {
-  id: number
-  name: string
-}
 
 interface OurPortfolioProps {
-  portfolioImages?: any[] // Kept for backward compatibility
+  portfolioImages?: { id: number; url: string; title: string }[] // Kept for backward compatibility
 }
 
 export default function OurPortfolio({ portfolioImages = [] }: OurPortfolioProps) {
-  const [categories, setCategories] = useState<PortfolioCategory[]>([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+  const [, setIsLoading] = useState(true)
+  const [, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -28,10 +23,7 @@ export default function OurPortfolio({ portfolioImages = [] }: OurPortfolioProps
         if (!response.ok) {
           throw new Error("Failed to fetch categories")
         }
-        const data = await response.json()
-        if (data && data.portfolio_categories) {
-          setCategories(data.portfolio_categories)
-        }
+        await response.json() // Fetch data but do not store it since it's unused
       } catch (err) {
         console.error("Error fetching categories:", err)
         setError("Failed to load categories")
@@ -55,7 +47,13 @@ export default function OurPortfolio({ portfolioImages = [] }: OurPortfolioProps
 
         <div className="overflow-hidden" style={{ maxHeight: "1200px" }}>
           <div className="overflow-y-auto pr-4" style={{ maxHeight: "1200px" }}>
-            <Category2 portfolioImages={portfolioImages} initialCategory="all" />
+            <Category2
+              portfolioImages={portfolioImages.map(image => ({
+                url: image.url,
+                alt: image.title || "Portfolio image"
+              }))}
+              initialCategory="all"
+            />
           </div>
         </div>
 

@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect } from "react"
 import Image from "next/image"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion" // Added AnimatePresence
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { BASE_URL, GET_TESTIMONIALS } from "@/lib/config"
@@ -46,12 +46,19 @@ export default function TestimonialSection() {
     fetchTestimonials()
   }, [])
 
+  // Debug log to check if testimonials are loaded and activeIndex changes
+  useEffect(() => {
+    console.log("Testimonials:", testimonials.length, "Active Index:", activeIndex)
+  }, [testimonials, activeIndex])
+
   const nextTestimonial = () => {
-    setActiveIndex((prev) => (prev + 1) % Math.max(1, testimonials.length))
+    if (testimonials.length <= 1) return
+    setActiveIndex((prev) => (prev + 1) % testimonials.length)
   }
 
   const prevTestimonial = () => {
-    setActiveIndex((prev) => (prev - 1 + testimonials.length) % Math.max(1, testimonials.length))
+    if (testimonials.length <= 1) return
+    setActiveIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length)
   }
 
   // Fallback testimonial if none are loaded
@@ -104,20 +111,29 @@ export default function TestimonialSection() {
             <div className="absolute -top-10 -left-10 w-40 h-40 bg-[#0066FF] rounded-full opacity-10 blur-xl" />
             <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-[#FF4B93] rounded-full opacity-10 blur-xl" />
 
-            <div className="relative rounded-lg overflow-hidden shadow-xl max-w-md mx-auto">
-              <div className="aspect-square relative">
-                <Image
-                  src={
-                    currentTestimonial.image.startsWith("/media")
-                      ? `${BASE_URL}${currentTestimonial.image}`
-                      : "/placeholder.svg?height=600&width=600"
-                  }
-                  alt={currentTestimonial.name}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            </div>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeIndex}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="relative rounded-lg overflow-hidden shadow-xl max-w-md mx-auto"
+              >
+                <div className="aspect-square relative">
+                  <Image
+                    src={
+                      currentTestimonial.image.startsWith("/media")
+                        ? `${BASE_URL}${currentTestimonial.image}`
+                        : "/placeholder.svg?height=600&width=600"
+                    }
+                    alt={currentTestimonial.name}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
 
           {/* Testimonial Column */}
@@ -126,37 +142,39 @@ export default function TestimonialSection() {
               <Quote className="absolute top-6 left-6 w-12 h-12 text-gray-200 dark:text-gray-700" />
 
               <div className="relative z-10">
-                <motion.div
-                  key={activeIndex}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.3 }}
-                  className="min-h-[200px]"
-                >
-                  <p className="text-gray-600 dark:text-gray-300 text-lg mb-6">{currentTestimonial.review}</p>
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeIndex}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.3 }}
+                    className="min-h-[200px]"
+                  >
+                    <p className="text-gray-600 dark:text-gray-300 text-lg mb-6">{currentTestimonial.review}</p>
 
-                  <div className="flex items-center">
-                    <div className="mr-4">
-                      <div className="w-16 h-16 rounded-full bg-gray-200 overflow-hidden relative">
-                        <Image
-                          src={
-                            currentTestimonial.image.startsWith("/media")
-                              ? `${BASE_URL}${currentTestimonial.image}`
-                              : "/placeholder.svg?height=80&width=80"
-                          }
-                          alt={currentTestimonial.name}
-                          fill
-                          className="object-cover"
-                        />
+                    <div className="flex items-center">
+                      <div className="mr-4">
+                        <div className="w-16 h-16 rounded-full bg-gray-200 overflow-hidden relative">
+                          <Image
+                            src={
+                              currentTestimonial.image.startsWith("/media")
+                                ? `${BASE_URL}${currentTestimonial.image}`
+                                : "/placeholder.svg?height=80&width=80"
+                            }
+                            alt={currentTestimonial.name}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-lg">{currentTestimonial.name}</h4>
+                        <p className="text-gray-500 dark:text-gray-400">{currentTestimonial.designation}</p>
                       </div>
                     </div>
-                    <div>
-                      <h4 className="font-bold text-lg">{currentTestimonial.name}</h4>
-                      <p className="text-gray-500 dark:text-gray-400">{currentTestimonial.designation}</p>
-                    </div>
-                  </div>
-                </motion.div>
+                  </motion.div>
+                </AnimatePresence>
               </div>
             </div>
 

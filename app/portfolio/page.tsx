@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import PageHeroSection from "@/components/PageHeroSection";
 import Category2 from "@/components/Category2";
-import { GET_PORTFOLIO_CATEGORIES } from "@/lib/config";
+
 
 export const metadata: Metadata = {
   title: "Our Portfolio",
@@ -28,24 +28,24 @@ export const metadata: Metadata = {
 };
 
 // Fetch categories for server component
-async function getCategories() {
-  try {
-    const response = await fetch(GET_PORTFOLIO_CATEGORIES, {
-      next: { revalidate: 3600 },
-    });
-    if (!response.ok) {
-      throw new Error("Failed to fetch categories");
-    }
-    const data = await response.json();
-    return data.portfolio_categories || [];
-  } catch (error) {
-    console.error("Error fetching categories:", error);
-    return [];
-  }
-}
+// async function getCategories() {
+//   try {
+//     const response = await fetch(GET_PORTFOLIO_CATEGORIES, {
+//       next: { revalidate: 3600 },
+//     });
+//     if (!response.ok) {
+//       throw new Error("Failed to fetch categories");
+//     }
+//     const data = await response.json();
+//     return data.portfolio_categories || [];
+//   } catch (error) {
+//     console.error("Error fetching categories:", error);
+//     return [];
+//   }
+// }
 
 export default async function PortfolioPage() {
-  const categories = await getCategories();
+  // const categories = await getCategories();
 
   return (
     <>
