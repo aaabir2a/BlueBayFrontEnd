@@ -14,11 +14,76 @@ interface HomepageSlider {
   details: string
 }
 
+// Define slide style variations
+const slideStyles = [
+  {
+    // BlueBay IT style - Blue gradient
+    bgClass: "bg-gradient-to-r from-[#0066FF] to-[#1A1A1A]",
+    titleClass: "text-white",
+    subtitleClass: "text-gray-100",
+    detailsClass: "text-gray-200",
+    iconColor: "#0066FF",
+    secondaryIconColor: "#FF00FF",
+    animationPrefix: "animate-fadeIn",
+    patternOpacity: "opacity-20",
+    imageEffect: "rounded-lg",
+  },
+  {
+    // DMS style - Teal/Medical gradient
+    bgClass: "bg-gradient-to-r from-[#0099CC] to-[#006699]",
+    titleClass: "text-white",
+    subtitleClass: "text-blue-100",
+    detailsClass: "text-blue-200",
+    iconColor: "#00FFFF",
+    secondaryIconColor: "#FFFFFF",
+    animationPrefix: "animate-fadeInUp",
+    patternOpacity: "opacity-10",
+    imageEffect: "rounded-lg shadow-lg",
+  },
+  {
+    // Modern Purple style
+    bgClass: "bg-gradient-to-br from-[#6600CC] to-[#9900FF]",
+    titleClass: "text-white",
+    subtitleClass: "text-purple-100",
+    detailsClass: "text-purple-200",
+    iconColor: "#BB00FF",
+    secondaryIconColor: "#FFCC00",
+    animationPrefix: "animate-fadeInRight",
+    patternOpacity: "opacity-15",
+    imageEffect: "rounded-lg rotate-1",
+  },
+  {
+    // Green Nature style
+    bgClass: "bg-gradient-to-r from-[#009966] to-[#006633]",
+    titleClass: "text-white",
+    subtitleClass: "text-green-100",
+    detailsClass: "text-green-200",
+    iconColor: "#00FF99",
+    secondaryIconColor: "#FFFF00",
+    animationPrefix: "animate-fadeInUp",
+    patternOpacity: "opacity-25",
+    imageEffect: "rounded-lg -rotate-1",
+  },
+  {
+    // Orange Warm style
+    bgClass: "bg-gradient-to-br from-[#FF6600] to-[#CC3300]",
+    titleClass: "text-white",
+    subtitleClass: "text-orange-100",
+    detailsClass: "text-orange-200",
+    iconColor: "#FFCC00",
+    secondaryIconColor: "#FF3300",
+    animationPrefix: "animate-fadeIn",
+    patternOpacity: "opacity-30",
+    imageEffect: "rounded-lg shadow-xl",
+  },
+]
+
 export default function HeroSection() {
   const [sliderData, setSliderData] = useState<HomepageSlider[]>([])
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [isTransitioning, setIsTransitioning] = useState(false)
 
   useEffect(() => {
     const fetchSliderData = async () => {
@@ -45,41 +110,46 @@ export default function HeroSection() {
     return { __html: htmlContent }
   }
 
-  // Navigation functions
+  // Navigation functions with transition effect
   const nextSlide = useCallback(() => {
-    setCurrentSlide((prev) => (prev === sliderData.length - 1 ? 0 : prev + 1))
-  }, [sliderData.length])
+    if (isTransitioning) return
+    setIsTransitioning(true)
+    setTimeout(() => {
+      setCurrentSlide((prev) => (prev === sliderData.length - 1 ? 0 : prev + 1))
+      setIsTransitioning(false)
+    }, 300)
+  }, [isTransitioning, sliderData.length])
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev === 0 ? sliderData.length - 1 : prev - 1))
+    if (isTransitioning) return
+    setIsTransitioning(true)
+    setTimeout(() => {
+      setCurrentSlide((prev) => (prev === 0 ? sliderData.length - 1 : prev - 1))
+      setIsTransitioning(false)
+    }, 300)
   }
 
   // Auto slide change
   useEffect(() => {
     const interval = setInterval(() => {
-      nextSlide()
+      if (!isTransitioning) {
+        nextSlide()
+      }
     }, 5000)
     return () => clearInterval(interval)
-  }, [currentSlide, sliderData, nextSlide])
+  }, [currentSlide, sliderData, isTransitioning, nextSlide])
 
-  return (
-    <div className="relative overflow-hidden bg-gradient-to-r from-[#0066FF] to-[#1A1A1A] dark:bg-[#1A1A1A] dark:text-[#FFFFFF] min-h-[600px]">
-      {/* Animated Background Pattern */}
-      <div className="absolute inset-0 opacity-20">
-        <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-          <defs>
-            <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
-              <path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" strokeWidth="0.5" opacity="0.3" />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#grid)" />
-        </svg>
-      </div>
+  // Get current slide style
+  const currentStyle = slideStyles[currentSlide % slideStyles.length]
 
-      {/* Floating Icons - Enhanced with more icons and better positioning */}
-      {/* Top Left */}
-      <div className="absolute left-10 top-10 animate-float-slow z-20">
-        <div className="text-[#0066FF] bg-white/10 p-2 rounded-full">
+  // Generate floating icons based on current style
+  const renderFloatingIcons = () => {
+    const icons = [
+      // Info icon
+      {
+        position: "absolute left-10 top-10 animate-float-slow z-20",
+        color: currentStyle.iconColor,
+        svg: (
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
@@ -89,12 +159,13 @@ export default function HeroSection() {
             <path d="M12 16V12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
             <path d="M12 8H12.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
           </svg>
-        </div>
-      </div>
-
-      {/* Top Right */}
-      <div className="absolute right-10 top-20 animate-float-medium z-20">
-        <div className="text-[#00FFFF] bg-white/10 p-2 rounded-full">
+        ),
+      },
+      // Plus icon
+      {
+        position: "absolute right-10 top-20 animate-float-medium z-20",
+        color: currentStyle.secondaryIconColor,
+        svg: (
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M17 20H7C4 20 2 18 2 15V9C2 6 4 4 7 4H17C20 4 22 6 22 9V15C22 18 20 20 17 20Z"
@@ -104,12 +175,13 @@ export default function HeroSection() {
             <path d="M12 10V14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
             <path d="M8 12H16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
           </svg>
-        </div>
-      </div>
-
-      {/* Middle Left - Near Title */}
-      <div className="absolute left-5 top-1/3 animate-float z-20">
-        <div className="text-[#FF00FF] bg-white/10 p-2 rounded-full">
+        ),
+      },
+      // Square icon
+      {
+        position: "absolute left-5 top-1/3 animate-float z-20",
+        color: currentStyle.iconColor,
+        svg: (
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z"
@@ -122,12 +194,13 @@ export default function HeroSection() {
               strokeWidth="2"
             />
           </svg>
-        </div>
-      </div>
-
-      {/* Bottom Left */}
-      <div className="absolute left-20 bottom-20 animate-float-slow z-20">
-        <div className="text-[#FFA500] bg-white/10 p-2 rounded-full">
+        ),
+      },
+      // Home icon
+      {
+        position: "absolute left-20 bottom-20 animate-float-slow z-20",
+        color: currentStyle.secondaryIconColor,
+        svg: (
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z"
@@ -144,12 +217,13 @@ export default function HeroSection() {
               strokeLinejoin="round"
             />
           </svg>
-        </div>
-      </div>
-
-      {/* Bottom Right */}
-      <div className="absolute right-40 bottom-40 animate-float-medium z-20">
-        <div className="text-[#00FF00] bg-white/10 p-2 rounded-full">
+        ),
+      },
+      // Sun icon
+      {
+        position: "absolute right-40 bottom-40 animate-float-medium z-20",
+        color: currentStyle.iconColor,
+        svg: (
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z"
@@ -165,12 +239,13 @@ export default function HeroSection() {
             <path d="M6.34 17.66L4.93 19.07" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
             <path d="M19.07 4.93L17.66 6.34" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
           </svg>
-        </div>
-      </div>
-
-      {/* Near Details Text */}
-      <div className="absolute left-40 bottom-10 animate-float z-20">
-        <div className="text-[#FF6347] bg-white/10 p-2 rounded-full">
+        ),
+      },
+      // Share icon
+      {
+        position: "absolute left-40 bottom-10 animate-float z-20",
+        color: currentStyle.secondaryIconColor,
+        svg: (
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M18 8C19.6569 8 21 6.65685 21 5C21 3.34315 19.6569 2 18 2C16.3431 2 15 3.34315 15 5C15 6.65685 16.3431 8 18 8Z"
@@ -190,12 +265,13 @@ export default function HeroSection() {
             <path d="M8.59 13.51L15.42 17.49" stroke="currentColor" strokeWidth="2" />
             <path d="M15.41 6.51L8.59 10.49" stroke="currentColor" strokeWidth="2" />
           </svg>
-        </div>
-      </div>
-
-      {/* Top of Image */}
-      <div className="absolute right-20 top-10 animate-float-slow z-20">
-        <div className="text-[#1E90FF] bg-white/10 p-2 rounded-full">
+        ),
+      },
+      // Briefcase icon
+      {
+        position: "absolute right-20 top-10 animate-float-slow z-20",
+        color: currentStyle.iconColor,
+        svg: (
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M20 7H4C2.89543 7 2 7.89543 2 9V19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19V9C22 7.89543 21.1046 7 20 7Z"
@@ -212,12 +288,13 @@ export default function HeroSection() {
               strokeLinejoin="round"
             />
           </svg>
-        </div>
-      </div>
-
-      {/* Bottom of Image */}
-      <div className="absolute right-10 bottom-10 animate-float-medium z-20">
-        <div className="text-[#7B68EE] bg-white/10 p-2 rounded-full">
+        ),
+      },
+      // Globe icon
+      {
+        position: "absolute right-10 bottom-10 animate-float-medium z-20",
+        color: currentStyle.secondaryIconColor,
+        svg: (
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
@@ -235,8 +312,35 @@ export default function HeroSection() {
               strokeLinejoin="round"
             />
           </svg>
-        </div>
+        ),
+      },
+    ]
+
+    return icons.map((icon, index) => (
+      <div key={`icon-${index}-${currentSlide}`} className={icon.position}>
+        <div className={`text-[${icon.color}] bg-white/10 p-2 rounded-full`}>{icon.svg}</div>
       </div>
+    ))
+  }
+
+  return (
+    <div
+      className={`relative overflow-hidden ${currentStyle.bgClass} dark:bg-[#1A1A1A] dark:text-[#FFFFFF] min-h-[600px] transition-colors duration-500`}
+    >
+      {/* Animated Background Pattern */}
+      <div className={`absolute inset-0 ${currentStyle.patternOpacity}`}>
+        <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <defs>
+            <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+              <path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" strokeWidth="0.5" opacity="0.3" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#grid)" />
+        </svg>
+      </div>
+
+      {/* Floating Icons - Dynamic based on current style */}
+      {renderFloatingIcons()}
 
       {/* Content */}
       <div className="container mx-auto px-2 md:px-4 py-8 md:py-16 relative z-30">
@@ -253,32 +357,37 @@ export default function HeroSection() {
         ) : (
           <div className="relative">
             {/* Slider Content */}
-            <div key={currentSlide} className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div
+              key={currentSlide}
+              className={`grid grid-cols-1 md:grid-cols-2 gap-8 items-center ${
+                isTransitioning ? "opacity-0" : "opacity-100"
+              } transition-opacity duration-300`}
+            >
               {/* Text Content */}
               <div className="space-y-8 z-10 px-4 md:px-0">
                 {/* Title with animation */}
                 <div
-                  className="text-left text-4xl md:text-5xl lg:text-6xl font-bold leading-tight opacity-0 animate-fadeInUp"
+                  className={`text-left text-4xl md:text-5xl lg:text-6xl font-bold leading-tight opacity-0 ${currentStyle.animationPrefix}`}
                   style={{ animationDelay: "0.2s", animationFillMode: "forwards" }}
                   dangerouslySetInnerHTML={createMarkup(sliderData[currentSlide]?.title || "")}
                 />
 
                 {/* Subtitle with animation */}
                 <div
-                  className="opacity-0 animate-fadeInUp"
+                  className={`opacity-0 ${currentStyle.animationPrefix}`}
                   style={{ animationDelay: "0.4s", animationFillMode: "forwards" }}
                 >
-                  <p className="text-gray-100 text-xl md:text-2xl font-semibold max-w-lg">
+                  <p className={`${currentStyle.subtitleClass} text-xl md:text-2xl font-semibold max-w-lg`}>
                     {sliderData[currentSlide]?.subtitle || ""}
                   </p>
                 </div>
 
                 {/* Details with animation */}
                 <div
-                  className="opacity-0 animate-fadeInUp"
+                  className={`opacity-0 ${currentStyle.animationPrefix}`}
                   style={{ animationDelay: "0.6s", animationFillMode: "forwards" }}
                 >
-                  <p className="text-gray-200 max-w-lg text-base md:text-lg">
+                  <p className={`${currentStyle.detailsClass} max-w-lg text-base md:text-lg`}>
                     {sliderData[currentSlide]?.details || ""}
                   </p>
                 </div>
@@ -286,10 +395,10 @@ export default function HeroSection() {
 
               {/* Image with animation */}
               <div
-                className="relative overflow-hidden rounded-lg opacity-0 animate-fadeInRight z-10"
+                className={`relative overflow-hidden opacity-0 ${currentStyle.animationPrefix}`}
                 style={{ animationDelay: "0.4s", animationFillMode: "forwards" }}
               >
-                <div className="absolute inset-0 bg-[#0066FF] opacity-10 blur-3xl transform scale-150" />
+                <div className="absolute inset-0 bg-current opacity-10 blur-3xl transform scale-150" />
                 <div className="relative h-[300px] md:h-[400px] w-full">
                   <Image
                     src={
@@ -300,7 +409,7 @@ export default function HeroSection() {
                     alt="IT Professional"
                     fill
                     style={{ objectFit: "cover" }}
-                    className="rounded-lg"
+                    className={currentStyle.imageEffect}
                     priority
                   />
                 </div>
@@ -313,6 +422,7 @@ export default function HeroSection() {
                 onClick={prevSlide}
                 className="bg-white/20 hover:bg-white/30 text-white p-1 md:p-2 rounded-full transition-all"
                 aria-label="Previous slide"
+                disabled={isTransitioning}
               >
                 <ChevronLeft size={20} />
               </button>
@@ -320,6 +430,7 @@ export default function HeroSection() {
                 onClick={nextSlide}
                 className="bg-white/20 hover:bg-white/30 text-white p-1 md:p-2 rounded-full transition-all"
                 aria-label="Next slide"
+                disabled={isTransitioning}
               >
                 <ChevronRight size={20} />
               </button>
@@ -330,11 +441,20 @@ export default function HeroSection() {
               {sliderData.map((_, index) => (
                 <button
                   key={index}
-                  onClick={() => setCurrentSlide(index)}
+                  onClick={() => {
+                    if (!isTransitioning) {
+                      setIsTransitioning(true)
+                      setTimeout(() => {
+                        setCurrentSlide(index)
+                        setIsTransitioning(false)
+                      }, 300)
+                    }
+                  }}
                   className={`h-2 w-2 mx-1 rounded-full transition-all ${
                     currentSlide === index ? "bg-white w-6" : "bg-white/50"
                   }`}
                   aria-label={`Go to slide ${index + 1}`}
+                  disabled={isTransitioning}
                 />
               ))}
             </div>
