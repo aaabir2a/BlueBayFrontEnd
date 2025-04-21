@@ -45,7 +45,8 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const services = await getAllServices()
-  const service = services.find((service) => service.slug === params.slug)
+  const resolvedParams = await params
+  const service = services.find((service) => service.slug === resolvedParams.slug)
 
   if (!service) {
     return {
@@ -75,7 +76,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function ServicePage({ params }: PageProps) {
   const services = await getAllServices()
-  const service = services.find((service) => service.slug === params.slug)
+  const resolvedParams = await params
+  const service = services.find((service) => service.slug === resolvedParams.slug)
 
   if (!service) {
     notFound()
@@ -104,7 +106,7 @@ export default async function ServicePage({ params }: PageProps) {
         breadcrumbs={[
           { label: "HOME", href: "/" },
           { label: "SERVICES", href: "/services" },
-          { label: service.title.toUpperCase(), href: `/services/${params.slug}` },
+          { label: service.title.toUpperCase(), href: `/services/${resolvedParams.slug}` },
         ]}
       />
 
