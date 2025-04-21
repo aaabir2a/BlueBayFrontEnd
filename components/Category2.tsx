@@ -140,7 +140,7 @@ export default function Category2({
           <Loader2 className="w-10 h-10 animate-spin text-[#0066FF]" />
         </div>
       ) : (
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {portfolios.length > 0 ? (
             portfolios.map((portfolio) => {
               const portfolioUrl = portfolio.slug ? `/portfolio/${portfolio.slug}` : `/portfolio/${portfolio.id}`

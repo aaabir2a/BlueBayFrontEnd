@@ -1,7 +1,6 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import PageHeroSection from "@/components/PageHeroSection"
-import ServiceSection from "@/components/ServiceSection"
 import WhyChooseUs from "@/components/WhyChooseUs"
 import { BASE_URL, GET_SERVICE_SLIDER } from "@/lib/config"
 import Image from "next/image"
