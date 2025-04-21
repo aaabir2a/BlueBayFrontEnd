@@ -153,7 +153,11 @@ export default async function PortfolioItemPage({ params }: PageProps) {
               <div className="max-w-md mx-auto lg:mx-0">
                 <div className="aspect-square relative rounded-lg overflow-hidden shadow-lg">
                   <Image
-                    src={`${BASE_URL}${portfolio.image}`}
+                    src={
+                      portfolio?.image && portfolio.image.startsWith("/media")
+                        ? `${BASE_URL}${portfolio.image}`
+                        : "/placeholder.svg?height=600&width=600"
+                    }
                     alt={portfolio.title}
                     fill
                     className="object-cover"
