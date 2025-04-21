@@ -150,7 +150,11 @@ export default function Category2({
                   <div className="relative overflow-hidden rounded-lg aspect-square">
                     {/* Reduced image size with aspect-square */}
                     <Image
-                      src={`${BASE_URL}${portfolio.image}`}
+                        src={
+                          portfolio?.image && portfolio.image.startsWith("/media")
+                            ? `${BASE_URL}${portfolio.image}`
+                            : "/placeholder.svg?height=600&width=600"
+                        }
                       alt={portfolio.title}
                       fill
                       className="object-cover transition-transform duration-300 group-hover:scale-110"
