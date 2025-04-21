@@ -64,29 +64,19 @@ export default async function ServicesPage() {
         ]}
       />
 
-      <ServiceSection />
+  
 
-      <WhyChooseUs
-        title="WHY CHOOSE US"
-        subtitle="We Provide Outsourced IT Services For your business"
-        backgroundImage="/placeholder.svg?height=800&width=1600"
-        supportCard={{
-          title: "24/7 Customer support",
-          description:
-            "Gravity letters it amongst herself dearest an windows by. Wooded ladies she basket season age her uneasy saw. Discourse unwilling am no described dejection incommode no.",
-          phone: "+123 456 7890",
-        }}
-      />
+
 
       <section className="py-16 bg-gray-50 dark:bg-gray-900">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
+          {/* <div className="text-center mb-12">
             <h2 className="text-[#0066FF] text-xl font-semibold mb-4">OUR SERVICES</h2>
             <h3 className="text-4xl font-bold relative inline-block pb-4">
               What We <span className="font-normal">Offer</span>
               <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-12 h-1 bg-[#0091cb]" />
             </h3>
-          </div>
+          </div> */}
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service) => (
@@ -120,6 +110,17 @@ export default async function ServicesPage() {
           </div>
         </div>
       </section>
+      <WhyChooseUs
+        title="WHY CHOOSE US"
+        subtitle="We Provide Outsourced IT Services For your business"
+        backgroundImage="/placeholder.svg?height=800&width=1600"
+        supportCard={{
+          title: "24/7 Customer support",
+          description:
+            "Gravity letters it amongst herself dearest an windows by. Wooded ladies she basket season age her uneasy saw. Discourse unwilling am no described dejection incommode no.",
+          phone: "+123 456 7890",
+        }}
+      />
     </>
   )
 }
