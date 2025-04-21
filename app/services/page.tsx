@@ -51,6 +51,7 @@ async function getAllServices(): Promise<ServiceSlider[]> {
 
 export default async function ServicesPage() {
   const services = await getAllServices()
+  console.log("all services",services)
 
   return (
     <>
