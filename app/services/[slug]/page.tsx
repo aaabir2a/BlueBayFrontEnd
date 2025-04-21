@@ -3,125 +3,46 @@ import ServiceDetails from "@/components/ServiceDetails"
 import WhyChooseUs from "@/components/WhyChooseUs"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
+import { BASE_URL, GET_SERVICE_SLIDER } from "@/lib/config"
 
-const services = [
-  {
-    title: "Software Development",
-    slug: "Software-Development",
-    image: "/SoftwareDevelopment.svg?height=800&width=1600",
-    description: "To develop a desired application.",
-    whyChooseUs: {
-      title: "WHY CHOOSE OUR CONSULTING",
-      subtitle: "To develop a desired application",
-      backgroundImage: "/SoftwareDevelopment.svg?height=800&width=1600",
-      supportCard: {
-        title: "Software Development",
-        description:
-          "Our team of expert consultants is available around the clock to provide strategic guidance and support for your business technology needs.",
-        phone: "+123 456 7890",
-      },
-    },
-  },
-  {
-    title: "Web Application",
-    slug: "Web-Application",
-    image: "/WebApplication.svg?height=800&width=1600",
-    description: "Custom Web App Development",
-    whyChooseUs: {
-      title: "WHY CHOOSE OUR CONSULTING Web Application",
-      subtitle: "To develop a desired application",
-      backgroundImage: "/WebApplication.svg?height=800&width=1600",
-      supportCard: {
-        title: "Custom Web App Development",
-        description:
-          "Our team of expert consultants is available around the clock to provide strategic guidance and support for your business technology needs.",
-        phone: "+123 456 7890",
-      },
-    },
-  },
-  {
-    title: "Domain & Hosting",
-    slug: "Domain-Hosting",
-    image: "/DomainHosting.svg?height=800&width=1600",
-    description: "Reliable Domain & Hosting Solutions",
-    whyChooseUs: {
-      title: "WHY CHOOSE OUR CONSULTING Domain & Hosting",
-      subtitle: "To develop a desired application",
-      backgroundImage: "/DomainHosting.svg?height=800&width=1600",
-      supportCard: {
-        title: "Reliable Domain & Hosting Solutions",
-        description:
-          "Our team of expert consultants is available around the clock to provide strategic guidance and support for your business technology needs.",
-        phone: "+123 456 7890",
-      },
-    },
-  },
-  {
-    title: "Digital Marketing",
-    slug: "Digital-Marketing",
-    image: "/DigitalMarketing.svg?height=800&width=1600",
-    description: "Strategic Online Marketing Solutions Digital Marketing",
-    whyChooseUs: {
-      title: "WHY CHOOSE OUR CONSULTING",
-      subtitle: "To develop a desired application",
-      backgroundImage: "/DigitalMarketing.svg?height=800&width=1600",
-      supportCard: {
-        title: "Strategic Online Marketing Solutions",
-        description:
-          "Our team of expert consultants is available around the clock to provide strategic guidance and support for your business technology needs.",
-        phone: "+123 456 7890",
-      },
-    },
-  },
-  {
-    title: "Dedicated Server Hosting",
-    slug: "Dedicated-Server-Hosting",
-    image: "/DedicatedServerHosting.svg?height=800&width=1600",
-    description: "Secure Dedicated Server Hosting",
-    whyChooseUs: {
-      title: "WHY CHOOSE OUR CONSULTING Dedicated Server Hosting",
-      subtitle: "To develop a desired application",
-      backgroundImage: "/DedicatedServerHosting.svg?height=800&width=1600",
-      supportCard: {
-        title: "Secure Dedicated Server Hosting",
-        description:
-          "Our team of expert consultants is available around the clock to provide strategic guidance and support for your business technology needs.",
-        phone: "+123 456 7890",
-      },
-    },
-  },
-  {
-    title: "IT Training",
-    slug: "IT-Training",
-    image: "/ITTraining.svg?height=800&width=1600",
-    description: "Expert IT Skills Training ",
-    whyChooseUs: {
-      title: "WHY CHOOSE OUR CONSULTING IT Training",
-      subtitle: "To develop a desired application",
-      backgroundImage: "/ITTraining.svg?height=800&width=1600",
-      supportCard: {
-        title: "Expert IT Skills Training",
-        description:
-          "Our team of expert consultants is available around the clock to provide strategic guidance and support for your business technology needs.",
-        phone: "+123 456 7890",
-      },
-    },
-  },
-]
+interface ServiceSlider {
+  id: number
+  title: string
+  slug: string
+  serial_number: number
+  image: string
+  details: string
+}
 
-export function generateStaticParams() {
+// Fetch all services
+async function getAllServices(): Promise<ServiceSlider[]> {
+  try {
+    const response = await fetch(GET_SERVICE_SLIDER, { next: { revalidate: 3600 } })
+    if (!response.ok) {
+      throw new Error("Failed to fetch services")
+    }
+    const data = await response.json()
+    return data.service_sliders || []
+  } catch (error) {
+    console.error("Error fetching services:", error)
+    return []
+  }
+}
+
+export async function generateStaticParams() {
+  const services = await getAllServices()
   return services.map((service) => ({
     slug: service.slug,
   }))
 }
 
 type PageProps = {
-  params: Promise<{ slug: string }>
+  params: { slug: string }
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { slug } = await params
-  const service = services.find((service) => service.slug === slug)
+  const services = await getAllServices()
+  const service = services.find((service) => service.slug === params.slug)
 
   if (!service) {
     return {
@@ -131,7 +52,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   const title = `${service.title} - Our Services`
-  const description = service.description.slice(0, 160) + "..."
+  const description = service.details.slice(0, 160) + "..."
 
   return {
     title,
@@ -150,11 +71,26 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function ServicePage({ params }: PageProps) {
-  const { slug } = await params
-  const service = services.find((service) => service.slug === slug)
+  const services = await getAllServices()
+  const service = services.find((service) => service.slug === params.slug)
 
   if (!service) {
     notFound()
+  }
+
+  // Create WhyChooseUs data from service data
+  const whyChooseUsData = {
+    title: `WHY CHOOSE OUR ${service.title.toUpperCase()}`,
+    subtitle: "To develop a desired application",
+    backgroundImage: service.image.startsWith("/media")
+      ? `${BASE_URL}${service.image}`
+      : "/placeholder.svg?height=800&width=1600",
+    supportCard: {
+      title: service.title,
+      description:
+        "Our team of expert consultants is available around the clock to provide strategic guidance and support for your business technology needs.",
+      phone: "+123 456 7890",
+    },
   }
 
   return (
@@ -165,24 +101,26 @@ export default async function ServicePage({ params }: PageProps) {
         breadcrumbs={[
           { label: "HOME", href: "/" },
           { label: "SERVICES", href: "/services" },
-          { label: service.title.toUpperCase(), href: `/services/${slug}` },
+          { label: service.title.toUpperCase(), href: `/services/${params.slug}` },
         ]}
       />
 
       <ServiceDetails
-        image={service.image}
+        image={
+          service.image.startsWith("/media") ? `${BASE_URL}${service.image}` : "/placeholder.svg?height=800&width=1600"
+        }
         title={service.title}
-        description={service.description}
+        description={service.details}
         currentService={service.title}
+        services={services.map((s) => ({ name: s.title, href: `/services/${s.slug}` }))}
       />
 
       <WhyChooseUs
-        title={service.whyChooseUs.title}
-        subtitle={service.whyChooseUs.subtitle}
-        backgroundImage={service.whyChooseUs.backgroundImage}
-        supportCard={service.whyChooseUs.supportCard}
+        title={whyChooseUsData.title}
+        subtitle={whyChooseUsData.subtitle}
+        backgroundImage={whyChooseUsData.backgroundImage}
+        supportCard={whyChooseUsData.supportCard}
       />
     </>
   )
 }
-
