@@ -36,9 +36,12 @@ export async function generateStaticParams() {
   }))
 }
 
-type PageProps = {
-  params: { slug: string }
+
+
+interface PageProps {
+  params: Promise<{ slug: string }>
 }
+
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const services = await getAllServices()
